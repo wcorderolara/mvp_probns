@@ -12,7 +12,7 @@ module.exports = function (sequelize, DataTypes){
 			type: DataTypes.STRING,
 			validate:{
 				len: [1, 2000]
-			}
+			},
 			allowNull: false
 		},
 		status: {
