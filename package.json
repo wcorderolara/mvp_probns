@@ -1,0 +1,20 @@
+{
+  "name": "probns_mvp",
+  "version": "1.0.0",
+  "description": "CRM para empresas de bienes raices",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.10.6",
+    "moment-timezone": "^0.4.1",
+    "mongoose": "^4.1.12",
+    "mysql": "^2.9.0",
+    "restify": "^4.0.3",
+    "sequelize": "^3.12.2",
+    "sequelize-cli": "^2.0.0"
+  }
+}
