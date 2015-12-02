@@ -62,7 +62,8 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
-		freezeTableName: true
+		freezeTableName: true,
+		tableName: 'cliente'
 	})
 
 	return Cliente;
