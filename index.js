@@ -32,7 +32,7 @@ server.put("/countries", controllers.pais.deletePais);
 
 models.sequelize.sync();
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 80;
 
 server.listen(port, function(err){
 	if(err){
