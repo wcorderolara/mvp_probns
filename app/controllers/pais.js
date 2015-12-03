@@ -3,7 +3,7 @@ var models = require('../../models');
 exports.getPaises = function (req, res, next){
 	models.Pais.findAll({
 		where: {
-			status: true
+			status: 1
 		}
 	}).then(function (paises){
 		if(!paises){
@@ -116,7 +116,7 @@ exports.deletePais = function (req, res, next){
 			})
 		}else{
 			pais.update({
-				status: false
+				status: 0
 			}).then(function (_pais){
 				if(!_pais){
 					res.status(500);

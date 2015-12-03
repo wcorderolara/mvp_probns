@@ -18,7 +18,7 @@ server.use(restify.bodyParser());
 
 //Paises
 server.get("/countries", controllers.pais.getPaises);
-server.get("/countries/:id", controllers.pais.getPais);
+server.get("/countries/:id", controllers.pais.getPaisById);
 server.post("/countries", controllers.pais.postPais);
 server.put("/countries", controllers.pais.putPais);
 server.put("/countries", controllers.pais.deletePais);
