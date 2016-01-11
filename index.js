@@ -17,11 +17,11 @@ server.use(restify.fullResponse());
 server.use(restify.bodyParser());
 
 //Paises
-server.get("/countries", controllers.pais.getPaises);
-server.get("/countries/:id", controllers.pais.getPaisById);
-server.post("/countries", controllers.pais.postPais);
-server.put("/countries", controllers.pais.putPais);
-server.put("/countries", controllers.pais.deletePais);
+server.get("/paises", controllers.pais.getPaises);
+server.get("/paises/:id", controllers.pais.getPaisById);
+server.post("/paises", controllers.pais.postPais);
+server.put("/paises", controllers.pais.putPais);
+server.put("/paises", controllers.pais.deletePais);
 
 
 //Comments
