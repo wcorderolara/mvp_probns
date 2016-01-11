@@ -24,11 +24,12 @@ server.put("/paises", controllers.pais.putPais);
 server.put("/paises", controllers.pais.deletePais);
 
 
-//Comments
-// server.post("/comments", controllers.comment.createComment);
-// server.put("/comments/:id", controllers.comment.viewComment);
-// server.del("/comments/:id", controllers.comment.deleteComment);
-// server.get("/comments/:id", controllers.comment.viewComment);
+//TipoUsuario
+server.get("/tiposusuario", controllers.tipoUsuario.getTiposUsuario);
+server.get("/tipousuario/:id", controllers.tipoUsuario.getTipoUsuarioById);
+server.post("/tipousuario", controllers.tipoUsuario.postTipoUsuario);
+server.put("/tipousuario", controllers.tipoUsuario.putTipoUsuario);
+server.put("/tipousuario", controllers.tipoUsuario.deleteTipoUsuario);
 
 models.sequelize.sync();
 
