@@ -1,7 +1,7 @@
 var models = require('../../models');
 
-exports.getTiposUsuario = function(req, res, next){
-	models.tipoUsuario.findAll({
+exports.getAccionesMensaje = function(req, res, next){
+	models.accionMensaje.findAll({
 		where:{
 			status: 1
 		}
@@ -10,7 +10,7 @@ exports.getTiposUsuario = function(req, res, next){
 			res.status(500);
 			res.json({
 				type:false,
-				data: "Error al obtener los Tipos de Usuario: " + response
+				data: "Error al obtener las acciones para Mensajes: " + response
 			});
 		}else{
 			res.status(200);
@@ -22,8 +22,8 @@ exports.getTiposUsuario = function(req, res, next){
 	});
 };
 
-exports.getTipoUsuarioById = function(req, res, next){
-	models.tipoUsuario.findOne({
+exports.getAccionMensajeById = function(req, res, next){
+	models.accionMensaje.findOne({
 		where:{
 			id: req.params.id
 		}
@@ -32,7 +32,7 @@ exports.getTipoUsuarioById = function(req, res, next){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Error al obtener el Tipo de Usuario"
+				data: "Error al obtener la accion de mensaje solicitada"
 			});
 		}else{
 			res.status(200);
@@ -44,8 +44,8 @@ exports.getTipoUsuarioById = function(req, res, next){
 	});
 };
 
-exports.postTipoUsuario = function(req, res, next){
-	models.tipoUsuario.create({
+exports.postAccionMensaje = function(req, res, next){
+	models.accionMensaje.create({
 		descripcion: req.body.descripcion,
 		status: 1
 	}).then(function (response){
@@ -59,40 +59,41 @@ exports.postTipoUsuario = function(req, res, next){
 			res.status(200);
 			res.json({
 				type: true,
-				data: "Tipo de Usuario creado Exitosamente"
+				data: "Accion de Mensaje creada Exitosamente"
 			});
 		};
 	});
 };
 
-exports.putTipoUsuario = function(req, res, next){
-	models.tipoUsuario.findOne({
+exports.putAccionMensaje = function(req, res, next){
+	models.accionMensaje.findOne({
 		where:{
-			id: req.params.id
+			id: req.params.id,
+			status: 1
 		}
-	}).then(function (tipoUsuario){
-		if(!tipoUsuario){
+	}).then(function (accionMensaje){
+		if(!accionMensaje){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Tipo de Usuario no encontrado"
+				data: "Accion de mensaje no encontrada"
 			});
 		}else{
-			tipoUsuario.update({
+			accionMensaje.update({
 				descripcion: req.body.descripcion,
 				status: req.body.status
-			}).then(function (_tipoUsuario){
-				if(!_tipoUsuario){
+			}).then(function (_accionMensaje){
+				if(!_accionMensaje){
 					res.status(500);
 					res.json({
 						type: false,
-						data: "Error al actualizar el Tipo de Usuario: " + tipoUsuario.descripcion
+						data: "Error al actualizar la Accion de Mensaje: " + accionMensaje.descripcion
 					});
 				}else{
 					res.status(200);
 					res.json({
 						type: true,
-						data: "Tipo de Usuario Actualizado Exitosamente..."
+						data: "Accion de Mensaje actualizada Exitosamente..."
 					});
 				};
 			});
@@ -101,32 +102,33 @@ exports.putTipoUsuario = function(req, res, next){
 };
 
 exports.deleteTipoUsuario = function(req, res, next){
-	models.tipoUsuario.findOne({
+	models.accionMensaje.findOne({
 		where:{
-			id: req.params.id
+			id: req.params.id,
+			status: 1
 		}
-	}).then(function (tipoUsuario){
-		if(!tipoUsuario){
+	}).then(function (accionMensaje){
+		if(!accionMensaje){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Error al encontrar el Tipo de Usuario"
+				data: "Error al encontrar la Accion de Mensaje"
 			});
 		}else{
-			tipoUsuario.update({
+			accionMensaje.update({
 				status: 0
-			}).then(function (_tipoUsuario){
-				if(!_tipoUsuario){
+			}).then(function (_accionMensaje){
+				if(!_accionMensaje){
 					res.status(500);
 					res.json({
 						type: false,
-						data: "Error al Eliminar el Tipo de Usuario: " + tipoUsuario.descripcion
+						data: "Error al Eliminar la Accion de Mensaje: " + accionMensaje.descripcion
 					});
 				}else{
 					res.status(200);
 					res.json({
 						type: true,
-						data: "El tipo de Usuario: " + tipoUsuario.descripcion + " ha sido eliminado exitosamente."
+						data: "La Accion de Mensaje: " + accionMensaje.descripcion + " ha sido eliminado exitosamente."
 					});
 				};
 			});
