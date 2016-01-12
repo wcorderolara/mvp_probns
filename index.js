@@ -20,8 +20,15 @@ server.use(restify.bodyParser());
 server.get("/paises", controllers.pais.getPaises);
 server.get("/paises/:id", controllers.pais.getPaisById);
 server.post("/paises", controllers.pais.postPais);
-server.put("/paises", controllers.pais.putPais);
-server.put("/paises", controllers.pais.deletePais);
+server.put("/update/paises/:id", controllers.pais.putPais);
+server.put("/del/paises/:id", controllers.pais.deletePais);
+
+//Departamentos
+server.get("/departamentos", controllers.departamento.getDepartamentos);
+server.get("/departamentos/:id", controllers.departamento.getDepartamentoById);
+server.post("/departamentos", controllers.departamento.postDepartamento);
+server.put("/update/departamentos/:id", controllers.departamento.putDepartamento);
+server.put("/del/departamentos/:id", controllers.departamento.deleteDepartamento)
 
 
 //TipoUsuario

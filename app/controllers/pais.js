@@ -25,7 +25,8 @@ exports.getPaises = function (req, res, next){
 exports.getPaisById = function (req, res, next){
 	models.Pais.findOne({
 		where: {
-			id : req.params.id
+			id : req.params.id,
+			status: 1
 		}
 	}).then(function (pais){
 		if(!pais){
@@ -67,9 +68,9 @@ exports.postPais = function (req, res, next){
 };
 
 exports.putPais = function (req, res, next){
-	model.Pais.findOne({
+	models.Pais.findOne({
 		where: {
-			id: req.body.id
+			id: req.params.id
 		}
 	}).then(function (pais){
 		if(!pais){
@@ -82,7 +83,7 @@ exports.putPais = function (req, res, next){
 			pais.update({
 				descripcion : req.body.descripcion,
 				flag : req.body.flag,
-				status : req.body.status
+				status : parseInt(req.body.status)
 			}).then(function (_pais){
 				if(!_pais){
 					res.status(500);
@@ -105,7 +106,7 @@ exports.putPais = function (req, res, next){
 exports.deletePais = function (req, res, next){
 	models.Pais.findOne({
 		where: {
-			id: req.body.id
+			id: req.params.id
 		}
 	}).then(function (pais){
 		if(!pais){
