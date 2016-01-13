@@ -124,7 +124,7 @@ exports.deleteMunicipio = function (req, res, next){
 					res.status(500);
 					res.json({
 						type: false,
-						data: "Error al actualizar el Municipio: " + _municipio.descripcion
+						data: "Ocurrio un error al intentar eliminar el registro..."
 					});
 				}else{
 					res.status(200);

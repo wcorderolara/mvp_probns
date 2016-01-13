@@ -122,13 +122,13 @@ exports.deleteTipoUsuario = function(req, res, next){
 					res.status(500);
 					res.json({
 						type: false,
-						data: "Error al Eliminar la Accion de Mensaje: " + accionMensaje.descripcion
+						data: "Ocurrio un error al intentar eliminar el registro..."
 					});
 				}else{
 					res.status(200);
 					res.json({
 						type: true,
-						data: "La Accion de Mensaje: " + accionMensaje.descripcion + " ha sido eliminado exitosamente."
+						data: "Registro eliminado exitosamente..."
 					});
 				};
 			});

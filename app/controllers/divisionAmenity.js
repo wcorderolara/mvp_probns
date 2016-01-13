@@ -102,7 +102,7 @@ exports.putDivisionAmenity = function(req, res, next){
 	});
 };
 
-exports.delDivisionAmenity = function(req, res, next){
+exports.deleteDivisionAmenity = function(req, res, next){
 	models.divisionAmenity.findOne({
 		where: {
 			id: req.params.id

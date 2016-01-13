@@ -1,7 +1,7 @@
 var models = require('../../models');
 
-exports.getTiposUsuario = function(req, res, next){
-	models.tipoUsuario.findAll({
+exports.getTipoCliente = function(req, res, next){
+	models.tipoCliente.findAll({
 		where:{
 			status: 1
 		}
@@ -10,7 +10,7 @@ exports.getTiposUsuario = function(req, res, next){
 			res.status(500);
 			res.json({
 				type:false,
-				data: "Error al obtener los Tipos de Usuario: " + response
+				data: "Error al obtener los registros..."
 			});
 		}else{
 			res.status(200);
@@ -22,8 +22,8 @@ exports.getTiposUsuario = function(req, res, next){
 	});
 };
 
-exports.getTipoUsuarioById = function(req, res, next){
-	models.tipoUsuario.findOne({
+exports.getTipoClienteById = function(req, res, next){
+	models.tipoCliente.findOne({
 		where:{
 			id: req.params.id
 		}
@@ -32,7 +32,7 @@ exports.getTipoUsuarioById = function(req, res, next){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Error al obtener el Tipo de Usuario"
+				data: "Error al obtener el registro..."
 			});
 		}else{
 			res.status(200);
@@ -44,8 +44,8 @@ exports.getTipoUsuarioById = function(req, res, next){
 	});
 };
 
-exports.postTipoUsuario = function(req, res, next){
-	models.tipoUsuario.create({
+exports.postTipoCliente = function(req, res, next){
+	models.tipoCliente.create({
 		descripcion: req.body.descripcion,
 		status: 1
 	}).then(function (response){
@@ -53,46 +53,46 @@ exports.postTipoUsuario = function(req, res, next){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Ha ocurrido un Error: " + response
+				data: "Error al intentar guardar el registro..."
 			});
 		}else{
 			res.status(200);
 			res.json({
 				type: true,
-				data: "Tipo de Usuario creado Exitosamente"
+				data: "Registro creado exitosamente..."
 			});
 		};
 	});
 };
 
-exports.putTipoUsuario = function(req, res, next){
-	models.tipoUsuario.findOne({
+exports.putTipoCliente = function(req, res, next){
+	models.tipoCliente.findOne({
 		where:{
 			id: req.params.id
 		}
-	}).then(function (tipoUsuario){
-		if(!tipoUsuario){
+	}).then(function (tipoCliente){
+		if(!tipoCliente){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Tipo de Usuario no encontrado"
+				data: "Registro no encontrado..."
 			});
 		}else{
-			tipoUsuario.update({
+			tipoCliente.update({
 				descripcion: req.body.descripcion,
 				status: req.body.status
-			}).then(function (_tipoUsuario){
-				if(!_tipoUsuario){
+			}).then(function (_tipoCliente){
+				if(!_tipoCliente){
 					res.status(500);
 					res.json({
 						type: false,
-						data: "Error al actualizar el Tipo de Usuario: " + tipoUsuario.descripcion
+						data: "Error al intentar actualizar el registro..."
 					});
 				}else{
 					res.status(200);
 					res.json({
 						type: true,
-						data: "Tipo de Usuario Actualizado Exitosamente..."
+						data: "Registro Actualizado exitosamente..."
 					});
 				};
 			});
@@ -100,27 +100,27 @@ exports.putTipoUsuario = function(req, res, next){
 	});
 };
 
-exports.deleteTipoUsuario = function(req, res, next){
-	models.tipoUsuario.findOne({
+exports.deleteTipoCliente = function(req, res, next){
+	models.tipoCliente.findOne({
 		where:{
 			id: req.params.id
 		}
-	}).then(function (tipoUsuario){
-		if(!tipoUsuario){
+	}).then(function (tipoCliente){
+		if(!tipoCliente){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Error al encontrar el Tipo de Usuario"
+				data: "Registro no encontrado..."
 			});
 		}else{
-			tipoUsuario.update({
+			tipoCliente.update({
 				status: 0
-			}).then(function (_tipoUsuario){
-				if(!_tipoUsuario){
+			}).then(function (_tipoCliente){
+				if(!_tipoCliente){
 					res.status(500);
 					res.json({
 						type: false,
-						data: data: "Ocurrio un error al intentar eliminar el registro..."
+						data: "Ocurrio un error al intentar eliminar el registro..."
 					});
 				}else{
 					res.status(200);
