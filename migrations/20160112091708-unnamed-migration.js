@@ -12,7 +12,24 @@ module.exports = {
           len: [4, 2000]
         }
       }
+    ),
+
+    queryInterface.changeColumn(
+      'cliente',
+      'idEstadoCliente',
+      {
+        allowNull: true
+      }
+    ),
+
+    queryInterface.changeColumn(
+      'cliente',
+      'idVendedorAsignado',
+      {
+        allowNull: true
+      }
     )
+    
   },
 
   down: function (queryInterface, Sequelize) {
