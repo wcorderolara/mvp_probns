@@ -38,6 +38,9 @@ server.post("/tipousuario", controllers.tipoUsuario.postTipoUsuario);
 server.put("/tipousuario", controllers.tipoUsuario.putTipoUsuario);
 server.put("/tipousuario", controllers.tipoUsuario.deleteTipoUsuario);
 
+//Cliente
+server.get("/clientes", controllers.cliente.getClientes);
+
 models.sequelize.sync();
 
 var port = process.env.PORT || 3000;

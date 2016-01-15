@@ -5,7 +5,6 @@ exports.getClientes = function (req, res, next){
 	models.Cliente.findAll({
 		include: [models.tipoCliente, models.Usuario],
 		where: {
-			idVendedorAsignado: req.params.idVendedorAsignado,
 			status: 1
 		}
 	}).then(function (clientes){
