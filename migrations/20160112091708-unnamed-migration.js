@@ -6,27 +6,11 @@ module.exports = {
       'usuario',
       'password',
       {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
         validate: {
           len: [4, 2000]
         }
-      }
-    ),
-
-    queryInterface.changeColumn(
-      'cliente',
-      'idEstadoCliente',
-      {
-        allowNull: true
-      }
-    ),
-
-    queryInterface.changeColumn(
-      'cliente',
-      'idVendedorAsignado',
-      {
-        allowNull: true
       }
     )
     
