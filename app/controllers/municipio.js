@@ -3,7 +3,7 @@ var models = require('../../models');
 exports.getMunicipios = function (req, res, next){
 	models.Municipio.findAll({
 		where: {
-			idDepartamento: req.params.idDepartamento
+			idDepartamento: req.params.idDepartamento,
 			status: 1
 		}
 	}).then(function (municipios){

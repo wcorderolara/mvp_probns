@@ -120,7 +120,7 @@ exports.deleteTipoUsuario = function(req, res, next){
 					res.status(500);
 					res.json({
 						type: false,
-						data: data: "Ocurrio un error al intentar eliminar el registro..."
+						data: "Ocurrio un error al intentar eliminar el registro..."
 					});
 				}else{
 					res.status(200);
