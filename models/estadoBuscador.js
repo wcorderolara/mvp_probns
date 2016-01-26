@@ -12,6 +12,11 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
+		classMethods: {
+			associate: function(models){
+				estadoBuscador.hasOne(models.Buscador);
+			}
+		},
 		freezeTableName: true
 	});
 

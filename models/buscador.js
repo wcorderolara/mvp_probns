@@ -1,12 +1,5 @@
 module.exports = function (sequelize, DataTypes){
 	var Buscador = sequelize.define('Buscador', {
-		idTipoCliente: {
-			type: DataTypes.INTEGER,
-			references: {
-				model: 'tipoBuscador',
-				key: 'id'
-			}
-		},
 		nombre: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -57,8 +50,6 @@ module.exports = function (sequelize, DataTypes){
 			type: DataTypes.STRING,
 			allowNull: true
 		},
-		idVendedorAsignado,
-		idEstadoBuscador,
 		status: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
@@ -67,14 +58,24 @@ module.exports = function (sequelize, DataTypes){
 		classMethods: {
 			associate: function(models){
 				Buscador.belongsTo(models.tipoBuscador, {
-					onDelete: "CASCADE",
 					foreignKey: {
 						allowNull: false
 					}
-				})	;
+				});
+				Buscador.belongTo(models.Vendedor, {
+					foreignKey:{
+						allowNull: false
+					},
+					as: 'vendedorAsignado'
+				});
+				Buscador.belongsTo(models.estadoBuscador, {
+					foreignKey: {
+						allowNull: false
+					}
+				});
+				Buscador.belongsToMany(models.Inmueble, {through: models.inmueblesBuscador, foreignKey: 'inmuebleId'});
 			}
-		}
-	},{
+		},
 		freezeTableName: true,
 		tableName: 'buscador'
 	})

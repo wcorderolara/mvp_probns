@@ -1,54 +1,9 @@
 module.exports = function (sequelize, DataTypes){
 
 	var Inmueble = sequelize.define("Inmueble",{
-		idTipoInmueble: {
-			type: DataTypes.INTEGER,
-			references: {
-				model: 'tipo_inmueble',
-				key: 'id'
-			}
-		},
-		idEstadoInmueble: {
-			type: DataTypes.INTEGER,
-			references: {
-				model: 'estado_inmueble',
-				key: 'id'
-			}
-		},
-		idOperacionInmueble: {
-			type: DataTypes.INTEGER,
-			references: {
-				model: 'operacion_inmueble',
-				key: 'id'
-			}
-		},
-		idMoneda: {
-			type: DataTypes.INTEGER,
-			references: {
-				model: 'moneda',
-				key: 'id'
-			}
-		},
-		idPais: {
-			type: DataTypes.INTEGER,
-			references: {
-				model: 'pais',
-				key: 'id'
-			}
-		},
-		idDepartamento: {
-			type: DataTypes.INTEGER,
-			references: {
-				model: 'departamento',
-				key: 'id'
-			}
-		},
-		idMunicipio: {
-			type: DataTypes.INTEGER,
-			references: {
-				model: 'municipio',
-				key: 'id'
-			}
+		descripcion: {
+			type: DataTypes.STRING,
+			allowNull: false
 		},
 		precioPropiedad: {
 			type: DataTypes.DECIMAL(15,2),
@@ -100,6 +55,17 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	}, {
+		classMethods:{
+			associate: function(models){
+				Inmueble.belongsToMany(models.Buscador, {through: models.inmueblesBuscador, foreignKey: 'buscadorId'});
+				Inmueble.belongsTo(models.tipoInmueble, {foreignKey: {allowNull: false} } );
+				Inmueble.belongsTo(models.estadoInmueble, {foreignKey: {allowNull: false } } );
+				Inmueble.belongsTo(models.operacionInmueble, {foreignKey: {allowNull: false } } );
+				Inmueble.belongsTo(models.Pais, {foreignKey: {allowNull: false } } );
+				Inmueble.belongsTo(models.Departamento, {foreignKey: {allowNull: false } } );
+				Inmueble.belongsTo(models.Municipio, {foreignKey: {allowNull: false } } );
+			}
+		},
 		freezeTableName: true,
 		tableName: 'inmueble'
 	})

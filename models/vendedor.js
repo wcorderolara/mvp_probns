@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes){
-	var Usuario = sequelize.define("Usuario",{
+	var Vendedor = sequelize.define("Vendedor",{
 		idCliente:{
 			type: DataTypes.INTEGER,
 			references:{
@@ -58,8 +58,20 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
+		classMethods:{
+			assoociate: function(models){
+				Vendedor.hasOne(models.Buscador);
+				Vendedor.belongsTo(models.Cliente,{
+					foreignKey: {
+						allowNull: false
+					},
+					as: 'cliente'
+				});
+				Vendedor.belongsToMany(models.tipoAccion, {through: models.accionesBuscador, foreignKey: 'vendedorId'})
+			}
+		},
 		freezeTableName: true,
-		tableName: 'usuario'
+		tableName: 'vendedor'
 	});
-	return Usuario;
+	return Vendedor;
 };

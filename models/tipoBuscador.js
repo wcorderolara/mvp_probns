@@ -9,6 +9,11 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
+		classMethods: {
+			associate: function(models){
+				tipoBuscador.hasOne(models.Buscador);
+			}
+		},
 		freezeTableName: true,
 	});
 

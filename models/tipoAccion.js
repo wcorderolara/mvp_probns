@@ -12,6 +12,11 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
+		classMethods: {
+			associate: function(models){
+				tipoAccion.belongsToMany(models.Vendedor, {through: models.accionesBuscador, foreignKey: 'tipoAccionId'});
+			}
+		},		
 		freezeTableName: true
 	});
 
