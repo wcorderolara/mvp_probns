@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes){
-	var tipoCliente = sequelize.define('tipoCliente', {
+	var Anunciantes = sequelize.define('Anunciantes', {
 		descripcion: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -12,8 +12,9 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
-		freezeTableName: true
+		freezeTableName: true,
+		tableName: 'anunciantes'
 	});
 
-	return tipoCliente;
+	return Anunciantes;
 }

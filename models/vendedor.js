@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes){
 	var Usuario = sequelize.define("Usuario",{
-		idTipoUsuario:{
+		idCliente:{
 			type: DataTypes.INTEGER,
 			references:{
 				model: 'tipo_usuario',
@@ -28,27 +28,12 @@ module.exports = function (sequelize, DataTypes){
 				isEmail: true
 			}
 		},
-		website: {
-			type: DataTypes.STRING,
-			allowNull: true,
-			validate:{
-				isUrl: true
-			}
-		},
 		password: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
 				len: [4, 150]
 			}
-		},
-		avatar: {
-			type: DataTypes.STRING,
-			allowNull: true
-		},
-		direccion: {
-			type: DataTypes.STRING,
-			allowNull: true
 		},
 		telefono: {
 			type: DataTypes.STRING,
@@ -57,11 +42,15 @@ module.exports = function (sequelize, DataTypes){
 				len: [5, 15]
 			}
 		},
-		descripcion: {
+		avatar: {
 			type: DataTypes.STRING,
+			allowNull: true
+		},
+		fechaCreacion: {
+			type: DataTypes.DATE,
 			allowNull: true,
-			validate:{
-				len: [5,1000]
+			validate: {
+				isDate: true
 			}
 		},
 		status:{

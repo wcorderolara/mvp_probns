@@ -1,13 +1,20 @@
 module.exports = function (sequelize, DataTypes){
-	var Cliente = sequelize.define('Cliente', {
+	var Buscador = sequelize.define('Buscador', {
 		idTipoCliente: {
 			type: DataTypes.INTEGER,
 			references: {
-				model: 'tipo_cliente',
+				model: 'tipoBuscador',
 				key: 'id'
 			}
 		},
 		nombre: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			validate: {
+				len: [5,150]
+			}
+		},
+		apellido: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
@@ -38,15 +45,7 @@ module.exports = function (sequelize, DataTypes){
 		direccion: {
 			type: DataTypes.STRING,
 			allowNull: false,
-		},
-		website: {
-			type: DataTypes.STRING,
-			allowNull: true
-		},
-		descripcion: {
-			type: DataTypes.STRING,
-			allowNull: true
-		},
+		},		
 		fechaCreacion: {
 			type: DataTypes.DATE,
 			allowNull: true,
@@ -54,6 +53,12 @@ module.exports = function (sequelize, DataTypes){
 				isDate: true
 			}
 		},
+		ultimaAccion: {
+			type: DataTypes.STRING,
+			allowNull: true
+		},
+		idVendedorAsignado,
+		idEstadoBuscador,
 		status: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
@@ -61,7 +66,7 @@ module.exports = function (sequelize, DataTypes){
 	},{
 		classMethods: {
 			associate: function(models){
-				Cliente.belongsTo(models.tipoCliente, {
+				Buscador.belongsTo(models.tipoBuscador, {
 					onDelete: "CASCADE",
 					foreignKey: {
 						allowNull: false
@@ -71,8 +76,8 @@ module.exports = function (sequelize, DataTypes){
 		}
 	},{
 		freezeTableName: true,
-		tableName: 'cliente'
+		tableName: 'buscador'
 	})
 
-	return Cliente;
+	return Buscador;
 }
