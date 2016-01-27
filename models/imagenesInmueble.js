@@ -1,13 +1,7 @@
+
 module.exports = function (sequelize, DataTypes){
 
-	var imagenesInmueble = sequelize.define("imagenesInmueble", {
-		idInmueble: {
-			type: DataTypes.INTEGER,
-			references: {
-				model: "inmueble",
-				key: 'id'
-			}
-		},
+	var imagenInmueble = sequelize.define("imagenInmueble", {
 		path: {
 			type: DataTypes.STRING,
 			validate:{
@@ -24,8 +18,13 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
+		classMethods:{
+			associate: function(models){
+					imagenInmueble.belongsTo(models.Inmueble);
+			}
+		},
 		freezeTableName: true,
 	})
 
-	return imagenesInmueble;
+	return imagenInmueble;
 }

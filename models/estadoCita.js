@@ -12,6 +12,11 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
+		classMethods: {
+			associate: function(models){
+				estadoCita.hasMany(models.Agenda);
+			}
+		},
 		freezeTableName: true
 	});
 

@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes){
-	var estadoCliente = sequelize.define('estadoCliente', {
+	var estadoVendedor = sequelize.define('estadoVendedor', {
 		descripcion: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -12,8 +12,13 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
+		classMethods: {
+			associate: function(models){
+				estadoVendedor.hasOne(models.Vendedor)
+			}
+		},
 		freezeTableName: true,
 	});
 
-	return estadoCliente;
+	return estadoVendedor;
 }

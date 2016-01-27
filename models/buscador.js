@@ -20,7 +20,7 @@ module.exports = function (sequelize, DataTypes){
 			validate: {
 				isEmail: true
 			}
-		},		
+		},
 		telefono1: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -33,12 +33,12 @@ module.exports = function (sequelize, DataTypes){
 			allowNull: true,
 			validate: {
 				len: [8,15]
-			}	
-		},		
+			}
+		},
 		direccion: {
 			type: DataTypes.STRING,
 			allowNull: false,
-		},		
+		},
 		fechaCreacion: {
 			type: DataTypes.DATE,
 			allowNull: true,
@@ -62,7 +62,7 @@ module.exports = function (sequelize, DataTypes){
 						allowNull: false
 					}
 				});
-				Buscador.belongTo(models.Vendedor, {
+				Buscador.belongsTo(models.Vendedor, {
 					foreignKey:{
 						allowNull: false
 					},
@@ -73,7 +73,9 @@ module.exports = function (sequelize, DataTypes){
 						allowNull: false
 					}
 				});
-				Buscador.belongsToMany(models.Inmueble, {through: models.inmueblesBuscador, foreignKey: 'inmuebleId'});
+				Buscador.belongsTo(models.Cliente, {foreignKey: {allowNull: false}});
+				Buscador.belongsToMany(models.Inmueble, {through: models.inmueblesBuscador, foreignKey: 'buscadorId'});
+				Buscador.hasMany(models.Agenda);
 			}
 		},
 		freezeTableName: true,

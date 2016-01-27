@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    queryInterface.dropAllTables();
+    queryInterface.dropAllTables()
   },
 
   down: function (queryInterface, Sequelize) {

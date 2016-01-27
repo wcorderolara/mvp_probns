@@ -1,13 +1,6 @@
 module.exports = function (sequelize, DataTypes){
 
 	var Departamento = sequelize.define("Departamento", {
-		idPais: {
-			type: DataTypes.INTEGER,
-			references:{
-				model: 'Pais',
-				key: 'id'
-			}
-		},
 		descripcion: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -20,8 +13,14 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
-		freezeTableName: true,
-		tableName: 'departamento'
+		classMethods: {
+			associate: function(models){
+				Departamento.belongsTo(models.Pais, {foreignKey: {allowNull: false}});
+				Departamento.hasOne(models.Inmueble);
+				Departamento.hasMany(models.Municipio);
+			}
+		},
+		freezeTableName: true
 	});
 
 	return Departamento;

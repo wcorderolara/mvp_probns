@@ -13,9 +13,12 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
-		freezeTableName: true,
-		underscored: true,
-		tableName: 'estado_inmueble'
+		classMethods: {
+			associate: function(models){
+					estadoInmueble.hasOne(models.Inmueble);
+			}
+		},
+		freezeTableName: true
 	})
 
 	return estadoInmueble;

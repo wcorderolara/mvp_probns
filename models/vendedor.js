@@ -1,12 +1,5 @@
 module.exports = function (sequelize, DataTypes){
 	var Vendedor = sequelize.define("Vendedor",{
-		idCliente:{
-			type: DataTypes.INTEGER,
-			references:{
-				model: 'tipo_usuario',
-				key: 'id',
-			}
-		},
 		nombre: {
 			type: DataTypes.STRING,
 			validate:{
@@ -61,13 +54,11 @@ module.exports = function (sequelize, DataTypes){
 		classMethods:{
 			assoociate: function(models){
 				Vendedor.hasOne(models.Buscador);
-				Vendedor.belongsTo(models.Cliente,{
-					foreignKey: {
-						allowNull: false
-					},
-					as: 'cliente'
-				});
-				Vendedor.belongsToMany(models.tipoAccion, {through: models.accionesBuscador, foreignKey: 'vendedorId'})
+				Vendedor.hasMany(models.Agenda);
+				Vendedor.belongsTo(models.Cliente,{foreignKey: {allowNull: false},as: 'cliente'});
+				Vendedor.belongsTo(models.estadoVendedor, {foreignKey: {allowNull: false}});
+				Vendedor.belongsToMany(models.tipoAccion, {through: models.accionesVendedor, foreignKey: 'vendedorId'});
+				Vendedor.belongsToMany(models.Inmueble, {through: models.inmuebleVendedor, foreignKey: 'vendedorId'});
 			}
 		},
 		freezeTableName: true,

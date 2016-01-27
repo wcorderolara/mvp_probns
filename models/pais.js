@@ -16,9 +16,12 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
-		freezeTableName: true,
-		tableName: 'pais'
-
+		classMethods: {
+			associate: function(models){
+				Pais.hasOne(models.Cliente);
+				Pais.hasMany(models.Departamento);
+			}
+		}
 	});
 
 	return Pais;

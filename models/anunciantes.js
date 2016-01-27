@@ -12,8 +12,12 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
-		freezeTableName: true,
-		tableName: 'anunciantes'
+		classMethods:{
+			associate: function(models){
+				Anunciantes.belongsToMany(models.Inmueble, {through: models.anuncianteInmueble, foreignKey: 'anuncianteId'});
+			}
+		},
+		freezeTableName: true
 	});
 
 	return Anunciantes;

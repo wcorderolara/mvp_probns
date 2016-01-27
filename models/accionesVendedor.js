@@ -1,6 +1,6 @@
 
 module.exports = function (sequelize, DataTypes){
-	var accionesBuscador = sequelize.define('accionesBuscador',{
+	var accionesVendedor = sequelize.define('accionesVendedor',{
 		descripcion: {
 			type: DataTypes.STRING,
 			validate: {
@@ -16,5 +16,5 @@ module.exports = function (sequelize, DataTypes){
 		freezeTableName: true
 	});
 
-	return accionesBuscador;
+	return accionesVendedor;
 }

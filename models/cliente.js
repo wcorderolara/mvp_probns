@@ -1,12 +1,5 @@
 module.exports = function (sequelize, DataTypes){
 	var Cliente = sequelize.define('Cliente', {
-		idTipoCliente: {
-			type: DataTypes.INTEGER,
-			references: {
-				model: 'tipo_cliente',
-				key: 'id'
-			}
-		},
 		nombre: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -20,7 +13,7 @@ module.exports = function (sequelize, DataTypes){
 			validate: {
 				isEmail: true
 			}
-		},		
+		},
 		telefono1: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -33,8 +26,8 @@ module.exports = function (sequelize, DataTypes){
 			allowNull: true,
 			validate: {
 				len: [8,15]
-			}	
-		},		
+			}
+		},
 		direccion: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -61,15 +54,13 @@ module.exports = function (sequelize, DataTypes){
 	},{
 		classMethods: {
 			associate: function(models){
-				Cliente.belongsTo(models.tipoCliente, {
-					onDelete: "CASCADE",
-					foreignKey: {
-						allowNull: false
-					}
-				})	;
+				Cliente.belongsTo(models.tipoCliente, {foreignKey: {allowNull: false}});
+				Cliente.belongsTo(models.Pais, {foreignKey: {allowNull: false }});
+				Cliente.belongsToMany(models.Inmueble, {through: models.inmuebleCliente, foreignKey: 'clienteId'});
+				Cliente.hasMany(models.Vendedor);
+				Cliente.hasMany(models.Buscador);
 			}
-		}
-	},{
+		},
 		freezeTableName: true,
 		tableName: 'cliente'
 	})

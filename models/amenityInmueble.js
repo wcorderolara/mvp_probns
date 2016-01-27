@@ -1,19 +1,9 @@
 module.exports = function (sequelize, DataTypes){
 
 	var amenityInmueble = sequelize.define("amenityInmueble", {
-		idInmueble: {
-			type: DataTypes.INTEGER,
-			references: {
-				model: 'inmueble',
-				key: 'id'
-			}
-		},
-		idAmenity: {
-			type: DataTypes.INTEGER,
-			references: {
-				model: 'amenity',
-				key: 'id'
-			}
+		descripcion: {
+			type: DataTypes.STRING,
+			allowNull: false
 		},
 		cantidad: {
 			type: DataTypes.INTEGER,
@@ -27,9 +17,12 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
-		freezeTableName: true,
-		underscored: true,
-		tableName: 'amenity_inmueble'
+		classMethods: {
+			associate: function(models){
+				amenityInmueble.belongsTo(models.Inmueble);
+			}
+		},
+		freezeTableName: true
 	})
 
 	return amenityInmueble;

@@ -1,9 +1,5 @@
 module.exports = function (sequelize, DataTypes){
 	var Agenda = sequelize.define('Agenda', {
-		idVendedor,
-		idBuscador,
-		idInmueble,
-		idEstadoCita,
 		fechaCita: {
 			type: DataTypes.DATE,
 			allowNull: true,
@@ -16,8 +12,15 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
-		freezeTableName: true,
-		tableName: 'agenda'
+		classMethods:{
+			associate: function(models){
+					Agenda.belongsTo(models.Vendedor, {foreignKey: {allowNull: false}});
+					Agenda.belongsTo(models.Buscador, {foreignKey: {allowNull: false}});
+					Agenda.belongsTo(models.Inmueble, {foreignKey: {allowNull: false}});
+					Agenda.belongsTo(models.estadoCita, {foreignKey: {allowNull: false}});
+			}
+		},
+		freezeTableName: true
 	})
 
 	return Agenda;

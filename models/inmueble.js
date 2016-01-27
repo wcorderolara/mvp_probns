@@ -57,13 +57,19 @@ module.exports = function (sequelize, DataTypes){
 	}, {
 		classMethods:{
 			associate: function(models){
-				Inmueble.belongsToMany(models.Buscador, {through: models.inmueblesBuscador, foreignKey: 'buscadorId'});
+				Inmueble.belongsToMany(models.Buscador, {through: models.inmueblesBuscador, foreignKey: 'inmuebleId'});
+				Inmueble.belongsToMany(models.Cliente, {through: models.inmuebleCliente, foreignKey: 'inmuebleId'});
+				Inmueble.belongsToMany(models.Vendedor, {through: models.inmuebleVendedor, foreignKey: 'inmuebleId'});
+				Inmueble.belongsToMany(models.Anunciantes, {through: models.anuncianteInmueble, foreignKey: 'inmuebleId'});
 				Inmueble.belongsTo(models.tipoInmueble, {foreignKey: {allowNull: false} } );
 				Inmueble.belongsTo(models.estadoInmueble, {foreignKey: {allowNull: false } } );
 				Inmueble.belongsTo(models.operacionInmueble, {foreignKey: {allowNull: false } } );
 				Inmueble.belongsTo(models.Pais, {foreignKey: {allowNull: false } } );
 				Inmueble.belongsTo(models.Departamento, {foreignKey: {allowNull: false } } );
 				Inmueble.belongsTo(models.Municipio, {foreignKey: {allowNull: false } } );
+				Inmueble.hasMany(models.imagenInmueble);
+				Inmueble.hasMany(models.amenityInmueble);
+				Inmueble.hasMany(models.Agenda);
 			}
 		},
 		freezeTableName: true,
