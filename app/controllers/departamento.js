@@ -2,11 +2,21 @@ var models = require('../../models');
 
 exports.getDepartamentos = function (req, res, next){
 	models.Departamento.findAll({
-		include: [models.Pais],
 		where: {
 			PaiId: req.params.paisId,
 			status: 1
-		}
+		},
+		attributes: ['descripcion', 'status','PaiId'],
+		include: [
+			{
+				model: models.Pais,
+				attributes: ['descripcion'],
+				where: {
+					status: 1
+				}
+			}
+		]
+
 	}).then(function (departamentos){
 		if(!departamentos){
 			res.status(500);
@@ -83,7 +93,7 @@ exports.putDepartamento = function (req, res, next){
 			})
 		}else{
 			departamento.update({
-				idPais: req.body.idPais,
+				PaiId: req.body.PaiId,
 				descripcion : req.body.descripcion,
 				status : req.body.status
 			}).then(function (_departamento){

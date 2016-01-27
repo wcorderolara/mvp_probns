@@ -3,9 +3,19 @@ var models = require('../../models');
 exports.getMunicipios = function (req, res, next){
 	models.Municipio.findAll({
 		where: {
-			idDepartamento: req.params.idDepartamento,
+			idDepartamento: req.params.DepartamentoId,
 			status: 1
-		}
+		},
+		attributes: ['descripcion', 'status', 'DepartamentoId'],
+		include: [
+			model: {
+				models.Departamento,
+				attributes: ['descripcion'],
+				where:{
+					status: 1
+				}
+			}
+		]
 	}).then(function (municipios){
 		if(!municipios){
 			res.status(500);
@@ -48,7 +58,7 @@ exports.getMunicipioById = function (req, res, next){
 
 exports.postMunicipio = function (req, res, next){
 	models.Municipio.create({
-		idDepartamento: req.body.idDepartamento,
+		DepartamentoId: req.body.DepartamentoId,
 		descripcion : req.body.descripcion,
 		status : 1
 	}).then(function (municipio){
@@ -82,7 +92,7 @@ exports.putMunicipio = function (req, res, next){
 			})
 		}else{
 			municipio.update({
-				idDepartamento: req.body.idDepartamento,
+				DepartamentoId: req.body.DepartamentoId,
 				descripcion : req.body.descripcion,
 				status : req.body.status
 			}).then(function (_municipio){
@@ -137,4 +147,3 @@ exports.deleteMunicipio = function (req, res, next){
 		}
 	})
 };
-
