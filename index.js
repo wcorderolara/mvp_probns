@@ -28,7 +28,14 @@ server.get("/departamentos/:paisId", controllers.departamento.getDepartamentos);
 server.get("/departamentos/:id", controllers.departamento.getDepartamentoById);
 server.post("/departamentos", controllers.departamento.postDepartamento);
 server.put("/update/departamentos/:id", controllers.departamento.putDepartamento);
-server.put("/del/departamentos/:id", controllers.departamento.deleteDepartamento)
+server.put("/del/departamentos/:id", controllers.departamento.deleteDepartamento);
+
+//Municipios
+server.get("/municipios/:DepartamentoId", controllers.municipio.getMunicipios);
+server.get("/municipios/:id", controllers.municipio.getMunicipioById);
+server.post("/municipios", controllers.municipio.postMunicipio);
+server.put("/update/municipios/:id", controllers.municipio.putMunicipio);
+server.put("/del/municipios/:id", controllers.municipio.deleteMunicipio);
 
 
 //TipoUsuario
