@@ -24,7 +24,7 @@ server.put("/update/paises/:id", controllers.pais.putPais);
 server.put("/del/paises/:id", controllers.pais.deletePais);
 
 //Departamentos
-server.get("/departamentos", controllers.departamento.getDepartamentos);
+server.get("/departamentos/:paisId", controllers.departamento.getDepartamentos);
 server.get("/departamentos/:id", controllers.departamento.getDepartamentoById);
 server.post("/departamentos", controllers.departamento.postDepartamento);
 server.put("/update/departamentos/:id", controllers.departamento.putDepartamento);

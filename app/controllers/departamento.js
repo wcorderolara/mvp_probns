@@ -2,8 +2,9 @@ var models = require('../../models');
 
 exports.getDepartamentos = function (req, res, next){
 	models.Departamento.findAll({
+		include: [models.Pais],
 		where: {
-			idPais: req.params.idPais,
+			PaiId: req.params.paisId,
 			status: 1
 		}
 	}).then(function (departamentos){
@@ -47,7 +48,7 @@ exports.getDepartamentoById = function (req, res, next){
 
 exports.postDepartamento = function (req, res, next){
 	models.Departamento.create({
-		idPais: req.body.idPais,
+		PaiId: req.body.PaiId,
 		descripcion : req.body.descripcion,
 		status : 1
 	}).then(function (departamento){
@@ -137,4 +138,3 @@ exports.deleteDepartamento = function (req, res, next){
 		}
 	})
 };
-
