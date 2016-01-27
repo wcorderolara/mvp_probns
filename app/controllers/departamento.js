@@ -6,7 +6,7 @@ exports.getDepartamentos = function (req, res, next){
 			PaiId: req.params.paisId,
 			status: 1
 		},
-		attributes: ['descripcion', 'status','PaiId'],
+		attributes: ['id','descripcion', 'status','PaiId'],
 		include: [
 			{
 				model: models.Pais,

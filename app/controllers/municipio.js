@@ -3,10 +3,10 @@ var models = require('../../models');
 exports.getMunicipios = function (req, res, next){
 	models.Municipio.findAll({
 		where: {
-			idDepartamento: req.params.DepartamentoId,
+			DepartamentoId: req.params.DepartamentoId,
 			status: 1
 		},
-		attributes: ['descripcion', 'status', 'DepartamentoId'],
+		attributes: ['id','descripcion', 'status', 'DepartamentoId'],
 		include: [
 			{
 				model: models.Departamento,
