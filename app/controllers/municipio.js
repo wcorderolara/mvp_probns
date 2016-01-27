@@ -8,8 +8,8 @@ exports.getMunicipios = function (req, res, next){
 		},
 		attributes: ['descripcion', 'status', 'DepartamentoId'],
 		include: [
-			model: {
-				models.Departamento,
+			{
+				model: models.Departamento,
 				attributes: ['descripcion'],
 				where:{
 					status: 1
