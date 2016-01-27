@@ -1,13 +1,13 @@
 module.exports = function (sequelize, DataTypes){
-	var Cliente = sequelize.define('Cliente', {
-		idTipoCliente: {
-			type: DataTypes.INTEGER,
-			references: {
-				model: 'tipo_cliente',
-				key: 'id'
+	var Buscador = sequelize.define('Buscador', {
+		nombre: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			validate: {
+				len: [5,150]
 			}
 		},
-		nombre: {
+		apellido: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
@@ -38,21 +38,17 @@ module.exports = function (sequelize, DataTypes){
 		direccion: {
 			type: DataTypes.STRING,
 			allowNull: false,
-		},
-		website: {
-			type: DataTypes.STRING,
-			allowNull: true
-		},
-		descripcion: {
-			type: DataTypes.STRING,
-			allowNull: true
-		},
+		},		
 		fechaCreacion: {
 			type: DataTypes.DATE,
 			allowNull: true,
 			validate: {
 				isDate: true
 			}
+		},
+		ultimaAccion: {
+			type: DataTypes.STRING,
+			allowNull: true
 		},
 		status: {
 			type: DataTypes.BOOLEAN,
@@ -61,18 +57,28 @@ module.exports = function (sequelize, DataTypes){
 	},{
 		classMethods: {
 			associate: function(models){
-				Cliente.belongsTo(models.tipoCliente, {
-					onDelete: "CASCADE",
+				Buscador.belongsTo(models.tipoBuscador, {
 					foreignKey: {
 						allowNull: false
 					}
-				})	;
+				});
+				Buscador.belongTo(models.Vendedor, {
+					foreignKey:{
+						allowNull: false
+					},
+					as: 'vendedorAsignado'
+				});
+				Buscador.belongsTo(models.estadoBuscador, {
+					foreignKey: {
+						allowNull: false
+					}
+				});
+				Buscador.belongsToMany(models.Inmueble, {through: models.inmueblesBuscador, foreignKey: 'inmuebleId'});
 			}
-		}
-	},{
+		},
 		freezeTableName: true,
-		tableName: 'cliente'
+		tableName: 'buscador'
 	})
 
-	return Cliente;
+	return Buscador;
 }

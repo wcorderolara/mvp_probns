@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes){
-	var tipoCliente = sequelize.define('tipoCliente', {
+	var tipoAccion = sequelize.define('tipoAccion', {
 		descripcion: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -12,8 +12,13 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
+		classMethods: {
+			associate: function(models){
+				tipoAccion.belongsToMany(models.Vendedor, {through: models.accionesBuscador, foreignKey: 'tipoAccionId'});
+			}
+		},		
 		freezeTableName: true
 	});
 
-	return tipoCliente;
+	return tipoAccion;
 }

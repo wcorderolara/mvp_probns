@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes){
-	var Usuario = sequelize.define("Usuario",{
-		idTipoUsuario:{
+	var Vendedor = sequelize.define("Vendedor",{
+		idCliente:{
 			type: DataTypes.INTEGER,
 			references:{
 				model: 'tipo_usuario',
@@ -28,27 +28,12 @@ module.exports = function (sequelize, DataTypes){
 				isEmail: true
 			}
 		},
-		website: {
-			type: DataTypes.STRING,
-			allowNull: true,
-			validate:{
-				isUrl: true
-			}
-		},
 		password: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
 				len: [4, 150]
 			}
-		},
-		avatar: {
-			type: DataTypes.STRING,
-			allowNull: true
-		},
-		direccion: {
-			type: DataTypes.STRING,
-			allowNull: true
 		},
 		telefono: {
 			type: DataTypes.STRING,
@@ -57,11 +42,15 @@ module.exports = function (sequelize, DataTypes){
 				len: [5, 15]
 			}
 		},
-		descripcion: {
+		avatar: {
 			type: DataTypes.STRING,
+			allowNull: true
+		},
+		fechaCreacion: {
+			type: DataTypes.DATE,
 			allowNull: true,
-			validate:{
-				len: [5,1000]
+			validate: {
+				isDate: true
 			}
 		},
 		status:{
@@ -69,8 +58,20 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
+		classMethods:{
+			assoociate: function(models){
+				Vendedor.hasOne(models.Buscador);
+				Vendedor.belongsTo(models.Cliente,{
+					foreignKey: {
+						allowNull: false
+					},
+					as: 'cliente'
+				});
+				Vendedor.belongsToMany(models.tipoAccion, {through: models.accionesBuscador, foreignKey: 'vendedorId'})
+			}
+		},
 		freezeTableName: true,
-		tableName: 'usuario'
+		tableName: 'vendedor'
 	});
-	return Usuario;
+	return Vendedor;
 };

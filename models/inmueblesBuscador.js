@@ -1,11 +1,12 @@
+
 module.exports = function (sequelize, DataTypes){
-	var tipoCliente = sequelize.define('tipoCliente', {
+	var inmueblesBuscador = sequelize.define('inmueblesBuscador',{
 		descripcion: {
 			type: DataTypes.STRING,
-			allowNull: false,
 			validate: {
-				len: [5, 150]
-			}
+				len: [1, 500]
+			},
+			allowNull: false,
 		},
 		status: {
 			type: DataTypes.BOOLEAN,
@@ -15,5 +16,5 @@ module.exports = function (sequelize, DataTypes){
 		freezeTableName: true
 	});
 
-	return tipoCliente;
+	return inmueblesBuscador;
 }

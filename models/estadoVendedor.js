@@ -13,8 +13,6 @@ module.exports = function (sequelize, DataTypes){
 		}
 	},{
 		freezeTableName: true,
-		underscored: true,
-		tableName: 'estado_cliente'
 	});
 
 	return estadoCliente;
