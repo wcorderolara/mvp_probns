@@ -4,7 +4,8 @@ exports.getTipoCliente = function(req, res, next){
 	models.tipoCliente.findAll({
 		where:{
 			status: 1
-		}
+		},
+		attributes: ['id', 'descripcion', 'status']
 	}).then(function (response){
 		if(!response){
 			res.status(500);

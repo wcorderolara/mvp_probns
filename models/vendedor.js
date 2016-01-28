@@ -28,6 +28,10 @@ module.exports = function (sequelize, DataTypes){
 				len: [4, 150]
 			}
 		},
+		token:{
+			type: DataTypes.STRING,
+			allowNull: true
+		},
 		telefono: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -38,6 +42,10 @@ module.exports = function (sequelize, DataTypes){
 		avatar: {
 			type: DataTypes.STRING,
 			allowNull: true
+		},
+		verificadoEmail: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false
 		},
 		fechaCreacion: {
 			type: DataTypes.DATE,

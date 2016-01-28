@@ -14,6 +14,17 @@ module.exports = function (sequelize, DataTypes){
 				isEmail: true
 			}
 		},
+		password: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			validate: {
+				len: [4, 150]
+			}
+		},
+		token:{
+			type: DataTypes.STRING,
+			allowNull: true
+		},
 		telefono1: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -39,6 +50,14 @@ module.exports = function (sequelize, DataTypes){
 		descripcion: {
 			type: DataTypes.STRING,
 			allowNull: true
+		},
+		avatar: {
+			type: DataTypes.STRING,
+			allowNull: true
+		},
+		verificadoEmail: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false
 		},
 		fechaCreacion: {
 			type: DataTypes.DATE,

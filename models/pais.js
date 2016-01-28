@@ -21,7 +21,8 @@ module.exports = function (sequelize, DataTypes){
 				Pais.hasOne(models.Cliente);
 				Pais.hasMany(models.Departamento);
 			}
-		}
+		},
+		tableName: 'pais'
 	});
 
 	return Pais;
