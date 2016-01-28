@@ -10,41 +10,42 @@ cloudinary.config({
 	api_secret: settings.cdn.api_secret
 })
 
-exports.getClientes = function (req, res, next){
-	models.Cliente.findAll({
+//Inmuebles
+exports.getInmuebles = function (req, res, next){
+	models.Inmueble.findAll({
 		where: {
 			status: 1
 		},
-		attributes: ['id','nombre','email','telefono1','telefono2','direccion','website','descripcion','fechaCreacion','status', 'tipoClienteId', 'PaiId', 'avatar'],
+		attributes: ['id','nombre', 'apellido','email','telefono','avatar','fechaCreacion','status', 'ClienteId', 'estadoVendedorId'],
 		include: [
 			{
-				model: models.tipoCliente,
-				attributes: ['id','descripcion'],
+				model: models.Cliente,
+				attributes: ['id','nombre'],
 				where:{
 					status: 1
 				}
 			},
 			{
-				model: models.Pais,
-				attributes: ['id', 'descripcion','flag'],
+				model: models.estadoVendedor,
+				attributes: ['id', 'descripcion'],
 				where: {
 					status: 1
 				}
 			}
 		],
-		order: 'PaiId'
-	}).then(function (clientes){
-		if(!clientes){
+		order: 'apellido'
+	}).then(function (response){
+		if(!response){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Error al obtener los clientes" + clientes
+				data: "Error al obtener los registros..." + response
 			});
 		}else{
 			res.status(200);
 			res.json({
 				type: true,
-				data: clientes
+				data: response
 			});
 		};
 	});
@@ -56,68 +57,65 @@ exports.uploadAvatar = function(req, res, next){
 	});
 }
 
-exports.getClienteById = function (req, res, next){
+exports.getVendedorById = function (req, res, next){
 	models.Cliente.findOne({
 		where: {
 			id: req.params.id,
 			status: 1
 		},
-		include: [
+    include: [
 			{
-				model: models.tipoCliente,
-				attributes: ['id','descripcion'],
+				model: models.Cliente,
+				attributes: ['id','nombre'],
 				where:{
 					status: 1
 				}
 			},
 			{
-				model: models.Pais,
-				attributes: ['id', 'descripcion','flag'],
+				model: models.estadoVendedor,
+				attributes: ['id', 'descripcion'],
 				where: {
 					status: 1
 				}
 			}
-		]
-	}).then(function (cliente){
-		if(!cliente){
+		],
+	}).then(function (vendedor){
+		if(!vendedor){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Error al obtener el registro" + cliente
+				data: "Error al obtener el registro" + vendedor
 			});
 		}else{
 			res.status(200);
 			res.json({
 				type: false,
-				data: cliente
+				data: vendedor
 			})
 		}
 	})
 }
 
-exports.postCliente = function (req, res, next){
-	models.Cliente.create({
+exports.postVendedor = function (req, res, next){
+	models.Vendedor.create({
 		nombre: req.body.nombre,
+    apellido: req.body.apellido,
 		email: req.body.email,
 		password: req.body.password,
 		token: req.body.token,
-		telefono1: req.body.telefono1,
-		telefono2: req.body.telefono2,
-		direccion: req.body.direccion,
-		website: req.body.website,
-		descripcion: req.body.descripcion,
+		telefono: req.body.telefono,
 		avatar: req.body.avatar,
-		verificadoEmail: 0,
+		verificadoEmail: 0, //servira para enviarle al vendedor una invitacion cuando la agencia le cree su usuario
 		fechaCreacion: moment().format("DD-MM-YYYY"),
 		status: 1,
-		tipoClienteId: req.body.tipoClienteId,
-		PaiId: req.body.Pai
-	}).then(function (cliente){
-		if(!cliente){
+		ClienteId: req.params.ClienteId,
+		estadoVendedor: 1 //pendiente verificacion, cuando verifique el email se cambiara el estado a disponible
+	}).then(function (vendedor){
+		if(!vendedor){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Error al crear el registro: " + cliente
+				data: "Error al crear el registro: " + vendedor
 			});
 		}else{
 			res.status(200);
@@ -129,24 +127,24 @@ exports.postCliente = function (req, res, next){
 	});
 };
 
-exports.putVerificarEmailCliente = function (req, res, next){
-	models.Cliente.findOne({
+exports.putVerificarEmailVendedor = function (req, res, next){
+	models.Vendedor.findOne({
 		where: {
 			id: req.params.id,
 			token: req.params.token
 		}
-	}).then(function (cliente){
-		if(!cliente){
+	}).then(function (vendedor){
+		if(!vendedor){
 			res.status(500);
 			res.json({
 				type: false,
 				data: "Imposible verificar el Correo Electronico, usuaro no existe..."
 			});
 		}else{
-			cliente.update({
+			vendedor.update({
 				verificadoEmail: 1
-			}).then(function (_cliente){
-				if(!_cliente){
+			}).then(function (_vendedor){
+				if(!_vendedor){
 					res.status(500);
 					res.json({
 						type: false,
@@ -164,36 +162,34 @@ exports.putVerificarEmailCliente = function (req, res, next){
 	});
 };
 
-exports.putCliente = function(req, res, next){
-	models.Cliente.findOne({
+exports.putVendedor = function(req, res, next){
+	models.Vendedor.findOne({
 		where: {
 			id: req.params.id
 		}
-	}).then(function (cliente){
-		if(!cliente){
+	}).then(function (vendedor){
+		if(!vendedor){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Registro no encontrado " + cliente
+				data: "Registro no encontrado " + vendedor
 			});
 		}else{
-			cliente.update({
-				nombre: req.body.nombre,
-				email: req.body.email,
-				telefono1: req.body.telefono1,
-				telefono2: req.body.telefono2,
-				direccion: req.body.direccion,
-				website: req.body.website,
-				descripcion: req.body.descripcion,
-				avatar: req.body.avatar,
-				tipoClienteId: req.body.tipoClienteId,
-				PaiId: req.body.Pai
-			}).then(function (_cliente){
-				if(!_cliente){
+			vendedor.update({
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+    		email: req.body.email,
+    		telefono: req.body.telefono,
+    		avatar: req.body.avatar,
+    		status: req.body.status,
+    		ClienteId: req.body.ClienteId,
+    		estadoVendedor: req.body.estadoVendedor
+			}).then(function (_vendedor){
+				if(!_vendedor){
 					res.status(500);
 					res.json({
 						type: false,
-						data: "Error al actualizar el registro " + _cliente
+						data: "Error al actualizar el registro " + _vendedor
 					});
 				}else{
 					res.status(200);
@@ -208,32 +204,32 @@ exports.putCliente = function(req, res, next){
 };
 
 exports.changePassword = function (req, res, next){
-	models.Cliente.findOne({
+	models.Vendedor.findOne({
 		where: {
 			id: req.params.id
 		}
-	}).then(function (cliente){
-		if(!cliente){
+	}).then(function (vendedor){
+		if(!vendedor){
 			res.status(500);
 			res.json({
 				type: false,
 				data: "registro no encontrado"
 			});
 		}else{
-			cliente.update({
+			vendedor.update({
 				password: req.body.password
-			}).then(function (_cliente){
-				if(!_cliente){
+			}).then(function (_vendedor){
+				if(!_vendedor){
 					res.status(500);
 					res.json({
 						type: false,
-						data: "Hubo un error al actualizar su Password"
+						data: "Hubo un error al actualizar su Contraseña"
 					});
 				}else{
 					res.status(200);
 					res.json({
 						type: true,
-						data: "Se ha cambiado el password exitosamente"
+						data: "Se ha cambiado la Contraseña exitosamente"
 					});
 				};
 			});
@@ -241,27 +237,27 @@ exports.changePassword = function (req, res, next){
 	});
 };
 
-exports.deleteCliente = function (req, res, next){
-	models.Cliente.findOne({
+exports.deleteVendedor = function (req, res, next){
+	models.Vendedor.findOne({
 		where: {
 			id: req.params.id
 		}
-	}).then(function (cliente){
-		if(!cliente){
+	}).then(function (vendedor){
+		if(!vendedor){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Registro no encontrado " + cliente
+				data: "Registro no encontrado " + vendedor
 			});
 		}else{
-			cliente.update({
+			vendedor.update({
 				status: 0
-			}).then(function (_cliente){
-				if(!_cliente){
+			}).then(function (_vendedor){
+				if(!_vendedor){
 					res.status(500);
 					res.json({
 						type: false,
-						data: "Error al eliminar el registro " + _cliente
+						data: "Error al eliminar el registro " + _vendedor
 					});
 				}else{
 					res.status(200);

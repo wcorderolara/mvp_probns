@@ -65,7 +65,6 @@ module.exports = function (sequelize, DataTypes){
 				Vendedor.hasMany(models.Agenda);
 				Vendedor.belongsTo(models.Cliente,{foreignKey: {allowNull: false},as: 'cliente'});
 				Vendedor.belongsTo(models.estadoVendedor, {foreignKey: {allowNull: false}});
-				Vendedor.belongsToMany(models.tipoAccion, {through: models.accionesVendedor, foreignKey: 'vendedorId'});
 				Vendedor.belongsToMany(models.Inmueble, {through: models.inmuebleVendedor, foreignKey: 'vendedorId'});
 			}
 		},
