@@ -13,12 +13,6 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: true
 		}
 	},{
-		classMethods:{
-			associate: function(models){
-				accionesBuscador.hasMany(models.tipoAccion);
-				accionesBuscador.hasMany(models.Buscador);
-			}
-		}
 		freezeTableName: true
 	});
 

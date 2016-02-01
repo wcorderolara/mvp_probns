@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="probnsApp" class="no-js">
+  <head>
+    <title>Probns Guatemala</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/vendor/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/vendor/weather-icons.min.css" rel="stylesheet">
+    <link href="assets/css/vendor/toastr.css" rel="stylesheet">
+    <link id="beyond-link" href="assets/css/beyond.css" rel="stylesheet">
+
+    <link href="assets/css/ui-notification.min.css" rel="stylesheet">
+    <link href="assets/css/block-ui.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="assets/js/vender/modernizr.js"></script>
+
+  </head>
+  <body><!--[if lt IE 8]>
+    <p class="browsehappy">
+      You are using an <strong>outdated</strong> browser.
+      Please <a href="http://browsehappy.com/">upgrade your browser</a>
+      to improve your experience.
+    </p><![endif]-->
+    <toaster-container toaster-options="{'time-out': 3000, 'close-button':true}"></toaster-container>
+    <header class="main-header">
+      <div class="container__div"><a href="/" class="logo">Probns</a>
+        <div class="search__form">
+          <input placeholder="Búsqueda" type="text" class="search__input">
+          <input type="submit" value="Buscar" class="search__btn">
+          <button class="search__location">Ubicación</button>
+        </div>
+        <div class="top-menu">
+          <div class="container__div">
+            <ul>
+              <li><img src="img/avatar.jpg" alt="Bienes Raices" class="top-menu__avatar"><a id="dropdownMenu1" href="#" data-toggle="dropdown" class="dropdown-toggle"> Bienes Raices <i class="fa fa-caret-down"></i></a>
+                <ul aria-labelledby="dropdownMenu1" class="dropdown-menu">
+                  <li><a href="#">Mi perfil</a></li>
+                  <li><a href="#">Configuración </a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Cerrar sesión </a></li>
+                </ul>
+              </li>
+              <li><span class="badge">
+
+                  3</span><a href="#"><i class="icon icon-bell"></i></a></li>
+              <li><a href="#">Ayuda? <i class="fa fa-caret-down"></i></a></li>
+              <li class="call-to-action"><a href="#" class="btn btn-primary">Publica tu propiedad</a></li>
+            </ul><a id="menu-toggle" data-target="#menu" class="menu-toggle">Menu</a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <nav id="menu" class="main-nav">
+      <ul>
+        <li class="active"><a href="#">Escritorio</a></li>
+        <li><a href="#">Bandeja de entrada</a></li>
+        <li><a href="#">Agenda </a></li>
+        <li><a href="#">Tus propiedades </a></li>
+        <li><a href="#">Tus agentes </a></li>
+        <li><a href="#">Tus clientes </a></li>
+        <li><a href="#">Tareas </a></li>
+        <li><a href="#">Cuenta </a></li>
+      </ul>
+    </nav>
+    <main id="dashboard" class="content">
+      <div class="dashboard__profile cols"><img src="img/avatar.jpg">
+        <div class="dashboard__profile--details">
+          <h3>Bienes Raices S.A</h3><a href="#">Ver perfil</a><a href="#">Editar perfil</a>
+        </div>
+      </div>
+      <div class="dashboard__listings cols">
+        <div class="table">
+          <div class="col">
+            <div class="heading">
+              <h5>Propiedades más vistas</h5>
+            </div>
+            <div class="body">
+              <div class="row"><a href="#"><img src="img/listing.jpg">
+                  <div class="listing__details">
+                    <h4>Apartamento z.14</h4>
+                    <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14  <br>Código No. 03024</p>
+                  </div></a></div>
+              <div class="row"><a href="#"><img src="img/listing.jpg">
+                  <div class="listing__details">
+                    <h4>Apartamento z.14</h4>
+                    <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14  <br>Código No. 03024</p>
+                  </div></a></div>
+              <div class="row"><a href="#"><img src="img/listing.jpg">
+                  <div class="listing__details">
+                    <h4>Apartamento z.14</h4>
+                    <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14  <br>Código No. 03024</p>
+                  </div></a></div>
+              <div class="row"><a href="#"><img src="img/listing.jpg">
+                  <div class="listing__details">
+                    <h4>Apartamento z.14</h4>
+                    <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14  <br>Código No. 03024</p>
+                  </div></a></div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="heading">
+              <h5>Propiedades menos vistas</h5>
+            </div>
+            <div class="body">
+              <div class="row"><a href="#"><img src="img/listing.jpg">
+                  <div class="listing__details">
+                    <h4>Apartamento z.14</h4>
+                    <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14  <br>Código No. 03024</p>
+                  </div></a></div>
+              <div class="row"><a href="#"><img src="img/listing.jpg">
+                  <div class="listing__details">
+                    <h4>Apartamento z.14</h4>
+                    <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14  <br>Código No. 03024</p>
+                  </div></a></div>
+              <div class="row"><a href="#"><img src="img/listing.jpg">
+                  <div class="listing__details">
+                    <h4>Apartamento z.14</h4>
+                    <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14  <br>Código No. 03024</p>
+                  </div></a></div>
+              <div class="row"><a href="#"><img src="img/listing.jpg">
+                  <div class="listing__details">
+                    <h4>Apartamento z.14</h4>
+                    <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14  <br>Código No. 03024</p>
+                  </div></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard__widget"><img src="img/widget1.png"></div>
+      <div class="dashboard__widget"><img src="img/widget2.png"></div>
+      <div class="dashboard__widget"><img src="img/widget3.png"></div>
+      <div class="dashboard__widget"><img src="img/widget4.png"></div>
+    </main>
+    <footer class="main-footer">
+      <div class="container__div">
+        <nav class="footer-nav">
+          <ul>
+            <li><a href="#">¿Quiénes somos?</a></li>
+            <li><a href="#">Términos y condiciones </a></li>
+            <li><a href="#">Contáctanos </a></li>
+            <li><a href="#">Blog </a></li>
+            <li><a href="#">FAQ'S </a></li>
+          </ul>
+        </nav>
+        <div class="copyright">
+          <p>Probns, Inc.</p>
+        </div>
+      </div>
+    </footer>
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script>
+      window.jQuery || document.write('<script src="assets/js/vendor/jquery.js"><\/script>')
+    </script>
+
+    <script src="assets/js/vendor/bootstrap.js"></script>
+    <script src="assets/js/vendor/ng/angular.js"></script>
+    <script src="assets/js/vendor/ng/angular-ui-router.js"></script>
+    <script src="assets/js/vendor/ng/angular-animate.js"></script>
+    <script src="assets/js/vendor/ng/ui-bootstrap.js"></script>
+    <script src="assets/js/vendor/ng/ui-bootstrap-tpls.js"></script>
+    <script src="assets/js/vendor/ng/angular-cookies.js"></script>
+    <script src="assets/js/vendor/ng/ui-notification.min.js"></script>
+    <script src="assets/js/vendor/ng/block-ui.js"></script>
+
+    <script src="assets/js/vendor/ng/local-storage.js"></script>
+    <script src="assets/js/vendor/class.js"></script>
+    <script src="assets/js/vendor/lodash.js"></script>
+    <script src="assets/js/vendor/is.js"></script>
+    <script src="assets/js/vendor/hmac-sha256.js"></script>
+    <script src="assets/js/vendor/enc-base64.js"></script>
+
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/config.js"></script>
+
+    <script src="assets/js/vendor/ng/toastr.js"></script>
+
+    <script src="Base/BaseService.js"></script>
+    <script src="Base/BaseNotificationService.js"></script>
+    <script src="Base/BaseController.js"></script>
+
+    <script src="Common/SignedRestService.js"></script>
+    <script src="Common/AuthenticatedRestService.js"></script>
+    <script src="Common/HttpInterceptor.js"></script>
+    <script src="Common/NotificacionService.js"></script>
+    <script src="Common/SessionService.js"></script>
+    <script src="Common/ModalService.js"></script>
+
+    <script src="Utils/UtilsService.js"></script>
+    <script src="Utils/Encrypt.js"></script>
+
+    <script src="User/services/UserService.js"></script>
+    <script src="User/services/RoleService.js"></script>
+    <script src="User/services/StatesService.js"></script>
+    <script src="User/controllers/UserController.js"></script>
+
+    <script src="Auth/models/AuthModel.js"></script>
+    <script src="Auth/services/AuthService.js"></script>
+    <script src="Auth/controllers/AuthController.js"></script>
+
+    <script src="LogoutUser/services/LogoutService.js"></script>
+    <script src="LogoutUser/controllers/LogoutController.js"></script>
+
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
