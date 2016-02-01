@@ -46,7 +46,15 @@ server.put("/tipousuario", controllers.tipoUsuario.putTipoUsuario);
 server.put("/tipousuario", controllers.tipoUsuario.deleteTipoUsuario);
 
 //Cliente
-//server.get("/clientes", controllers.cliente.getClientes);
+server.get("/usuario/getAll", controllers.usuario.getUsuarios);
+server.get("/usuario/getById/:id", controllers.usuario.getUsuarioById);
+server.post("/usuario/post/cliente", controllers.usuario.postCliente);
+server.post("/usuario/post/vendedor", controllers.usuario.postVendedor);
+server.put("/usuario/verificaEmail/:id", controllers.usuario.putVerificarEmailUsuario);
+server.put("/usuario/update/:id", controllers.usuario.putUsuario);
+server.put("/usuario/changePassword/:id", controllers.usuario.changePassword);
+server.put("/usuario/delete/:id", controllers.usuario.deleteUsuario);
+
 
 models.sequelize.sync();
 

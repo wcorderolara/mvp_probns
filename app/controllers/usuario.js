@@ -127,7 +127,7 @@ exports.postCliente = function (req, res, next){
 		status: 1,
 		tipoClienteId: req.body.tipoUsuarioId,
 		PaiId: req.body.Pai,
-		estadoUsuarioId: null
+		estadoUsuarioId: 1
 	}).then(function (cliente){
 		if(!cliente){
 			res.status(500);
@@ -179,8 +179,7 @@ exports.postVendedor = function(req,res,next){
 exports.putVerificarEmailUsuario = function (req, res, next){
 	models.Usuario.findOne({
 		where: {
-			id: req.params.id,
-			token: req.params.token
+			id: req.params.id
 		}
 	}).then(function (cliente){
 		if(!cliente){
