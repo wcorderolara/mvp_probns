@@ -73,9 +73,9 @@ module.exports = function (sequelize, DataTypes){
 						allowNull: false
 					}
 				});
-				Buscador.belongsToMany(models.Usuario, {foreignKey: {allowNull: false}});
+				Buscador.belongsTo(models.Usuario, {foreignKey: {allowNull: false}});
 				//Buscador.belongsTo(models.Vendedor, {foreignKey: {allowNull: false}});
-				Buscador.belongsToMany(models.Inmueble, {through: models.inmuebleBuscador, foreignKey: 'buscadorId'});
+				Buscador.belongsTo(models.Inmueble, {through: models.inmuebleBuscador, foreignKey: 'buscadorId'});
 				//Buscador.belongsToMany(models.tipoAccion, {through: models.accionesBuscador, foreignKey: 'buscadorid'});
 				Buscador.hasMany(models.Agenda);
 			}
