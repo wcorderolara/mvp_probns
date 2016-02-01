@@ -1,0 +1,20 @@
+autenticacion con token
+http://code.tutsplus.com/tutorials/token-based-authentication-with-angularjs-nodejs--cms-22543
+https://scotch.io/tutorials/the-ins-and-outs-of-token-based-authentication
+https://scotch.io/tutorials/the-anatomy-of-a-json-web-token
+https://auth0.com/blog/2014/01/07/angularjs-authentication-with-cookies-vs-token/
+
+https://carlosazaustre.es/blog/que-es-la-autenticacion-con-token/
+https://carlosazaustre.es/blog/autenticacion-con-token-en-node-js/
+https://carlosazaustre.es/blog/autenticacion-con-token-en-angularjs/
+
+http://www.kdelemme.com/2014/03/09/authentication-with-angularjs-and-a-node-js-rest-api/
+
+
+http://mherman.org/blog/2015/07/02/handling-user-authentication-with-the-mean-stack/#.Vq-JBrIrLDc
+https://realpython.com/blog/python/handling-user-authentication-with-angular-and-flask/
+https://github.com/passport/express-4.x-local-example
+
+ui-router
+
+https://github.com/angular-ui/ui-router
