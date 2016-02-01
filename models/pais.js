@@ -18,7 +18,7 @@ module.exports = function (sequelize, DataTypes){
 	},{
 		classMethods: {
 			associate: function(models){
-				Pais.hasOne(models.Cliente);
+				Pais.hasOne(models.Usuario);
 				Pais.hasMany(models.Departamento);
 			}
 		},

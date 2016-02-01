@@ -1,17 +1,25 @@
 module.exports = function (sequelize, DataTypes){
-	var Cliente = sequelize.define('Cliente', {
-		nombre: {
+	var Usuario = sequelize.define('Usuario', {
+		userLogin: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			unique: true,
+			validate: {
+				len: [2,150]
+			}
+		},
+		firstName: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
 				len: [5,150]
 			}
 		},
-		email: {
+		lastName: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			allowNull: true,
 			validate: {
-				isEmail: true
+				len: [5,150]
 			}
 		},
 		password: {
@@ -21,13 +29,20 @@ module.exports = function (sequelize, DataTypes){
 				len: [4, 150]
 			}
 		},
+		email: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			validate: {
+				isEmail: true
+			}
+		},
 		token:{
 			type: DataTypes.STRING,
 			allowNull: true
 		},
 		telefono1: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			allowNull: true,
 			validate: {
 				len: [8,15]
 			}
@@ -41,7 +56,7 @@ module.exports = function (sequelize, DataTypes){
 		},
 		direccion: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			allowNull: true,
 		},
 		website: {
 			type: DataTypes.STRING,
@@ -57,14 +72,8 @@ module.exports = function (sequelize, DataTypes){
 		},
 		verificadoEmail: {
 			type: DataTypes.BOOLEAN,
+			allowNull: true
 			defaultValue: false
-		},
-		fechaCreacion: {
-			type: DataTypes.DATE,
-			allowNull: true,
-			validate: {
-				isDate: true
-			}
 		},
 		status: {
 			type: DataTypes.BOOLEAN,
@@ -73,15 +82,18 @@ module.exports = function (sequelize, DataTypes){
 	},{
 		classMethods: {
 			associate: function(models){
-				Cliente.belongsTo(models.tipoCliente, {foreignKey: {allowNull: false}});
-				Cliente.belongsTo(models.Pais, {foreignKey: {allowNull: false }});
-				Cliente.belongsToMany(models.Inmueble, {through: models.inmuebleCliente, foreignKey: 'clienteId'});
-				Cliente.hasMany(models.Vendedor);
-				Cliente.hasMany(models.Buscador);
+				Usuario.belongsTo(models.tipoUsuario, {foreignKey: {allowNull: false}});
+				Usuario.belongsTo(models.Pais, {foreignKey: {allowNull: false }});
+				Usuario.belongsTo(models.estadoUsuario, {foreignKey: {allowNull: true}});
+				Usuario.belongsToMany(models.Inmueble, {through: models.inmuebleUsuario, foreignKey: 'usuarioId'});
+				Usuario.belongsToMany(models.tipoAccion, {through: models.accionesBuscador, foreignKey: 'usuarioId'});
+				Usuario.hasMany(models.Buscador);
+				Usuario.hasOne(models.Usuario, {as: 'Padre', foreignKey: {field: 'padreId', allowNull: true}});
+
 			}
 		},
 		freezeTableName: true,
-		tableName: 'cliente'
+		tableName: 'usuario'
 	})
 
 	return Cliente;

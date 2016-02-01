@@ -10,15 +10,17 @@ cloudinary.config({
 	api_secret: settings.cdn.api_secret
 })
 
-exports.getClientes = function (req, res, next){
-	models.Cliente.findAll({
+exports.getUsuarios = function (req, res, next){
+	models.Usuario.findAll({
 		where: {
 			status: 1
 		},
-		attributes: ['id','nombre','email','telefono1','telefono2','direccion','website','descripcion','fechaCreacion','status', 'tipoClienteId', 'PaiId', 'avatar'],
+		attributes: ['id','padreId','userLogin','firstName','lastName','email','telefono1','telefono2','direccion',
+							   'website','descripcion','createAt','status', 'tipoUsuarioId', 'PaiId','estadoUsuarioId',
+								 'avatar'],
 		include: [
 			{
-				model: models.tipoCliente,
+				model: models.tipoUsuario,
 				attributes: ['id','descripcion'],
 				where:{
 					status: 1
@@ -27,6 +29,13 @@ exports.getClientes = function (req, res, next){
 			{
 				model: models.Pais,
 				attributes: ['id', 'descripcion','flag'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.estadoUsuario,
+				attributes: ['id','descripcion'],
 				where: {
 					status: 1
 				}
@@ -56,8 +65,8 @@ exports.uploadAvatar = function(req, res, next){
 	});
 }
 
-exports.getClienteById = function (req, res, next){
-	models.Cliente.findOne({
+exports.getUsuarioById = function (req, res, next){
+	models.Usuario.findOne({
 		where: {
 			id: req.params.id,
 			status: 1
@@ -73,6 +82,13 @@ exports.getClienteById = function (req, res, next){
 			{
 				model: models.Pais,
 				attributes: ['id', 'descripcion','flag'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.estadoUsuario,
+				attributes: ['id','descripcion'],
 				where: {
 					status: 1
 				}
@@ -95,23 +111,23 @@ exports.getClienteById = function (req, res, next){
 	})
 }
 
+function genToken(){
+	return Math.random().toString(32).substring(2);
+}
+
 exports.postCliente = function (req, res, next){
 	models.Cliente.create({
-		nombre: req.body.nombre,
+		userLogin: req.body.userLogin,
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
 		email: req.body.email,
 		password: req.body.password,
-		token: req.body.token,
-		telefono1: req.body.telefono1,
-		telefono2: req.body.telefono2,
-		direccion: req.body.direccion,
-		website: req.body.website,
-		descripcion: req.body.descripcion,
-		avatar: req.body.avatar,
+		token: genToken(),
 		verificadoEmail: 0,
-		fechaCreacion: moment().format("DD-MM-YYYY"),
 		status: 1,
-		tipoClienteId: req.body.tipoClienteId,
-		PaiId: req.body.Pai
+		tipoClienteId: req.body.tipoUsuarioId,
+		PaiId: req.body.Pai,
+		estadoUsuarioId: null
 	}).then(function (cliente){
 		if(!cliente){
 			res.status(500);
@@ -129,8 +145,39 @@ exports.postCliente = function (req, res, next){
 	});
 };
 
-exports.putVerificarEmailCliente = function (req, res, next){
-	models.Cliente.findOne({
+exports.postVendedor = function(req,res,next){
+	models.Cliente.create({
+		userLogin: req.body.userLogin,
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		email: req.body.email,
+		password: req.body.password,
+		token: genToken(),
+		verificadoEmail: 0,
+		status: 1,
+		tipoClienteId: req.body.tipoUsuarioId,
+		PaiId: req.body.Pai,
+		estadoUsuarioId: null,
+		padreId: req.body.padreId
+	}).then(function (cliente){
+		if(!cliente){
+			res.status(500);
+			res.json({
+				type: false,
+				data: "Error al crear el registro: " + cliente
+			});
+		}else{
+			res.status(200);
+			res.json({
+				type: true,
+				data: "Registro creado exitosamente"
+			});
+		};
+	});
+};
+
+exports.putVerificarEmailUsuario = function (req, res, next){
+	models.Usuario.findOne({
 		where: {
 			id: req.params.id,
 			token: req.params.token
@@ -164,21 +211,23 @@ exports.putVerificarEmailCliente = function (req, res, next){
 	});
 };
 
-exports.putCliente = function(req, res, next){
-	models.Cliente.findOne({
+exports.putUsuario = function(req, res, next){
+	models.Usuario.findOne({
 		where: {
 			id: req.params.id
 		}
-	}).then(function (cliente){
-		if(!cliente){
+	}).then(function (usuario){
+		if(!usuario){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Registro no encontrado " + cliente
+				data: "Registro no encontrado " + usuario
 			});
 		}else{
-			cliente.update({
-				nombre: req.body.nombre,
+			Usuario.update({
+				userLogin: req.body.userLogin,
+				firstName: req.body.firstName,
+				lastName: req.body.lastName,
 				email: req.body.email,
 				telefono1: req.body.telefono1,
 				telefono2: req.body.telefono2,
@@ -186,14 +235,13 @@ exports.putCliente = function(req, res, next){
 				website: req.body.website,
 				descripcion: req.body.descripcion,
 				avatar: req.body.avatar,
-				tipoClienteId: req.body.tipoClienteId,
-				PaiId: req.body.Pai
-			}).then(function (_cliente){
-				if(!_cliente){
+				padreId: req.body.padreId,
+			}).then(function (_usuario){
+				if(!_usuario){
 					res.status(500);
 					res.json({
 						type: false,
-						data: "Error al actualizar el registro " + _cliente
+						data: "Error al actualizar el registro " + _usuario
 					});
 				}else{
 					res.status(200);
@@ -208,26 +256,26 @@ exports.putCliente = function(req, res, next){
 };
 
 exports.changePassword = function (req, res, next){
-	models.Cliente.findOne({
+	models.Usuario.findOne({
 		where: {
 			id: req.params.id
 		}
-	}).then(function (cliente){
-		if(!cliente){
+	}).then(function (usuario){
+		if(!usuario){
 			res.status(500);
 			res.json({
 				type: false,
 				data: "registro no encontrado"
 			});
 		}else{
-			cliente.update({
+			Usuario.update({
 				password: req.body.password
-			}).then(function (_cliente){
-				if(!_cliente){
+			}).then(function (_usuario){
+				if(!_usuario){
 					res.status(500);
 					res.json({
 						type: false,
-						data: "Hubo un error al actualizar su Password"
+						data: "Hubo un error al actualizar su Password: " + _usuario
 					});
 				}else{
 					res.status(200);
@@ -241,27 +289,27 @@ exports.changePassword = function (req, res, next){
 	});
 };
 
-exports.deleteCliente = function (req, res, next){
-	models.Cliente.findOne({
+exports.deleteUsuario = function (req, res, next){
+	models.Usuario.findOne({
 		where: {
 			id: req.params.id
 		}
-	}).then(function (cliente){
-		if(!cliente){
+	}).then(function (usuario){
+		if(!usuario){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Registro no encontrado " + cliente
+				data: "Registro no encontrado " + usuario
 			});
 		}else{
-			cliente.update({
+			Usuario.update({
 				status: 0
-			}).then(function (_cliente){
-				if(!_cliente){
+			}).then(function (_usuario){
+				if(!_usuario){
 					res.status(500);
 					res.json({
 						type: false,
-						data: "Error al eliminar el registro " + _cliente
+						data: "Error al eliminar el registro " + _usuario
 					});
 				}else{
 					res.status(200);

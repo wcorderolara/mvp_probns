@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes){
-	var estadoVendedor = sequelize.define('estadoVendedor', {
+	var estadoUsuario = sequelize.define('estadoUsuario', {
 		descripcion: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -14,11 +14,11 @@ module.exports = function (sequelize, DataTypes){
 	},{
 		classMethods: {
 			associate: function(models){
-				estadoVendedor.hasOne(models.Vendedor)
+				estadoUsuario.hasOne(models.Usuario)
 			}
 		},
 		freezeTableName: true,
 	});
 
-	return estadoVendedor;
+	return estadoUsuario;
 }

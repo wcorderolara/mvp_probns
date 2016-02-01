@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes){
-	var tipoCliente = sequelize.define('tipoCliente', {
+	var tipoUsuario = sequelize.define('tipoUsuario', {
 		descripcion: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -14,11 +14,11 @@ module.exports = function (sequelize, DataTypes){
 	},{
 		classMethods: {
 			associate: function(models){
-				tipoCliente.hasOne(models.Cliente);
+				tipoUsuario.hasOne(models.Usuario);
 			}
 		},
 		freezeTableName: true
 	});
 
-	return tipoCliente;
+	return tipoUsuario;
 }

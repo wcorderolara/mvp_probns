@@ -1,7 +1,7 @@
 var models = require('../../models');
 
-exports.getEstadosVendedor = function(req, res, next){
-	models.estadoVendedor.findAll({
+exports.getEstadosUsuario = function(req, res, next){
+	models.estadoUsuario.findAll({
 		where:{
 			status: 1
 		},
@@ -23,8 +23,8 @@ exports.getEstadosVendedor = function(req, res, next){
 	});
 };
 
-exports.getEstadoVendedorById = function(req, res, next){
-	models.estadoVendedor.findOne({
+exports.getEstadoUsuarioById = function(req, res, next){
+	models.estadoUsuario.findOne({
 		where:{
 			id: req.params.id
 		}
@@ -45,8 +45,8 @@ exports.getEstadoVendedorById = function(req, res, next){
 	});
 };
 
-exports.postEstadoCliente = function(req, res, next){
-	models.estadoVendedor.create({
+exports.postEstadoUsuario = function(req, res, next){
+	models.estadoUsuario.create({
 		descripcion: req.body.descripcion,
 		status: 1
 	}).then(function (response){
@@ -66,24 +66,24 @@ exports.postEstadoCliente = function(req, res, next){
 	});
 };
 
-exports.putEstadoVendedor = function(req, res, next){
-	models.estadoVendedor.findOne({
+exports.putEstadoUsuario = function(req, res, next){
+	models.estadoUsuario.findOne({
 		where:{
 			id: req.params.id
 		}
-	}).then(function (estadoVendedor){
-		if(!estadoVendedor){
+	}).then(function (estadoUsuario){
+		if(!estadoUsuario){
 			res.status(500);
 			res.json({
 				type: false,
 				data: "Registro no encontrado..."
 			});
 		}else{
-			estadoVendedor.update({
+			estadoUsuario.update({
 				descripcion: req.body.descripcion,
 				status: req.body.status
-			}).then(function (_estadoVendedor){
-				if(!_estadoVendedor){
+			}).then(function (_estadoUsuario){
+				if(!_estadoUsuario){
 					res.status(500);
 					res.json({
 						type: false,
@@ -101,23 +101,23 @@ exports.putEstadoVendedor = function(req, res, next){
 	});
 };
 
-exports.deleteEstadoVendedor = function(req, res, next){
-	models.estadoVendedor.findOne({
+exports.deleteEstadoUsuario = function(req, res, next){
+	models.estadoUsuario.findOne({
 		where:{
 			id: req.params.id
 		}
-	}).then(function (estadoVendedor){
-		if(!estadoVendedor){
+	}).then(function (estadoUsuario){
+		if(!estadoUsuario){
 			res.status(500);
 			res.json({
 				type: false,
 				data: "Registro no encontrado..."
 			});
 		}else{
-			estadoVendedor.update({
+			estadoUsuario.update({
 				status: 0
-			}).then(function (_estadoVendedor){
-				if(!_estadoVendedor){
+			}).then(function (_estadoUsuario){
+				if(!_estadoUsuario){
 					res.status(500);
 					res.json({
 						type: false,

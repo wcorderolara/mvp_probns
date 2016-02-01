@@ -19,7 +19,7 @@ module.exports = function (sequelize, DataTypes){
 	},{
 		classMethods: {
 			associate: function(models){
-				amenityInmueble.belongsTo(models.Inmueble);
+				amenityInmueble.belongsToMany(models.Inmueble);
 			}
 		},
 		freezeTableName: true

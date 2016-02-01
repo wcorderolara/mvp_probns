@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes){
 
-	var inmuebleCliente = sequelize.define("inmuebleCliente",{
+	var inmuebleUsuario = sequelize.define("inmuebleUsuario",{
 		status: {
 			type: DataTypes.BOOLEAN,
 			allowNull: true
@@ -9,5 +9,5 @@ module.exports = function (sequelize, DataTypes){
 		freezeTableName: true
 	})
 
-	return inmuebleCliente;
+	return inmuebleUsuario;
 }
