@@ -72,7 +72,7 @@ module.exports = function (sequelize, DataTypes){
 		},
 		verificadoEmail: {
 			type: DataTypes.BOOLEAN,
-			allowNull: true
+			allowNull: true,
 			defaultValue: false
 		},
 		status: {
@@ -88,6 +88,7 @@ module.exports = function (sequelize, DataTypes){
 				Usuario.belongsToMany(models.Inmueble, {through: models.inmuebleUsuario, foreignKey: 'usuarioId'});
 				Usuario.belongsToMany(models.tipoAccion, {through: models.accionesBuscador, foreignKey: 'usuarioId'});
 				Usuario.hasMany(models.Buscador);
+				Usuario.hasMany(models.Agenda);
 				Usuario.hasOne(models.Usuario, {as: 'Padre', foreignKey: {field: 'padreId', allowNull: true}});
 
 			}
@@ -96,5 +97,5 @@ module.exports = function (sequelize, DataTypes){
 		tableName: 'usuario'
 	})
 
-	return Cliente;
+	return Usuario;
 }

@@ -14,7 +14,7 @@ module.exports = function (sequelize, DataTypes){
 	},{
 		classMethods:{
 			associate: function(models){
-					Agenda.belongsTo(models.Vendedor, {foreignKey: {allowNull: false}});
+					Agenda.belongsTo(models.Usuario, {foreignKey: {allowNull: false}});
 					Agenda.belongsTo(models.Buscador, {foreignKey: {allowNull: false}});
 					Agenda.belongsTo(models.Inmueble, {foreignKey: {allowNull: false}});
 					Agenda.belongsTo(models.estadoCita, {foreignKey: {allowNull: false}});
