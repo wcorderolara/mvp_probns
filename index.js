@@ -46,7 +46,7 @@ server.put("/tipousuario", controllers.tipoUsuario.putTipoUsuario);
 server.put("/tipousuario", controllers.tipoUsuario.deleteTipoUsuario);
 
 //Cliente
-server.get("/clientes", controllers.cliente.getClientes);
+//server.get("/clientes", controllers.cliente.getClientes);
 
 models.sequelize.sync();
 

@@ -62,7 +62,7 @@ module.exports = function (sequelize, DataTypes){
 						allowNull: false
 					}
 				});
-				Buscador.belongsTo(models.Vendedor, {
+				Buscador.belongsTo(models.Usuario, {
 					foreignKey:{
 						allowNull: false
 					},
