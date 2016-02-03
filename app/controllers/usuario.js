@@ -112,20 +112,22 @@ exports.getUsuarioById = function (req, res, next){
 }
 
 function genToken(){
-	return Math.random().toString(32).substring(2);
+	var token = Math.random().toString(32).substring(2);
+console.log(token);
+	return token;
 }
 
 exports.postCliente = function (req, res, next){
-	models.Cliente.create({
+	models.Usuario.create({
 		userLogin: req.body.userLogin,
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
-		email: req.body.email,
+		email: req.body.userLogin,
 		password: req.body.password,
 		token: genToken(),
 		verificadoEmail: 0,
 		status: 1,
-		tipoClienteId: req.body.tipoUsuarioId,
+		tipoUsuarioId: req.body.tipoUsuarioId,
 		PaiId: req.body.Pai,
 		estadoUsuarioId: 1
 	}).then(function (cliente){
@@ -146,16 +148,16 @@ exports.postCliente = function (req, res, next){
 };
 
 exports.postVendedor = function(req,res,next){
-	models.Cliente.create({
+	models.Usuario.create({
 		userLogin: req.body.userLogin,
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
-		email: req.body.email,
+		email: req.body.userLogin,
 		password: req.body.password,
 		token: genToken(),
 		verificadoEmail: 0,
 		status: 1,
-		tipoClienteId: req.body.tipoUsuarioId,
+		tipoUsuarioId: req.body.tipoUsuarioId,
 		PaiId: req.body.Pai,
 		estadoUsuarioId: null,
 		padreId: req.body.padreId
