@@ -16,7 +16,7 @@ exports.getUsuarios = function (req, res, next){
 			status: 1
 		},
 		attributes: ['id','padreId','userLogin','firstName','lastName','email','telefono1','telefono2','direccion',
-							   'website','descripcion','createAt','status', 'tipoUsuarioId', 'PaiId','estadoUsuarioId',
+							   'website','descripcion','createdAt','status', 'tipoUsuarioId', 'PaiId','estadoUsuarioId',
 								 'avatar'],
 		include: [
 			{
@@ -121,15 +121,15 @@ exports.postCliente = function (req, res, next){
 	models.Usuario.create({
 		userLogin: req.body.userLogin,
 		firstName: req.body.firstName,
-		lastName: req.body.lastName,
+		lastName: req.body.lastName || null,
 		email: req.body.userLogin,
 		password: req.body.password,
 		token: genToken(),
 		verificadoEmail: 0,
 		status: 1,
 		tipoUsuarioId: req.body.tipoUsuarioId,
-		PaiId: req.body.Pai,
-		estadoUsuarioId: 1
+		PaiId: req.body.PaiId,
+		estadoUsuarioId: req.body.estadoUsuarioId || 1
 	}).then(function (cliente){
 		if(!cliente){
 			res.status(500);
@@ -151,15 +151,15 @@ exports.postVendedor = function(req,res,next){
 	models.Usuario.create({
 		userLogin: req.body.userLogin,
 		firstName: req.body.firstName,
-		lastName: req.body.lastName,
+		lastName: req.body.lastName || null,
 		email: req.body.userLogin,
 		password: req.body.password,
 		token: genToken(),
 		verificadoEmail: 0,
 		status: 1,
 		tipoUsuarioId: req.body.tipoUsuarioId,
-		PaiId: req.body.Pai,
-		estadoUsuarioId: null,
+		PaiId: req.body.PaiId,
+		estadoUsuarioId: req.body.estadoUsuarioId || 1,
 		padreId: req.body.padreId
 	}).then(function (cliente){
 		if(!cliente){

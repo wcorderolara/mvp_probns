@@ -18,6 +18,7 @@ module.exports = function (sequelize, DataTypes){
 		lastName: {
 			type: DataTypes.STRING,
 			allowNull: true,
+			defaultValue: null,
 			validate: {
 				len: [5,150]
 			}
@@ -38,11 +39,13 @@ module.exports = function (sequelize, DataTypes){
 		},
 		token:{
 			type: DataTypes.STRING,
-			allowNull: true
+			allowNull: true,
+			defaultValue: null
 		},
 		telefono1: {
 			type: DataTypes.STRING,
 			allowNull: true,
+			defaultValue: null,
 			validate: {
 				len: [8,15]
 			}
@@ -50,6 +53,7 @@ module.exports = function (sequelize, DataTypes){
 		telefono2: {
 			type: DataTypes.STRING,
 			allowNull: true,
+			defaultValue: null,
 			validate: {
 				len: [8,15]
 			}
@@ -57,18 +61,22 @@ module.exports = function (sequelize, DataTypes){
 		direccion: {
 			type: DataTypes.STRING,
 			allowNull: true,
+			defaultValue: null
 		},
 		website: {
 			type: DataTypes.STRING,
-			allowNull: true
+			allowNull: true,
+			defaultValue: null
 		},
 		descripcion: {
 			type: DataTypes.STRING,
-			allowNull: true
+			allowNull: true,
+			defaultValue: null
 		},
 		avatar: {
 			type: DataTypes.STRING,
-			allowNull: true
+			allowNull: true,
+			defaultValue: null
 		},
 		verificadoEmail: {
 			type: DataTypes.BOOLEAN,
