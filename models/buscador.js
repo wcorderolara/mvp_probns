@@ -31,6 +31,7 @@ module.exports = function (sequelize, DataTypes){
 		telefono2: {
 			type: DataTypes.STRING,
 			allowNull: true,
+			defaultValue: null,
 			validate: {
 				len: [8,15]
 			}
@@ -39,15 +40,13 @@ module.exports = function (sequelize, DataTypes){
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		fechaCreacion: {
-			type: DataTypes.DATE,
-			allowNull: true,
-			validate: {
-				isDate: true
-			}
-		},
 		ultimaAccion: {
 			type: DataTypes.STRING,
+			allowNull: true
+		},
+		presupuesto: {
+			type: DataTypes.DECIMAL(18,2),
+			defaultValue: null,
 			allowNull: true
 		},
 		status: {

@@ -16,7 +16,8 @@ exports.getInmuebles = function (req, res, next){
 		where: {
 			status: 1
 		},
-		attributes: ['id','nombre', 'apellido','email','telefono','avatar','fechaCreacion','status', 'ClienteId', 'estadoVendedorId'],
+		attributes: ['id','nombre', 'apellido','email','telefono','avatar','fechaCreacion','createdAt',
+					 'status', 'ClienteId', 'estadoVendedorId'],
 		include: [
 			{
 				model: models.Cliente,

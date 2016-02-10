@@ -138,6 +138,7 @@ exports.postCliente = function (req, res, next){
 				data: "Error al crear el registro: " + cliente
 			});
 		}else{
+			console.log(cliente.id);
 			res.status(200);
 			res.json({
 				type: true,
