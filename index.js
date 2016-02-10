@@ -46,8 +46,10 @@ server.put("/tipousuario", controllers.tipoUsuario.putTipoUsuario);
 server.put("/tipousuario", controllers.tipoUsuario.deleteTipoUsuario);
 
 //Cliente
-server.get("/usuario/getAll", controllers.usuario.getUsuarios);
-server.get("/usuario/getById/:id", controllers.usuario.getUsuarioById);
+server.get("/usuario/all/getClientes", controllers.usuario.getUsuarios);
+server.get("/usuario/all/getVendedores/:padreId", controllers.usuario.getVendedoresByPadre);
+server.get("/usuario/getCliente/:id", controllers.usuario.getUsuarioById);
+server.get("/usuario/getVendedor/:padreId/:id", controllers.usuario.getVendedorById);
 server.post("/usuario/post/cliente", controllers.usuario.postCliente);
 server.post("/usuario/post/vendedor", controllers.usuario.postVendedor);
 server.put("/usuario/verificaEmail/:id", controllers.usuario.putVerificarEmailUsuario);

@@ -13,7 +13,8 @@ cloudinary.config({
 exports.getUsuarios = function (req, res, next){
 	models.Usuario.findAll({
 		where: {
-			status: 1
+			status: 1,
+			padreId: null
 		},
 		attributes: ['id','padreId','userLogin','firstName','lastName','email','telefono1','telefono2','direccion',
 							   'website','descripcion','createdAt','status', 'tipoUsuarioId', 'PaiId','estadoUsuarioId',
@@ -39,9 +40,73 @@ exports.getUsuarios = function (req, res, next){
 				where: {
 					status: 1
 				}
+			},
+			{
+				model: models.Usuario,
+				attributes: ['id', 'firstName', 'userLogin'],
+				where: {
+					status: 1					
+				}
 			}
 		],
 		order: 'PaiId'
+	}).then(function (clientes){
+		if(!clientes){
+			res.status(500);
+			res.json({
+				type: false,
+				data: "Error al obtener los clientes" + clientes
+			});
+		}else{
+			res.status(200);
+			res.json({
+				type: true,
+				data: clientes
+			});
+		};
+	});
+};
+
+exports.getVendedoresByPadre = function (req, res, next){
+	models.Usuario.findAll({
+		where: {
+			status: 1,
+			padreId: req.params.padreId
+		},
+		attributes: ['id','padreId','userLogin','firstName','lastName','email','telefono1','telefono2','direccion',
+							   'website','descripcion','createdAt','status', 'tipoUsuarioId', 'PaiId','estadoUsuarioId',
+								 'avatar'],
+		include: [
+			{
+				model: models.tipoUsuario,
+				attributes: ['id','descripcion'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.Pais,
+				attributes: ['id', 'descripcion','flag'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.estadoUsuario,
+				attributes: ['id','descripcion'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.Usuario,
+				attributes: ['id', 'firstName', 'userLogin'],
+				where: {
+					status: 1,
+					padreId: req.params.padreId			
+				}
+			}
+		]
 	}).then(function (clientes){
 		if(!clientes){
 			res.status(500);
@@ -111,9 +176,62 @@ exports.getUsuarioById = function (req, res, next){
 	})
 }
 
+exports.getVendedorById = function (req, res, next){
+	models.Usuario.findOne({
+		where: {
+			id: req.params.id,
+			status: 1
+		},
+		include: [
+			{
+				model: models.tipoCliente,
+				attributes: ['id','descripcion'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.Pais,
+				attributes: ['id', 'descripcion','flag'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.estadoUsuario,
+				attributes: ['id','descripcion'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.Usuario,
+				attributes: ['id', 'firstName', 'userLogin'],
+				where: {
+					status: 1,
+					padreId: req.params.padreId		
+				}
+			}
+		]
+	}).then(function (cliente){
+		if(!cliente){
+			res.status(500);
+			res.json({
+				type: false,
+				data: "Error al obtener el registro" + cliente
+			});
+		}else{
+			res.status(200);
+			res.json({
+				type: false,
+				data: cliente
+			})
+		}
+	})
+}
+
 function genToken(){
 	var token = Math.random().toString(32).substring(2);
-console.log(token);
 	return token;
 }
 
@@ -138,7 +256,6 @@ exports.postCliente = function (req, res, next){
 				data: "Error al crear el registro: " + cliente
 			});
 		}else{
-			console.log(cliente.id);
 			res.status(200);
 			res.json({
 				type: true,
@@ -149,6 +266,7 @@ exports.postCliente = function (req, res, next){
 };
 
 exports.postVendedor = function(req,res,next){
+	console.log(req.body);
 	models.Usuario.create({
 		userLogin: req.body.userLogin,
 		firstName: req.body.firstName,
