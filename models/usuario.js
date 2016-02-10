@@ -97,7 +97,7 @@ module.exports = function (sequelize, DataTypes){
 				Usuario.belongsToMany(models.tipoAccion, {through: models.accionesBuscador, foreignKey: 'usuarioId'});
 				Usuario.hasMany(models.Buscador);
 				Usuario.hasMany(models.Agenda);
-				Usuario.hasOne(models.Usuario, {as: 'Padre', foreignKey: {name: 'padreId',field: 'padreId', allowNull: true}});
+				Usuario.belongsTo(models.Usuario, {as: 'Padre', foreignKey: {name: 'padreId',field: 'padreId', allowNull: true}});
 
 			}
 		},
