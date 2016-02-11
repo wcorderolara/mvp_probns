@@ -101,6 +101,7 @@ exports.getVendedoresByPadre = function (req, res, next){
 			},
 			{
 				model: models.Usuario,
+				as: 'Padre',
 				attributes: ['id', 'firstName', 'userLogin'],
 				where: {
 					status: 1,
