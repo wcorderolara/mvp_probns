@@ -43,9 +43,10 @@ exports.getUsuarios = function (req, res, next){
 			},
 			{
 				model: models.Usuario,
+				as: 'Padre',
 				attributes: ['id', 'firstName', 'userLogin'],
 				where: {
-					status: 1					
+					status: 1
 				}
 			}
 		],
@@ -103,7 +104,7 @@ exports.getVendedoresByPadre = function (req, res, next){
 				attributes: ['id', 'firstName', 'userLogin'],
 				where: {
 					status: 1,
-					padreId: req.params.padreId			
+					padreId: req.params.padreId
 				}
 			}
 		]
@@ -209,7 +210,7 @@ exports.getVendedorById = function (req, res, next){
 				attributes: ['id', 'firstName', 'userLogin'],
 				where: {
 					status: 1,
-					padreId: req.params.padreId		
+					padreId: req.params.padreId
 				}
 			}
 		]
