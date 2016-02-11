@@ -159,6 +159,15 @@ exports.getUsuarioById = function (req, res, next){
 				where: {
 					status: 1
 				}
+			},
+			{
+				model: models.Usuario,
+				as: 'Padre',
+				attributes: ['id', 'firstName', 'userLogin'],
+				where: {
+					status: 1,
+					padreId: req.params.padreId
+				}
 			}
 		]
 	}).then(function (cliente){
@@ -208,6 +217,7 @@ exports.getVendedorById = function (req, res, next){
 			},
 			{
 				model: models.Usuario,
+				as: 'Padre',
 				attributes: ['id', 'firstName', 'userLogin'],
 				where: {
 					status: 1,
