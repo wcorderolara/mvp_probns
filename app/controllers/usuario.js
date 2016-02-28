@@ -17,8 +17,8 @@ exports.getUsuarios = function (req, res, next){
 			padreId: null
 		},
 		attributes: ['id','padreId','userLogin','firstName','lastName','email','telefono1','telefono2','direccion',
-							   'website','descripcion','createdAt','status', 'tipoUsuarioId', 'PaiId','estadoUsuarioId',
-								 'avatar'],
+					 'website','descripcion','createdAt','status', 'tipoUsuarioId', 'PaiId','estadoUsuarioId',
+					 'avatar'],
 		include: [
 			{
 				model: models.tipoUsuario,
@@ -75,8 +75,8 @@ exports.getVendedoresByPadre = function (req, res, next){
 			padreId: req.params.padreId
 		},
 		attributes: ['id','padreId','userLogin','firstName','lastName','email','telefono1','telefono2','direccion',
-							   'website','descripcion','createdAt','status', 'tipoUsuarioId', 'PaiId','estadoUsuarioId',
-								 'avatar'],
+					 'website','descripcion','createdAt','status', 'tipoUsuarioId', 'PaiId','estadoUsuarioId',
+					 'avatar'],
 		include: [
 			{
 				model: models.tipoUsuario,
@@ -140,7 +140,7 @@ exports.getUsuarioById = function (req, res, next){
 		},
 		include: [
 			{
-				model: models.tipoCliente,
+				model: models.tipoUsuario,
 				attributes: ['id','descripcion'],
 				where:{
 					status: 1
@@ -195,7 +195,7 @@ exports.getVendedorById = function (req, res, next){
 		},
 		include: [
 			{
-				model: models.tipoCliente,
+				model: models.tipoUsuario,
 				attributes: ['id','descripcion'],
 				where:{
 					status: 1
@@ -230,7 +230,7 @@ exports.getVendedorById = function (req, res, next){
 			res.status(500);
 			res.json({
 				type: false,
-				data: "Error al obtener el registro" + cliente
+				data: "Error al obtener el registro " + cliente
 			});
 		}else{
 			res.status(200);
