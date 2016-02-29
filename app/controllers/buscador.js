@@ -152,6 +152,10 @@ exports.postBuscador = function (req, res, next){
 	});
 };
 
+exports.addInmuebleBuscador = function (req, res, next){
+	models.Buscador.create
+}
+
 exports.putBuscador = function (req, res, next){
 	models.Buscador.findOne({
 		where:{
