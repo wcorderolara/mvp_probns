@@ -56,25 +56,12 @@ module.exports = function (sequelize, DataTypes){
 	},{
 		classMethods: {
 			associate: function(models){
-				Buscador.belongsTo(models.tipoBuscador, {
-					foreignKey: {
-						allowNull: false
-					}
-				});
-				Buscador.belongsTo(models.Usuario, {
-					foreignKey:{
-						allowNull: false
-					},
-					as: 'vendedorAsignado'
-				});
-				Buscador.belongsTo(models.estadoBuscador, {
-					foreignKey: {
-						allowNull: false
-					}
-				});
-				Buscador.belongsTo(models.Usuario, {foreignKey: {allowNull: false}});
+				Buscador.belongsTo(models.tipoBuscador, {foreignKey: { allowNull: false }});
+				Buscador.belongsTo(models.Usuario, {as: 'vendedorAsignado', foreignKey:{ name: 'vendedorAsignadoId', field:'vendedorAsignadoId', allowNull: true}});
+				Buscador.belongsTo(models.estadoBuscador, {foreignKey: {allowNull: false}});
+				Buscador.belongsTo(models.Usuario, {as: 'agenciaAsociada', foreignKey:{name:'agenciaAsociadaId', field: 'agenciaAsociadaId', allowNull: false}});
 				//Buscador.belongsTo(models.Vendedor, {foreignKey: {allowNull: false}});
-				Buscador.belongsTo(models.Inmueble, {through: models.inmuebleBuscador, foreignKey: 'buscadorId'});
+				Buscador.belongsToMany(models.Inmueble, {through: models.inmuebleBuscador, foreignKey: 'buscadorId'});
 				//Buscador.belongsToMany(models.tipoAccion, {through: models.accionesBuscador, foreignKey: 'buscadorid'});
 				Buscador.hasMany(models.Agenda);
 			}
