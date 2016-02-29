@@ -52,6 +52,7 @@ server.get("/usuario/get/clienteById/:id", controllers.usuario.getUsuarioById);
 server.get("/usuario/getVendedor/:padreId/:id", controllers.usuario.getVendedorById);
 server.post("/usuario/post/cliente", controllers.usuario.postCliente);
 server.post("/usuario/post/vendedor", controllers.usuario.postVendedor);
+server.post("/usuario/upload/avatar", controllers.usuario.uploadAvatar);
 server.put("/usuario/verificaEmail/:id", controllers.usuario.putVerificarEmailUsuario);
 server.put("/usuario/update/:id", controllers.usuario.putUsuario);
 server.put("/usuario/changePassword/:id", controllers.usuario.changePassword);

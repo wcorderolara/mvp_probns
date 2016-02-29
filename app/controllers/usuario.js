@@ -13,8 +13,7 @@ cloudinary.config({
 exports.getUsuarios = function (req, res, next){
 	models.Usuario.findAll({
 		where: {
-			status: 1,
-			padreId: null
+			status: 1
 		},
 		attributes: ['id','padreId','userLogin','firstName','lastName','email','telefono1','telefono2','direccion',
 					 'website','descripcion','createdAt','status', 'tipoUsuarioId', 'PaiId','estadoUsuarioId',
@@ -37,14 +36,6 @@ exports.getUsuarios = function (req, res, next){
 			{
 				model: models.estadoUsuario,
 				attributes: ['id','descripcion'],
-				where: {
-					status: 1
-				}
-			},
-			{
-				model: models.Usuario,
-				as: 'Padre',
-				attributes: ['id', 'firstName', 'userLogin'],
 				where: {
 					status: 1
 				}
@@ -104,8 +95,7 @@ exports.getVendedoresByPadre = function (req, res, next){
 				as: 'Padre',
 				attributes: ['id', 'firstName', 'userLogin'],
 				where: {
-					status: 1,
-					padreId: req.params.padreId
+					status: 1
 				}
 			}
 		]
@@ -127,8 +117,8 @@ exports.getVendedoresByPadre = function (req, res, next){
 };
 
 exports.uploadAvatar = function(req, res, next){
-	cloudinary.uploader.upload(req.files.avatar, function(result, callback){
-			return callback(result);
+	cloudinary.uploader.upload(req.files.avatar.path, function(result, callback){
+		return callback(result);
 	});
 }
 
@@ -159,15 +149,6 @@ exports.getUsuarioById = function (req, res, next){
 				where: {
 					status: 1
 				}
-			},
-			{
-				model: models.Usuario,
-				as: 'Padre',
-				attributes: ['id', 'firstName', 'userLogin'],
-				where: {
-					status: 1,
-					padreId: req.params.padreId
-				}
 			}
 		]
 	}).then(function (cliente){
@@ -180,7 +161,7 @@ exports.getUsuarioById = function (req, res, next){
 		}else{
 			res.status(200);
 			res.json({
-				type: false,
+				type: true,
 				data: cliente
 			})
 		}
@@ -191,6 +172,7 @@ exports.getVendedorById = function (req, res, next){
 	models.Usuario.findOne({
 		where: {
 			id: req.params.id,
+			padreId: req.params.padreId,
 			status: 1
 		},
 		include: [
@@ -220,8 +202,8 @@ exports.getVendedorById = function (req, res, next){
 				as: 'Padre',
 				attributes: ['id', 'firstName', 'userLogin'],
 				where: {
-					status: 1,
-					padreId: req.params.padreId
+					status: 1
+					
 				}
 			}
 		]
@@ -235,7 +217,7 @@ exports.getVendedorById = function (req, res, next){
 		}else{
 			res.status(200);
 			res.json({
-				type: false,
+				type: true,
 				data: cliente
 			})
 		}
@@ -278,7 +260,6 @@ exports.postCliente = function (req, res, next){
 };
 
 exports.postVendedor = function(req,res,next){
-	console.log(req.body);
 	models.Usuario.create({
 		userLogin: req.body.userLogin,
 		firstName: req.body.firstName,
