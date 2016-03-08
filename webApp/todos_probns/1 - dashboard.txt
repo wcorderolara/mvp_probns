@@ -1,0 +1,23 @@
+Vista de Cuenta --Index al entrar al dashboard--
+
+Estructura Backend
+
+1. obtener la informacion del usuario logeado (mientras un usuario generico) []
+2. Obtener el listing de propiedades que la agencia tiene asociadas []
+3. Obtener el listing de todos los agentes que tiene (posible offset de 5 para paginacion) []
+
+opt
+4. verificar si se puede tener el tracking de las 4 propidades mas visitadas []
+5. verificar si se puede tener el tracking de las 4 propiedades menos visitadas []
+
+Estructura FrontEnd
+
+1. crear servicio para obtener la informcion del usuario logeado []
+2. crear servicio para obtener el listing de propiedades que la agencia tiene asociadas []
+3. crear servicio para obtener el listing de agentes que tiene la agencia [] 
+4. crear el controller para esta vista
+
+
+EDICION
+1. crear la opcion para que el usuario pueda cambiar su imagen de perfil []
+2. crear el servicio para subir imagen del lado del cliente

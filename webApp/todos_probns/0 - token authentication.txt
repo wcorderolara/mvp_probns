@@ -1,0 +1,20 @@
+Autenticacion por medio de Token 
+
+Estructura del lado del backend
+
+1. crear el modelo para login []
+2. crear el servidor para pruebas [] 
+3. crear las urls para signin y signup []
+4. crear el middleware para verificar el login []
+5. crear la url a la cual tendra acceso unicamente si esta logueado []
+6. crear los metodos para signin, signup & private []
+7. en le servidor verficar que se pueda correr el allow origin All []
+
+Estructura del lado del FrontEnd
+
+1. Crear las vistas para login & signin []
+2. Crear el app para angular []
+3. Crear los controladores respectivos[]
+4. Crear un servicio para implementar el API []
+5. Crear una estructura para almacenar en localstorate el token []
+
