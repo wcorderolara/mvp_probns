@@ -43,11 +43,18 @@ exports.postInmueble = function (req, res, next){
 		if(!inmueble){
 			sendJSONresponse(res, 400, {"type": false, "data": "Error al agregar la propiedad: " + inmueble});
 		}else{
+			model.Usuario.findOne({
+				where: {
+					id: req.body.userId
+				}
+			}).then(function (user){
+				user.addInmuebles(inmueble, {status: 1})
+			})
 			//inmueble.setUsuarios(req.body.userId);
 			models.Usuario.addInmuebles(inmueble, {status: 1, usuarioId: req.body.userId});
 			//uploadImagenesInmueble(res, req.body.imagenesInmueble, inmueble);
 			//uploadAmenitiesInmueble(res, req.body.amenitiesInmueble, inmueble);
-			//sendJSONresponse(res,200, {"type":true, "data": inmueble, "message": "Propiedad creada exitosamente"})
+			sendJSONresponse(res,200, {"type":true, "data": inmueble, "message": "Propiedad creada exitosamente"})
 		}
 	})
 }
