@@ -2,7 +2,7 @@ module.exports = function (sequelize, DataTypes){
 
 	var Inmueble = sequelize.define("Inmueble",{
 		descripcion: {
-			type: DataTypes.STRING,
+			type: DataTypes.TEXT,
 			allowNull: false
 		},
 		precioPropiedad: {
@@ -42,7 +42,7 @@ module.exports = function (sequelize, DataTypes){
 			type: DataTypes.FLOAT,
 			allowNull: true
 		},
-		anoConstruccion: {
+		anioConstruccion: {
 			type: DataTypes.INTEGER,
 			allowNull: true
 		},
@@ -53,6 +53,11 @@ module.exports = function (sequelize, DataTypes){
 		status: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
+		},
+		numeroVisitas: {
+			type: DataTypes:INTEGER,
+			allowNull: true,
+			defaultValue: 0
 		}
 	}, {
 		classMethods:{
@@ -61,12 +66,14 @@ module.exports = function (sequelize, DataTypes){
 				Inmueble.belongsToMany(models.Usuario, {through: models.inmuebleUsuario, foreignKey: 'inmuebleId'});
 				//Inmueble.belongsToMany(models.Vendedor, {through: models.inmuebleVendedor, foreignKey: 'inmuebleId'});
 				Inmueble.belongsToMany(models.Anunciantes, {through: models.anuncianteInmueble, foreignKey: 'inmuebleId'});
+				
 				Inmueble.belongsTo(models.tipoInmueble, {foreignKey: {allowNull: false} } );
 				Inmueble.belongsTo(models.estadoInmueble, {foreignKey: {allowNull: false } } );
 				Inmueble.belongsTo(models.operacionInmueble, {foreignKey: {allowNull: false } } );
 				Inmueble.belongsTo(models.Pais, {foreignKey: {allowNull: false } } );
 				Inmueble.belongsTo(models.Departamento, {foreignKey: {allowNull: false } } );
 				Inmueble.belongsTo(models.Municipio, {foreignKey: {allowNull: false } } );
+
 				Inmueble.hasMany(models.imagenInmueble);
 				Inmueble.hasMany(models.amenityInmueble);
 				Inmueble.hasMany(models.Agenda);

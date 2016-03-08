@@ -5,13 +5,94 @@ var cloudinary = require('cloudinary');
 var settings = require('../../settings');
 
 cloudinary.config({
-	cloud_name: settings.cdn.cloud_name,
-	api_key: settings.cdn.api_key,
-	api_secret: settings.cdn.api_secret
+	cloud_name: process.env.CDN_NAME,
+	api_key: process.env.CDN_API_KEY,
+	api_secret: process.env.CDN_API_SECRET
 })
 
+var sendJSONresponse = function(res, status, content){
+	res.status(status);
+	res.json(content);
+}
 //Inmuebles
-exports.getInmuebles = function (req, res, next){
+exports.uploadImage = function(req, res, next){
+	cloudinary.uploader.upload(req.files.img_property, function(result, callback){
+		sendJSONresponse(res,200, {"image": result});
+	});
+}
+
+exports.postInmueble = function (req, res, next){
+	models.Inmueble.create({
+		descripcion: req.body.descripcion || "",
+		precioPropiedad: req.body.precioPropiedad,
+		direccionCorta: req.body.direccionCorta,
+		direccion: req.body.direccion,
+		latitud: req.body.latitud || "",
+		longitud: req.body.longitud || "",
+		extensionPropiedad: req.body.extensionPropiedad || "",
+		areaConstruccion: req.body.areaConstruccion || "",
+		anioConstruccion: req.body.anioConstruccion || "",
+		observaciones: req.body.observaciones || "",
+		DepartamentoId: req.body.DepartamentoId,
+		estadoInmuebleId: req.body.estadoInmuebleId,
+		tipoInmuebleId: req.body.tipoInmuebleId,
+		operacionInmuebleId: req.body.operacionInmuebleId,
+		PaiId: req.body.PaiId,
+		MunicipioId: req.body.paiId
+	}).then(function (inmueble){
+		if(!inmueble){
+			sendJSONresponse(res, 400, {"type": false, "data": "Error al agregar la propiedad: " + inmueble});
+		}else{
+			//inmueble.setUsuarios(req.body.userId);
+			models.Usuario.addInmuebles(inmueble, {status: 1, usuarioId: req.body.userId});
+			//uploadImagenesInmueble(res, req.body.imagenesInmueble, inmueble);
+			//uploadAmenitiesInmueble(res, req.body.amenitiesInmueble, inmueble);
+			//sendJSONresponse(res,200, {"type":true, "data": inmueble, "message": "Propiedad creada exitosamente"})
+		}
+	})
+}
+
+function uploadImagenesInmueble (res, imagenesInmuebleArray, inmueble){
+	var arrayImagenes = [];
+	arrayImagenes = imagenesInmuebleArray;
+	arrayImagenes.forEach(function (item){
+		models.imagenInmueble.create({
+			cdnId: item.public_id,
+			path: item.img_url,
+			descripcion: item.descripcion || "",
+			status: 1,
+			InmuebleId: inmueble.id
+		}).then(function (imagen){
+			if(!imagen){
+				sendJSONresponse(res,400,{"type":false, "data": "Error al agregar la imagen: " + imagen});
+			}else{
+				sendJSONresponse(res,200,{"type":true, "data": "Imagen: " + imagen.descripcion + " agregada con exito!"});
+			}
+		})
+	})
+}
+
+function uploadAmenitiesInmueble (res, amenitiesInmuebleArray, inmueble){
+	var arrayAmenities = [];
+	arrayAmenities = amenitiesInmuebleArray;
+
+	arrayAmenities.forEach(function (item){
+		models.amenityInmueble.create({
+			descripcion: item.descripcion,
+			cantidad: item.cantidad,
+			status: 1,
+			InmuebleId: inmueble.id
+		}).then(function (amenity){
+			if(!amenity){
+				sendJSONresponse(res,400,{"type":false, "data": "Error al agregar la amenidad: " + amenity});
+			}else{
+				sendJSONresponse(res,200,{"type":true, "data": "Amenidad: " + amenity.descripcion + " agregada con exito!"});
+			}
+		})
+	})
+}
+
+/*exports.getInmuebles = function (req, res, next){
 	models.Inmueble.findAll({
 		where: {
 			status: 1
@@ -51,12 +132,6 @@ exports.getInmuebles = function (req, res, next){
 		};
 	});
 };
-
-exports.uploadAvatar = function(req, res, next){
-	cloudinary.uploader.upload(req.files.avatar, function(result, callback){
-			return callback(result);
-	});
-}
 
 exports.getVendedorById = function (req, res, next){
 	models.Cliente.findOne({
@@ -270,4 +345,4 @@ exports.deleteVendedor = function (req, res, next){
 			});
 		};
 	});
-};
+};*/

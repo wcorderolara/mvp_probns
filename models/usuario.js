@@ -10,7 +10,7 @@ module.exports = function (sequelize, DataTypes){
 		},
 		firstName: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			allowNull: true,
 			validate: {
 				len: [5,150]
 			}
@@ -23,12 +23,13 @@ module.exports = function (sequelize, DataTypes){
 				len: [5,150]
 			}
 		},
-		password: {
+		salt: {
 			type: DataTypes.STRING,
-			allowNull: false,
-			validate: {
-				len: [4, 150]
-			}
+			allowNull: true
+		},
+		hash: {
+			type: DataTypes.STRING,
+			allowNull: true
 		},
 		email: {
 			type: DataTypes.STRING,
@@ -36,11 +37,6 @@ module.exports = function (sequelize, DataTypes){
 			validate: {
 				isEmail: true
 			}
-		},
-		token:{
-			type: DataTypes.STRING,
-			allowNull: true,
-			defaultValue: null
 		},
 		telefono1: {
 			type: DataTypes.STRING,

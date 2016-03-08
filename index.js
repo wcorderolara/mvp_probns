@@ -1,7 +1,8 @@
+require('dotenv').load();
 var restify = require('restify');
 var fs = require('fs');
 var models = require('./models');
-
+var passport = require('passport');
 var controllers = {},
 	controllers_path = process.cwd() + '/app/controllers';
 
@@ -10,6 +11,7 @@ fs.readdirSync(controllers_path).forEach(function (file){
 		controllers[file.split('.')[0]] = require(controllers_path + '/' + file)
 	}
 })
+require('./config/passport');
 
 
 var server = restify.createServer();
@@ -52,11 +54,15 @@ server.get("/usuario/get/clienteById/:id", controllers.usuario.getUsuarioById);
 server.get("/usuario/getVendedor/:padreId/:id", controllers.usuario.getVendedorById);
 server.post("/usuario/post/cliente", controllers.usuario.postCliente);
 server.post("/usuario/post/vendedor", controllers.usuario.postVendedor);
+server.post("/login", controllers.usuario.loginUser);
 server.post("/usuario/upload/avatar", controllers.usuario.uploadAvatar);
 server.put("/usuario/verificaEmail/:id", controllers.usuario.putVerificarEmailUsuario);
 server.put("/usuario/update/:id", controllers.usuario.putUsuario);
 server.put("/usuario/changePassword/:id", controllers.usuario.changePassword);
 server.put("/usuario/delete/:id", controllers.usuario.deleteUsuario);
+
+//Inmuebles
+server.post("/inmuebles/post/inmueble", controllers.inmueble.postInmueble);
 
 
 models.sequelize.sync();

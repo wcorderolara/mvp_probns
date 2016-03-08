@@ -2,6 +2,10 @@
 module.exports = function (sequelize, DataTypes){
 
 	var imagenInmueble = sequelize.define("imagenInmueble", {
+		cdnId:{
+			type: DataTypes.STRING,
+			allowNull: true
+		},
 		path: {
 			type: DataTypes.STRING,
 			validate:{
