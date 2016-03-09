@@ -1,0 +1,25 @@
+Acciones en el Buscador
+
+1. Crear un nuevo Buscador [x]
+
+2. Despues de crear un nuevo Buscador debera asociarlo a una cliente (agencia, desarrolladora, etc)  [x]
+
+3. Agregar o Asociar una propiedad a un buscador (inmueblesBuscador) [x]
+
+4. apartado de propiedades sugeridas de acuerdo al presupuesto minimo y máximo de cada buscador []
+
+5. Obtener todos los buscadores asociados al cliente logueado [x]
+
+6. Obtener la informacion de cada buscador por Id [x]
+
+7. obtener un listado de todas las propiedades asociadas a el buscador [x]
+
+8. obtener el total de clientes de la agencia logeada [x]
+
+9. crear Acciones en los buscadores (llamadas, citas, notas) []
+
+10. cambiar los estados de los buscadores (primer contacto, info enviada, etcetera) []
+
+11. Modificar informacion del Buscador [x]
+
+12. Eliminar Buscador [x]

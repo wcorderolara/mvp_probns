@@ -3,6 +3,7 @@ var models = require("../../models");
 var moment = require('moment');
 var cloudinary = require('cloudinary');
 var settings = require('../../settings');
+var service = require('../service/service');
 
 cloudinary.config({
 	cloud_name: settings.cdn.cloud_name,
@@ -10,6 +11,8 @@ cloudinary.config({
 	api_secret: settings.cdn.api_secret
 })
 
+
+//Obtener buscadores por Agencia Asociada
 exports.getBuscadoresByAgencia = function (req, res, next){
 	models.Buscador.findAll({
 		where: {
@@ -51,21 +54,14 @@ exports.getBuscadoresByAgencia = function (req, res, next){
 		]
 	}).then(function (buscadores){
 		if(!buscadores){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Error al obtener los buscadores: " + buscadores
-			});
+			service.sendJSONresponse(res,500,{"type":false,"message":"Error al obtener los registros","data":buscadores})
 		}else{
-			res.status(200);
-			res.json({
-				type: true,
-				data: buscadores
-			});
+			service.sendJSONresponse(res,200,{"type":true,"data":buscadores});
 		};
 	});
 };
 
+//obtener un buscador por ID
 exports.getBuscadorById = function(req, res, next){
 	models.Buscador.findOne({
 		where:{
@@ -106,21 +102,14 @@ exports.getBuscadorById = function(req, res, next){
 		]
 	}).then(function (buscador){
 		if(!buscador){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Error al obtener el registro: " + buscador
-			});
+			service.sendJSONresponse(res,500,{"type":false,"message":"Error al obtener el registro","data": buscador});
 		}else{
-			res.status(200);
-			res.json({
-				type: true,
-				data: buscador
-			});
+			service.sendJSONresponse(res,200,{"type":true,"data":buscador});
 		};
 	});
 };
 
+//agregar un buscador
 exports.postBuscador = function (req, res, next){
 	models.Buscador.create({
 		nombre: req.body.nombre,
@@ -137,25 +126,70 @@ exports.postBuscador = function (req, res, next){
 		estadoBuscadorId: req.body.estadoBuscadorId
 	}).then(function (buscador){
 		if(!buscador){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Error al crear el registro: " + buscador
-			});
+			service.sendJSONresponse(res,500,{"type":false,"message":"Error al crear el registro","data":buscador});
 		}else{
-			res.status(200);
-			res.json({
-				type: true,
-				data: buscador
-			});
+			service.sendJSONresponse(res,200,{"type":true,"data":buscador});
 		};
 	});
 };
 
-exports.addInmuebleBuscador = function (req, res, next){
-	models.Buscador.create
+//Listado de Inmuebles por buscador
+exports.getInmueblesBuscador = function(req, res, next){
+	models.Buscador.findOne({
+		where: {
+			id: req.body.buscadorId,
+			status: 1
+		}
+	}).then(function (buscador){
+		if(!buscador){
+			service.sendJSONresponse(res,500,{"type":false,"message":"error al obtener el cliente","data":buscador});			
+		}else{
+			buscador.getInmuebles().then(function (result){
+				service.sendJSONresponse(res,200,{"type":true,"data":result});
+			})
+		}
+	})
 }
 
+//total de Clientes por agencia
+exports.getTotalBuscadoresCliente = function(req, res, next){
+	models.Buscador.findAndCountAll({
+		where: {
+			agenciaAsociadaId = req.body.agenciaAsociadaId
+			status: 1
+		}
+	}).then(function (buscadores){
+		if(!buscadores){
+			sendJSONresponse(res, 400, {"type":false,"message":"Error al obtener los registros","data":buscadores});
+		}else{
+			sendJSONresponse(res, 200, {"type":true,"data": buscadores.count});
+		}
+	})
+}
+
+//Agregar inmuebles a un buscador
+exports.addInmuebleBuscador = function (req, res, next){
+	models.Inmueble.findOne({
+		where: {
+			id: req.body.inmuebleId,
+			status: 1
+		}
+	}).then(function (inmueble){
+		if(!inmueble){
+			service.sendJSONresponse(res,500,{"type":false,"message":"Error al obtener el inmueble","data":inmueble});
+			return;
+		}else{
+			models.Buscador.addInmuebles(inmueble, {
+				descripcion: req.body.descripcion,
+				status: 1,
+				buscadorId: req.body.buscadorId
+			});
+			service.sendJSONresponse(res,200,{"type":true,"message":"Inmueble agregado exitosasmente"});
+		}		
+	})
+}
+
+//Modificar un Buscador
 exports.putBuscador = function (req, res, next){
 	models.Buscador.findOne({
 		where:{
@@ -196,11 +230,7 @@ exports.putBuscador = function (req, res, next){
 		]
 	}).then(function (buscador){
 		if(!buscador){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Error al obtener el registro: " + buscador
-			});
+			service.sendJSONresponse(res,500,{"type":false,"message":"Error al obtener el registro","data":buscador});
 		}else{
 			buscador.update({
 				nombre: req.body.nombre,
@@ -216,24 +246,16 @@ exports.putBuscador = function (req, res, next){
 				estadoBuscadorId: req.body.estadoBuscadorId
 			}).then(function (_buscador){
 				if(!_buscador){
-					res.status(500);
-					res.json({
-						type: false,
-						data: "Error al actualizar el registro: " + _buscador
-					});
+					service.sendJSONresponse(res,500,{"type":false,"messasge":"Error al actualizar el registro","data":_buscador});
 				}else{
-					res.status(200);
-					res.json({
-						type: false,
-						message: "Registro Actualizado exitosamente",
-						data: _buscador
-					});
+					service.sendJSONresponse(res,200,{"type":true,"message":"Registro Actualizado exitosamente"});
 				};
 			});
 		};
 	});
 };
 
+//Eliminar un Buscador
 exports.deleteBuscador = function (req, res, next){
 	models.Buscador.findOne({
 		where: {
@@ -243,11 +265,7 @@ exports.deleteBuscador = function (req, res, next){
 		attributes: ['id','nombre','apellido','email','telefono1','direccion','presupuesto','status']
 	}).then(function (buscador){
 		if(!buscador){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Error al obtener el registro: " + buscador
-			});
+			service.sendJSONresponse(res,500,{"type":false,"message":"Error al obtener el registro","data":buscador});
 		}else{
 			buscador.update({
 				status: 0
@@ -256,14 +274,10 @@ exports.deleteBuscador = function (req, res, next){
 					res.status(500);
 					res.json({
 						type: false,
-						data: "Error al actualizar el registro: " + _buscador
+						service.sendJSONresponse(res,500,{"type":false,"messasge":"Error al eliminar el registro","data":_buscador});
 					});
 				}else{
-					res.status(200);
-					res.json({
-						type: true,
-						data: "Registro Eliminado exitosamente..."
-					});
+					service.sendJSONresponse(res,200,{"type":true,"message":"Registro Eliminado exitosamente"});
 				};
 			});
 		};

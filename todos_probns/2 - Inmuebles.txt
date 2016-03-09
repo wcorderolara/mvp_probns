@@ -1,0 +1,25 @@
+Acciones en los inmuebles
+
+1. Subir propiedad por usuario (agencia, desarrolladora, agente independiente)[x]
+
+2. Subir imagenes para una propiedad
+	2.1 Subir imagenes parciales [x]
+
+3. Agregar Amenities para una propiedad [x]
+
+4. Asociar anunciantes a una propiedad [x]
+
+5. Asociar una propiedad a un buscador (pendiente que se hara en buscador) 
+
+6. Modificar la informacion de una propiedad [x]
+
+7. Remover imagenes de una propiedad (eliminar de la base de datos y del CDN) [o]
+	7.1 Agregar nuevas imagenes a una propiedad (eliminar la anterior del CDN y modificar el path)
+
+8. Remover amenity(ies) de una propiedad (eliminar de la base de datos) [o]
+	8.1 Modificar las amenities, ya sea nuevas, o modificar las existentes
+	
+9. Remover anunciate(s) de una propiedad (eliminar de la base de datos) [o]
+	9.1 Modificar los anunciantes, agregar nuevos o modificar los existentes
+
+10. Aumentar el numero de visitas cada vez que alguien visite una de las propiedades [x]

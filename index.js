@@ -3,6 +3,7 @@ var restify = require('restify');
 var fs = require('fs');
 var models = require('./models');
 var passport = require('passport');
+var middleware = require('./app/middlewares/middleware');
 var controllers = {},
 	controllers_path = process.cwd() + '/app/controllers';
 
@@ -82,8 +83,12 @@ server.put("/usuario/delete/:id", controllers.usuario.deleteUsuario);
 
 //Inmuebles
 server.post("/inmuebles/post/inmueble", controllers.inmueble.postInmueble);
-server.get("/inmuebles/get/all/:id", controllers.inmueble.getInmueblesUsuario);
-
+server.post("/inmuebles/image", controllers.inmueble.uploadImage);
+server.get("/inmuebles/get/all/:usuarioId", controllers.inmueble.getInmueblesUsuario);
+server.get("/inmuebles/get/:id",middleware.trackingInmueble, controllers.inmueble.getInmuebleById);
+server.get("/inmuebles/get/all/count/:usuarioId",controllers.inmueble.getTotalInmueblesUsuario);
+server.put("/inmuebles/put/:id",controllers.inmueble.putInmueble);
+server.put("/inmuebles/delete/:id", controllers.inmueble.deleteInmueble);
 
 models.sequelize.sync();
 

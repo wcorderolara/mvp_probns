@@ -44,11 +44,16 @@ module.exports = function (sequelize, DataTypes){
 			type: DataTypes.STRING,
 			allowNull: true
 		},
-		presupuesto: {
+		presupuestoMin: {
 			type: DataTypes.DECIMAL(18,2),
 			defaultValue: null,
 			allowNull: true
 		},
+		presupuestoMax: {
+			type: DataTypes.DECIMAL(18,2),
+			defaultValue: null,
+			allowNull: true
+		}
 		status: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
@@ -62,7 +67,7 @@ module.exports = function (sequelize, DataTypes){
 				Buscador.belongsTo(models.Usuario, {as: 'agenciaAsociada', foreignKey:{name:'agenciaAsociadaId', field: 'agenciaAsociadaId', allowNull: false}});
 				//Buscador.belongsTo(models.Vendedor, {foreignKey: {allowNull: false}});
 				Buscador.belongsToMany(models.Inmueble, {through: models.inmuebleBuscador, foreignKey: 'buscadorId'});
-				//Buscador.belongsToMany(models.tipoAccion, {through: models.accionesBuscador, foreignKey: 'buscadorid'});
+				Buscador.belongsToMany(models.tipoAccion, {through: models.accionesBuscador, foreignKey: 'buscadorid'});
 				Buscador.hasMany(models.Agenda);
 			}
 		},

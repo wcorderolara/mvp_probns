@@ -14,7 +14,7 @@ module.exports = function (sequelize, DataTypes){
 	},{
 		classMethods: {
 			associate: function(models){
-				tipoAccion.belongsToMany(models.Usuario, {through: models.accionesBuscador, foreignKey: 'tipoAccionId'});
+				tipoAccion.belongsToMany(models.Buscador, {through: models.accionesBuscador, foreignKey: 'tipoAccionId'});
 			}
 		},
 		freezeTableName: true

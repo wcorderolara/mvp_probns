@@ -6,7 +6,7 @@ module.exports = function (sequelize, DataTypes){
 			validate: {
 				len: [1, 500]
 			},
-			allowNull: false,
+			allowNull: true,
 		},
 		status: {
 			type: DataTypes.BOOLEAN,
