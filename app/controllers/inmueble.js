@@ -38,28 +38,26 @@ exports.postInmueble = function (req, res, next){
 		tipoInmuebleId: req.body.tipoInmuebleId,
 		operacionInmuebleId: req.body.operacionInmuebleId,
 		PaiId: req.body.PaiId,
-		MunicipioId: req.body.paiId
+		MunicipioId: req.body.MunicipioId
 	}).then(function (inmueble){
-		if(!inmueble){
+		if(!inmueble){			
 			sendJSONresponse(res, 400, {"type": false, "data": "Error al agregar la propiedad: " + inmueble});
 		}else{
-			model.Usuario.findOne({
+			models.Usuario.findOne({
 				where: {
 					id: req.body.userId
 				}
 			}).then(function (user){
 				user.addInmuebles(inmueble, {status: 1})
 			})
-			//inmueble.setUsuarios(req.body.userId);
-			models.Usuario.addInmuebles(inmueble, {status: 1, usuarioId: req.body.userId});
-			//uploadImagenesInmueble(res, req.body.imagenesInmueble, inmueble);
-			//uploadAmenitiesInmueble(res, req.body.amenitiesInmueble, inmueble);
+			uploadImagenesInmueble(res, JSON.parse(req.body.imagenesInmueble), inmueble.id);
+			uploadAmenitiesInmueble(res, JSON.parse(req.body.amenitiesInmueble), inmueble.id);
 			sendJSONresponse(res,200, {"type":true, "data": inmueble, "message": "Propiedad creada exitosamente"})
 		}
 	})
 }
 
-function uploadImagenesInmueble (res, imagenesInmuebleArray, inmueble){
+function uploadImagenesInmueble (res, imagenesInmuebleArray, inmuebleId){
 	var arrayImagenes = [];
 	arrayImagenes = imagenesInmuebleArray;
 	arrayImagenes.forEach(function (item){
@@ -68,61 +66,87 @@ function uploadImagenesInmueble (res, imagenesInmuebleArray, inmueble){
 			path: item.img_url,
 			descripcion: item.descripcion || "",
 			status: 1,
-			InmuebleId: inmueble.id
+			InmuebleId: inmuebleId
 		}).then(function (imagen){
 			if(!imagen){
-				sendJSONresponse(res,400,{"type":false, "data": "Error al agregar la imagen: " + imagen});
-			}else{
-				sendJSONresponse(res,200,{"type":true, "data": "Imagen: " + imagen.descripcion + " agregada con exito!"});
+				sendJSONresponse(res,400,{"type":false, "message": "Error al agregar la imagen", "data": imagen});
 			}
 		})
 	})
 }
 
-function uploadAmenitiesInmueble (res, amenitiesInmuebleArray, inmueble){
+function uploadAmenitiesInmueble (res, amenitiesInmuebleArray, inmuebleId){
 	var arrayAmenities = [];
 	arrayAmenities = amenitiesInmuebleArray;
-
 	arrayAmenities.forEach(function (item){
 		models.amenityInmueble.create({
 			descripcion: item.descripcion,
 			cantidad: item.cantidad,
 			status: 1,
-			InmuebleId: inmueble.id
+			InmuebleId: inmuebleId
 		}).then(function (amenity){
 			if(!amenity){
-				sendJSONresponse(res,400,{"type":false, "data": "Error al agregar la amenidad: " + amenity});
-			}else{
-				sendJSONresponse(res,200,{"type":true, "data": "Amenidad: " + amenity.descripcion + " agregada con exito!"});
+				sendJSONresponse(res,400,{"type":false, "message": "Error al agregar la amenidad", "data" : amenity});
 			}
 		})
 	})
 }
 
-/*exports.getInmuebles = function (req, res, next){
+exports.getInmueblesUsuario = function (req, res, next){
 	models.Inmueble.findAll({
 		where: {
 			status: 1
 		},
-		attributes: ['id','nombre', 'apellido','email','telefono','avatar','fechaCreacion','createdAt',
-					 'status', 'ClienteId', 'estadoVendedorId'],
 		include: [
 			{
-				model: models.Cliente,
-				attributes: ['id','nombre'],
+				model: models.Usuario,
+				attributes: ['id', 'userLogin', 'firstName', 'lastName'],
+				where: {id: req.params.id}								
+			},
+			{
+				model: models.tipoInmueble,
+				attributes: ['id','descripcion'],
 				where:{
 					status: 1
 				}
 			},
 			{
-				model: models.estadoVendedor,
+				model: models.estadoInmueble,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.operacionInmueble,
+				attributes: ['id', 'descripcion'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.Pais,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.Departamento,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.Municipio,
 				attributes: ['id', 'descripcion'],
 				where: {
 					status: 1
 				}
 			}
 		],
-		order: 'apellido'
+		order: 'createdAt DESC'
 	}).then(function (response){
 		if(!response){
 			res.status(500);
@@ -131,15 +155,12 @@ function uploadAmenitiesInmueble (res, amenitiesInmuebleArray, inmueble){
 				data: "Error al obtener los registros..." + response
 			});
 		}else{
-			res.status(200);
-			res.json({
-				type: true,
-				data: response
-			});
+			sendJSONresponse(res, 200, {"type": true, "data": response});
 		};
 	});
 };
 
+/*
 exports.getVendedorById = function (req, res, next){
 	models.Cliente.findOne({
 		where: {

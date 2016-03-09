@@ -63,6 +63,7 @@ server.put("/usuario/delete/:id", controllers.usuario.deleteUsuario);
 
 //Inmuebles
 server.post("/inmuebles/post/inmueble", controllers.inmueble.postInmueble);
+server.get("/inmuebles/get/all/:id", controllers.inmueble.getInmueblesUsuario);
 
 
 models.sequelize.sync();

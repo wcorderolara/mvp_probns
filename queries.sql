@@ -89,3 +89,9 @@ VALUES ('Venta',1, NOW(), NOW());
 
 INSERT INTO `probns_mvp`.`operacioninmueble` (`descripcion`,`status`,`createdAt`,`updatedAt`)
 VALUES ('Renta',1, NOW(), NOW());
+
+INSERT INTO probns_mvp.departamento (descripcion, status, createdAt, updatedAt, PaiId)
+values('Guatemala', 1, now(), now(), 1);
+
+INSERT INTO probns_mvp.municipio (descripcion, status, createdAt, updatedAt, DepartamentoId)
+values('Mixco', 1,now(), now(), 1);
