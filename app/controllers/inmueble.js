@@ -3,6 +3,7 @@ var models = require("../../models");
 var moment = require('moment');
 var cloudinary = require('cloudinary');
 var settings = require('../../settings');
+var Sequelize = require('sequelize');
 
 cloudinary.config({
 	cloud_name: process.env.CDN_NAME,
@@ -43,13 +44,14 @@ exports.postInmueble = function (req, res, next){
 		if(!inmueble){			
 			sendJSONresponse(res, 400, {"type": false, "data": "Error al agregar la propiedad: " + inmueble});
 		}else{
-			models.Usuario.findOne({
-				where: {
-					id: req.body.userId
-				}
-			}).then(function (user){
-				user.addInmuebles(inmueble, {status: 1})
-			})
+			// models.Usuario.findOne({
+			// 	where: {
+			// 		id: req.body.userId
+			// 	}
+			// }).then(function (user){
+			// 	user.addInmuebles(inmueble, {status: 1})
+			// })
+			models.Usuario.addInmuebles(inmueble, {status: 1, usuarioId: req.body.userId});
 			uploadImagenesInmueble(res, JSON.parse(req.body.imagenesInmueble), inmueble.id);
 			uploadAmenitiesInmueble(res, JSON.parse(req.body.amenitiesInmueble), inmueble.id);
 			sendJSONresponse(res,200, {"type":true, "data": inmueble, "message": "Propiedad creada exitosamente"})
@@ -90,6 +92,69 @@ function uploadAmenitiesInmueble (res, amenitiesInmuebleArray, inmuebleId){
 			}
 		})
 	})
+}
+
+exports.getInmuebleById = function(req, res, next){
+	models.Inmueble.findOne({
+		where: {
+			id: req.params.id,
+			status: 1
+		},
+		include: [
+			{
+				model: models.Usuario,
+				attributes: ['id', 'userLogin', 'firstName', 'lastName'],
+			},
+			{
+				model: models.tipoInmueble,
+				attributes: ['id','descripcion'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.estadoInmueble,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.operacionInmueble,
+				attributes: ['id', 'descripcion'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.Pais,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.Departamento,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.Municipio,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			}
+		],
+	}).then(function (response){
+		if(!response){
+			sendJSONresponse(res, 500, {"type": false, "message": "Error al obtener el registro", "data": response});
+		}else{
+			sendJSONresponse(res, 200, {"type": true, "data": response});
+		};
+	});
 }
 
 exports.getInmueblesUsuario = function (req, res, next){
@@ -147,13 +212,13 @@ exports.getInmueblesUsuario = function (req, res, next){
 			}
 		],
 		order: 'createdAt DESC'
+		/*order: [
+			['createdAt','DESC'],
+			[Sequelize.fn('max', Sequelize.col('numeroVisitas')), 'DESC'],
+		]*/
 	}).then(function (response){
 		if(!response){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Error al obtener los registros..." + response
-			});
+			sendJSONresponse(res, 500, {"type": false, "message": "Error al obtener los registros", "data": response});
 		}else{
 			sendJSONresponse(res, 200, {"type": true, "data": response});
 		};

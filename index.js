@@ -18,6 +18,25 @@ var server = restify.createServer();
 server.use(restify.fullResponse());
 server.use(restify.bodyParser());
 
+server.use(
+	function crossOrigin(req, res, next){
+		res.header("Access-Control-Allow-Origin", "*");
+		res.header("Access-Control-Allow-Headers", "X-Requested-With");
+		return next();
+	}
+)
+
+server.use(restify.urlEncodedBodyParser({mapParams:false}));
+server.use(passport.initialize());
+server.use(function (err, req, res, next){
+	if(err.name === 'UnauthorizedError'){
+		res.status(401);
+		res.json({
+			"message": err.name + ": " + err.message
+		})
+	}
+})
+
 //Paises
 server.get("/paises", controllers.pais.getPaises);
 server.get("/paises/:id", controllers.pais.getPaisById);
@@ -54,7 +73,7 @@ server.get("/usuario/get/clienteById/:id", controllers.usuario.getUsuarioById);
 server.get("/usuario/getVendedor/:padreId/:id", controllers.usuario.getVendedorById);
 server.post("/usuario/post/cliente", controllers.usuario.postCliente);
 server.post("/usuario/post/vendedor", controllers.usuario.postVendedor);
-server.post("/login", controllers.usuario.loginUser);
+server.post("auth/login", controllers.usuario.loginUser);
 server.post("/usuario/upload/avatar", controllers.usuario.uploadAvatar);
 server.put("/usuario/verificaEmail/:id", controllers.usuario.putVerificarEmailUsuario);
 server.put("/usuario/update/:id", controllers.usuario.putUsuario);
