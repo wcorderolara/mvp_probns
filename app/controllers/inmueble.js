@@ -52,7 +52,7 @@ exports.postInmueble = function (req, res, next){
 				user.addInmuebles(inmueble, {status: 1})
 			})
 			//models.Usuario.addInmuebles(inmueble, {status: 1, usuarioId: req.body.userId});
-			inmueble.addAnunciantes(JSON.parse(req.body.anunciantesInmueble), {status: 1, inmuebleId: inmueble.id});
+			//inmueble.addAnunciantes(JSON.parse(req.body.anunciantesInmueble), {status: 1, inmuebleId: inmueble.id});
 			uploadImagenesInmueble(res, JSON.parse(req.body.imagenesInmueble), inmueble.id);
 			uploadAmenitiesInmueble(res, JSON.parse(req.body.amenitiesInmueble), inmueble.id);
 			sendJSONresponse(res,200, {"type":true, "data": inmueble, "message": "Propiedad creada exitosamente"})
@@ -188,13 +188,13 @@ exports.getInmuebleById = function(req, res, next){
 					status: 1
 				}
 			},
-			{
-				model: models.Anunciantes,
-				attributes: ['id','descripcion'],
-				where:{
-					status: 1
-				}
-			},
+			// {
+			// 	model: models.Anunciantes,
+			// 	attributes: ['id','descripcion'],
+			// 	where:{
+			// 		status: 1
+			// 	}
+			// },
 			{
 				model: models.imagenInmueble,
 				attributes: ['cdnId','path','descripcion'],
@@ -275,20 +275,19 @@ exports.getInmueblesUsuario = function (req, res, next){
 				attributes: ['id', 'userLogin', 'firstName', 'lastName'],
 				where: {id: req.params.usuarioId}								
 			},
-			{
-				model: models.Anunciantes,
-				attributes: ['id','descripcion'],
-				where:{
-					status: 1
-				}
-			},
+			// {
+			// 	model: models.Anunciantes,
+			// 	attributes: ['id','descripcion'],
+			// 	where:{
+			// 		status: 1
+			// 	}
+			// },
 			{
 				model: models.imagenInmueble,
 				attributes: ['cdnId','path','descripcion'],
 				where:{
 					status: 1
 				}
-
 			},
 			{
 				model: models.amenityInmueble,
@@ -340,7 +339,7 @@ exports.getInmueblesUsuario = function (req, res, next){
 				}
 			}
 		],
-		order: 'createdAt DESC'
+		order: 'numeroVisitas DESC'
 		/*order: [
 			['createdAt','DESC'],
 			[Sequelize.fn('max', Sequelize.col('numeroVisitas')), 'DESC'],

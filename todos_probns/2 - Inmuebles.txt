@@ -7,7 +7,7 @@ Acciones en los inmuebles
 
 3. Agregar Amenities para una propiedad [x]
 
-4. Asociar anunciantes a una propiedad [x]
+4. Asociar anunciantes a una propiedad [PENDIENTE]
 
 5. Asociar una propiedad a un buscador (pendiente que se hara en buscador) 
 

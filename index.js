@@ -14,21 +14,18 @@ fs.readdirSync(controllers_path).forEach(function (file){
 })
 require('./config/passport');
 
-
 var server = restify.createServer();
 server.use(restify.fullResponse());
-server.use(restify.bodyParser());
 
-server.use(
-	function crossOrigin(req, res, next){
-		res.header("Access-Control-Allow-Origin", "*");
-		res.header("Access-Control-Allow-Headers", "X-Requested-With");
-		return next();
-	}
-)
+restify.CORS.ALLOW_HEADERS.push('accept');
+restify.CORS.ALLOW_HEADERS.push('sid');
+restify.CORS.ALLOW_HEADERS.push('lang');
+restify.CORS.ALLOW_HEADERS.push('origin');
+restify.CORS.ALLOW_HEADERS.push('withcredentials');
+restify.CORS.ALLOW_HEADERS.push('x-requested-with');
 
-server.use(restify.urlEncodedBodyParser({mapParams:false}));
-server.use(passport.initialize());
+server.use(restify.urlEncodedBodyParser({ mapParams : false }));
+/*server.use(passport.initialize());
 server.use(function (err, req, res, next){
 	if(err.name === 'UnauthorizedError'){
 		res.status(401);
@@ -36,7 +33,7 @@ server.use(function (err, req, res, next){
 			"message": err.name + ": " + err.message
 		})
 	}
-})
+})*/
 
 //Paises
 server.get("/paises", controllers.pais.getPaises);
@@ -89,6 +86,18 @@ server.get("/inmuebles/get/:id",middleware.trackingInmueble, controllers.inmuebl
 server.get("/inmuebles/get/all/count/:usuarioId",controllers.inmueble.getTotalInmueblesUsuario);
 server.put("/inmuebles/put/:id",controllers.inmueble.putInmueble);
 server.put("/inmuebles/delete/:id", controllers.inmueble.deleteInmueble);
+
+//Buscador
+server.get("/buscador/get/all/:agenciaAsociadaId",controllers.buscador.getBuscadoresByAgencia);
+server.get("/buscador/get/:id", controllers.buscador.getBuscadorById);
+server.get("/buscador/get/inmuebles/:buscadorId", controllers.buscador.getInmueblesBuscador);
+server.get("/buscador/get/all/count/:agenciaAsociadaId", controllers.buscador.getTotalBuscadoresCliente);
+server.post("/buscador/post", controllers.buscador.postBuscador);
+server.post("/buscador/add/inmuble/:inmuebleId", controllers.buscador.addInmuebleBuscador);
+server.put("/buscador/put/:id", controllers.buscador.putBuscador);
+server.put("/buscador/delete/:id", controllers.buscador.deleteBuscador);
+
+
 
 models.sequelize.sync();
 

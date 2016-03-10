@@ -235,6 +235,7 @@ exports.getVendedorById = function (req, res, next){
 
 
 exports.postCliente = function (req, res, next){
+	console.log('entro');
 	models.Usuario.create({
 		userLogin: req.body.userLogin,
 		salt: crypto.randomBytes(16).toString('hex'),

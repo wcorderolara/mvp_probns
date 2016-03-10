@@ -19,7 +19,7 @@ exports.getBuscadoresByAgencia = function (req, res, next){
 			status: 1,
 			agenciaAsociadaId: req.params.agenciaAsociadaId
 		},
-		attributes: ['id','nombre','apellido','email','telefono1','direccion','presupuesto'],
+		attributes: ['id','nombre','apellido','email','telefono1','direccion','presupuestoMin', 'presupuestoMax'],
 		include:[
 			{
 				model: models.tipoBuscador,
@@ -31,19 +31,19 @@ exports.getBuscadoresByAgencia = function (req, res, next){
 			{
 				model: models.Usuario,
 				as: 'agenciaAsociada',
-				attributes: ['id', 'firstName', 'lastName'],
+				attributes: ['id', 'firstName', 'lastName','userLogin'],
 				where: {
 					status: 1
 				}
 			},
-			{
-				model: models.Usuario,
-				as: 'vendedorAsignado',
-				attributes: ['id','firstName','lastName'],
-				where: {
-					status: 1
-				}
-			},
+			// {
+			// 	model: models.Usuario,
+			// 	as: 'vendedorAsignado',
+			// 	attributes: ['id','firstName','lastName'],
+			// 	where: {
+			// 		status: 1
+			// 	}
+			// },
 			{
 				model: models.estadoBuscador,
 				attributes: ['id','descripcion'],
@@ -79,19 +79,19 @@ exports.getBuscadorById = function(req, res, next){
 			{
 				model: models.Usuario,
 				as: 'agenciaAsociada',
-				attributes: ['id', 'firstName', 'lastName'],
+				attributes: ['id', 'firstName', 'lastName','userLogin'],
 				where: {
 					status: 1
 				}
 			},
-			{
-				model: models.Usuario,
-				as: 'vendedorAsignado',
-				attributes: ['id','firstName','lastName'],
-				where: {
-					status: 1
-				}
-			},
+			// {
+			// 	model: models.Usuario,
+			// 	as: 'vendedorAsignado',
+			// 	attributes: ['id','firstName','lastName'],
+			// 	where: {
+			// 		status: 1
+			// 	}
+			// },
 			{
 				model: models.estadoBuscador,
 				attributes: ['id','descripcion'],
@@ -118,12 +118,13 @@ exports.postBuscador = function (req, res, next){
 		telefono1: req.body.telefono1,
 		telefono2: req.body.telefono2 || null,
 		direccion: req.body.direccion,
-		presupuesto: req.body.presupuesto || 0,
+		presupuestoMin: req.body.presupuestoMin || 0,
+		presupuestoMax: req.body.presupuestoMax || 0,
 		ultimaAccion: req.body.ultimaAccion || "creacion",
 		tipoBuscadorId: req.body.tipoBuscadorId,
 		agenciaAsociadaId: req.body.agenciaAsociadaId,
-		vendedorAsignadoId: req.body.vendedorAsignadoId,
-		estadoBuscadorId: req.body.estadoBuscadorId
+		vendedorAsignadoId: req.body.vendedorAsignadoId || null,
+		estadoBuscadorId: req.body.estadoBuscadorId || 1
 	}).then(function (buscador){
 		if(!buscador){
 			service.sendJSONresponse(res,500,{"type":false,"message":"Error al crear el registro","data":buscador});
@@ -137,7 +138,7 @@ exports.postBuscador = function (req, res, next){
 exports.getInmueblesBuscador = function(req, res, next){
 	models.Buscador.findOne({
 		where: {
-			id: req.body.buscadorId,
+			id: req.params.buscadorId,
 			status: 1
 		}
 	}).then(function (buscador){
@@ -155,14 +156,14 @@ exports.getInmueblesBuscador = function(req, res, next){
 exports.getTotalBuscadoresCliente = function(req, res, next){
 	models.Buscador.findAndCountAll({
 		where: {
-			agenciaAsociadaId = req.body.agenciaAsociadaId
+			agenciaAsociadaId: req.params.agenciaAsociadaId,
 			status: 1
 		}
 	}).then(function (buscadores){
 		if(!buscadores){
-			sendJSONresponse(res, 400, {"type":false,"message":"Error al obtener los registros","data":buscadores});
+			service.sendJSONresponse(res, 400, {"type":false,"message":"Error al obtener los registros","data":buscadores});
 		}else{
-			sendJSONresponse(res, 200, {"type":true,"data": buscadores.count});
+			service.sendJSONresponse(res, 200, {"type":true,"data": buscadores.count});
 		}
 	})
 }
@@ -171,7 +172,7 @@ exports.getTotalBuscadoresCliente = function(req, res, next){
 exports.addInmuebleBuscador = function (req, res, next){
 	models.Inmueble.findOne({
 		where: {
-			id: req.body.inmuebleId,
+			id: req.params.inmuebleId,
 			status: 1
 		}
 	}).then(function (inmueble){
@@ -179,11 +180,22 @@ exports.addInmuebleBuscador = function (req, res, next){
 			service.sendJSONresponse(res,500,{"type":false,"message":"Error al obtener el inmueble","data":inmueble});
 			return;
 		}else{
-			models.Buscador.addInmuebles(inmueble, {
-				descripcion: req.body.descripcion,
-				status: 1,
-				buscadorId: req.body.buscadorId
-			});
+			models.Buscador.findOne({
+				where: {
+					id: req.body.buscadorId,
+					status: 1
+				}
+			}).then(function (buscador){
+				if(!buscador){
+					return;
+				}else{
+					buscador.addInmuebles(inmueble, {
+						descripcion: req.body.descripcion,
+						status: 1,
+						buscadorId: req.body.buscadorId
+					});
+				}
+			})
 			service.sendJSONresponse(res,200,{"type":true,"message":"Inmueble agregado exitosasmente"});
 		}		
 	})
@@ -238,8 +250,9 @@ exports.putBuscador = function (req, res, next){
 				email: req.body.email,
 				telefono2: req.body.telefono2 || null,
 				direccion: req.body.direccion,
-				presupuesto: req.body.presupuesto || 0,
-				ultimaAccion: req.body.ultimaAccion || "creacion",
+				presupuestoMix: req.body.presupuestoMix,
+				presupuestoMax: req.body.presupuestoMax, 
+				ultimaAccion: req.body.ultimaAccion,
 				tipoBuscadorId: req.body.tipoBuscadorId,
 				agenciaAsociadaId: req.body.agenciaAsociadaId,
 				vendedorAsignadoId: req.body.vendedorAsignadoId,
@@ -271,11 +284,7 @@ exports.deleteBuscador = function (req, res, next){
 				status: 0
 			}).then(function (_buscador){
 				if(!_buscador){
-					res.status(500);
-					res.json({
-						type: false,
-						service.sendJSONresponse(res,500,{"type":false,"messasge":"Error al eliminar el registro","data":_buscador});
-					});
+					service.sendJSONresponse(res,500,{"type":false,"messasge":"Error al eliminar el registro","data":_buscador});
 				}else{
 					service.sendJSONresponse(res,200,{"type":true,"message":"Registro Eliminado exitosamente"});
 				};

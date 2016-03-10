@@ -4,14 +4,14 @@ module.exports = function (sequelize, DataTypes){
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
-				len: [5,150]
+				len: [1,150]
 			}
 		},
 		apellido: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
-				len: [5,150]
+				len: [1,150]
 			}
 		},
 		email: {
@@ -53,7 +53,7 @@ module.exports = function (sequelize, DataTypes){
 			type: DataTypes.DECIMAL(18,2),
 			defaultValue: null,
 			allowNull: true
-		}
+		},
 		status: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true

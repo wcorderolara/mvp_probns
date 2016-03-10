@@ -1,0 +1,33 @@
+cliente
+
+userLogin : me@waltercordero.com
+password : hello123
+tipoUsuarioId: 1
+PaiId : 1
+estadoUsuarioId : 1
+
+INMUEBLE
+descripcion : prueba de propidad 
+precioPropiedad : 2500000
+direccionCorta : short
+direccion : long address
+DepartamentoId : 1
+estadoInmuebleId : 1
+tipoInmuebleId : 1
+operacionInmuebleId : 1
+PaiId : 1
+MunicipioId : 1
+userId : 1
+imagenesInmueble: [{"descripcion": "img1","public_id": "ierusk","img_url": "http://www.365imagenesbonitas.com/wp-content/uploads/2014/07/feliz-domingo-imagenes-bonita.jpg"},{"descripcion": "img2","public_id": "zcvie243","img_url": "http://www.365imagenesbonitas.com/wp-content/uploads/2016/02/imagenes-sentimientos-confundido.jpg"}]
+amenitiesInmueble: [{"descripcion": "amenity 1","cantidad": 4},{"descripcion": "amenity 2","cantidad": 2}]
+
+
+BUSCADOR
+nombre: Walter,
+apellido: cordero,
+email: wcordero.lara@gmail.com,
+telefono1: 5825-7897,
+direccion: por ahi por donde no,
+tipoBuscadorId: 1,
+agenciaAsociadaId: 1,
+estadoBuscadorId: 1
