@@ -17,7 +17,8 @@ module.exports = function (sequelize, DataTypes){
 				Anunciantes.belongsToMany(models.Inmueble, {through: models.anuncianteInmueble, foreignKey: 'anuncianteId'});
 			}
 		},
-		freezeTableName: true
+		freezeTableName: true,
+		tableName: 'anunciantes'
 	});
 
 	return Anunciantes;

@@ -20,7 +20,8 @@ module.exports = function (sequelize, DataTypes){
 					Agenda.belongsTo(models.estadoCita, {foreignKey: {allowNull: false}});
 			}
 		},
-		freezeTableName: true
+		freezeTableName: true,
+		tableName: 'agenda'
 	})
 
 	return Agenda;

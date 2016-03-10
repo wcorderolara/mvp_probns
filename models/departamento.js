@@ -20,7 +20,8 @@ module.exports = function (sequelize, DataTypes){
 				Departamento.hasMany(models.Municipio);
 			}
 		},
-		freezeTableName: true
+		freezeTableName: true,
+		tableName: 'departamento'
 	});
 
 	return Departamento;

@@ -19,7 +19,8 @@ module.exports = function (sequelize, DataTypes){
 				Municipio.hasOne(models.Inmueble);
 			}
 		},
-		freezeTableName: true
+		freezeTableName: true,
+		tableName: 'municipio'
 	})
 
 	return Municipio;
