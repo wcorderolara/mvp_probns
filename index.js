@@ -4,6 +4,11 @@ var fs = require('fs');
 var models = require('./models');
 var passport = require('passport');
 var middleware = require('./app/middlewares/middleware');
+var jwt = require('restify-jwt');
+var auth = jwt({
+	secret: process.env.JWT_SECRET,
+	requestProperty: 'payload'
+});
 var controllers = {},
 	controllers_path = process.cwd() + '/app/controllers';
 
