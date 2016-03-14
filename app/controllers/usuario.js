@@ -68,6 +68,21 @@ exports.getUsuarios = function (req, res, next){
 	});
 };
 
+exports.getTotalVendedoresAgencia = function(req, res, next){
+	models.Usuario.findAndCountAll({
+		where: {
+			status: 1,
+			padreId: req.params.padreId
+		}
+	}).then(function (result){
+		if(!result){
+			service.sendJSONresponse(res,400,{"type":false,"message":"Error al obtener los registros", "data":result});
+		}else{
+			service.sendJSONresponse(res,200,{"type":true,"data":result.count});
+		}
+	})
+}
+
 exports.getVendedoresByPadre = function (req, res, next){
 	models.Usuario.findAll({
 		where: {

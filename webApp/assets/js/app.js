@@ -7,8 +7,8 @@ probnsApp.factory('ShareData', function () {
 probnsApp.config(['$routeProvider','$locationProvider', 'probnsConf', function ($routeProvider,$locationProvider,probnsConf) {
     $routeProvider
     .when("/", {
-        templateUrl: probnsConf.templates.dashboard//,
-        // controller: "dashboardController"
+        templateUrl: probnsConf.templates.dashboard,
+        controller: "dashboardController"
     }).
     when("/logout", {
     	templateUrl: probnsConf.templates.logoutUser,
