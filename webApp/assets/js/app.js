@@ -50,4 +50,5 @@ probnsApp.config(['$routeProvider','$locationProvider', 'probnsConf', function (
         enabled: true,
         requireBase: false
     });
+
 }]);

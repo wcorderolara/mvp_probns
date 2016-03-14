@@ -1,108 +1,94 @@
 <!DOCTYPE html>
-<html lang="es" ng-app="probnsApp" class="no-js">
-  <head>
-    <title>Probns Guatemala</title>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="assets/css/normalize.css">
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <link href="assets/css/vendor/font-awesome.min.css" rel="stylesheet">
-    <link href="assets/css/vendor/weather-icons.min.css" rel="stylesheet">
-    <link href="assets/css/vendor/toastr.css" rel="stylesheet">
-    <!-- <link href="assets/css/beyond.css" rel="stylesheet"> -->
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="probnsApp" ng-controller="AppCtrl">
+    <!-- Head -->
+    <head>
+        <meta charset="utf-8" />
+        <title page-title></title>
 
-    <link href="assets/css/ui-notificacion.min.css" rel="stylesheet">
-    <link href="assets/css/block-ui.css" rel="stylesheet">
+        <meta name="description" content="blank page" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+
+        <!--Basic Styles-->
+        <link href="assets/css/bootstrap.css" rel="stylesheet" />
+        <link href="assets/css/vendor/font-awesome.min.css" rel="stylesheet">
+        <link href="assets/css/vendor/weather-icons.min.css" rel="stylesheet">
+        <link href="assets/css/block-ui.css" rel="stylesheet">
+
+        <!--Fonts-->
+        <style>
+          @@font-face {
+              font-family: 'WYekan';
+              src: url('/assets/css/fonts/BYekan.woff') format('woff');
+              font-weight: normal;
+              font-style: normal;
+          }
+      </style>
+        <link href="http://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet" type="text/css" />
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300"
+              rel="stylesheet" type="text/css">
+
+        <!--Beyond styles-->
+        <link href="assets/css/beyond.css" rel="stylesheet" />
+        <link href="assets/css/demo.min.css" rel="stylesheet" />
+        <!-- <link href="assets/css/typicons.min.css" rel="stylesheet" /> -->
+        <link href="assets/css/animate.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="assets/css/main.css">
+
+    </head>
+    <!-- /Head -->
+
+    <!-- Body -->
+    <body>
+        <div ui-view></div>
+
+        <!-- Scripts -->
+        <script src="lib/jquery/jquery.min.js"></script>
+        <script src="lib/jquery/bootstrap.js"></script>
+        <script src="lib/angular/angular.js"></script>
+
+        <script src="lib/utilities.js"></script>
+
+        <script src="lib/angular/angular-animate/angular-animate.js"></script>
+        <script src="lib/angular/angular-cookies/angular-cookies.js"></script>
+        <script src="lib/angular/angular-resource/angular-resource.js"></script>
+        <script src="lib/angular/angular-sanitize/angular-sanitize.js"></script>
+        <script src="lib/angular/angular-touch/angular-touch.js"></script>
+
+        <script src="lib/angular/angular-ui-router/angular-ui-router.js"></script>
+        <script src="lib/angular/angular-ocLazyLoad/ocLazyLoad.js"></script>
+        <script src="lib/angular/angular-ngStorage/ngStorage.js"></script>
+        <script src="lib/angular/angular-ui-utils/angular-ui-utils.js"></script>
+        <script src="lib/angular/angular-breadcrumb/angular-breadcrumb.js"></script>
+
+        <script src="lib/angular/angular-ui-bootstrap/ui-bootstrap.js"></script>
+        <script src="lib/jquery/slimscroll/jquery.slimscroll.js"></script>
+        <script src="assets/js/vendor/ng/ui-notification.min.js"></script>
+        <script src="assets/js/vendor/ng/block-ui.js"></script>
 
 
-    <link rel="stylesheet" href="assets/css/main.css">
-    <script src="assets/js/vendor/modernizr.js"></script>
 
-  </head>
-  <body><!--[if lt IE 8]>
-    <p class="browsehappy">
-      You are using an <strong>outdated</strong> browser.
-      Please <a href="http://browsehappy.com/">upgrade your browser</a>
-      to improve your experience.
-    </p><![endif]-->
-    <toaster-container toaster-options="{'time-out': 3000, 'close-button':true}"></toaster-container>
-    <!-- <div ng-if="user.isSelectedRole()"> -->
-      <header class="main-header">
-        <div class="container__div"><a href="/" class="logo">Probns</a>
-          <div class="search__form">
-            <input placeholder="Búsqueda" type="text" class="search__input">
-            <input type="submit" value="Buscar" class="search__btn">
-            <button class="search__location">Ubicación</button>
-          </div>
-          <div class="top-menu">
-            <div class="container__div">
-              <ul>
-                <li><img src="img/avatar.jpg" alt="Bienes Raices" class="top-menu__avatar"><a id="dropdownMenu1" href="#" data-toggle="dropdown" class="dropdown-toggle"> Bienes Raices <i class="fa fa-caret-down"></i></a>
-                  <ul aria-labelledby="dropdownMenu1" class="dropdown-menu">
-                    <li><a href="#">Mi perfil</a></li>
-                    <li><a href="#">Configuración </a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Cerrar sesión </a></li>
-                  </ul>
-                </li>
-                <li><span class="badge">
-
-                    3</span><a href="#"><i class="icon icon-bell"></i></a></li>
-                <li><a href="#">Ayuda? <i class="fa fa-caret-down"></i></a></li>
-                <li class="call-to-action"><a href="#" class="btn btn-primary">Publica tu propiedad</a></li>
-              </ul><a id="menu-toggle" data-target="#menu" class="menu-toggle">Menu</a>
-            </div>
-          </div>
-        </div>
-      </header>
-      <nav id="menu" class="main-nav">
-        <ul>
-          <li class="active"><a href="#">Escritorio</a></li>
-          <li><a href="#">Bandeja de entrada</a></li>
-          <li><a href="#">Agenda </a></li>
-          <li><a href="#">Tus propiedades </a></li>
-          <li><a href="#">Tus agentes </a></li>
-          <li><a href="#">Tus clientes </a></li>
-          <li><a href="#">Tareas </a></li>
-          <li><a href="#">Cuenta </a></li>
-        </ul>
-      </nav>
-    <!-- </div> -->
-
-    <!-- <div ng-if="!user.isAuthenticated()" id="wrapper-login"> -->
-      <div id="page-wrapper">
-        <ng-view></ng-view>
-      </div>
-    <!-- </div> -->
-
-    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script>
-      window.jQuery || document.write('<script src="assets/js/vendor/jquery.js"><\/script>')
-    </script>
-
-    <script src="assets/js/vendor/bootstrap.js"></script>
-    <script src="assets/js/vendor/ng/angular.js"></script>
-    <!-- // <script src="assets/js/vendor/ng/angular-ui-router.js"></script> -->
-    <script src="assets/js/vendor/ng/angular-route.js"></script>
-    <script src="assets/js/vendor/ng/angular-animate.js"></script>
-    <script src="assets/js/vendor/ng/ui-bootstrap.js"></script>
-    <script src="assets/js/vendor/ng/ui-bootstrap-tpls.js"></script>
-    <script src="assets/js/vendor/ng/angular-cookies.js"></script>
-    <script src="assets/js/vendor/ng/ui-notification.min.js"></script>
-    <script src="assets/js/vendor/ng/block-ui.js"></script>
-    <script src="assets/js/vendor/ng/toastr.js"></script>
-
-    <script src="assets/js/vendor/lodash.js"></script>
-    <script src="assets/js/vendor/is.js"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/config.js"></script>
-
-    <!-- Dashboard -->
-    <script type="text/javascript" src="dashboard/dashboardService.js"></script>
-    <script type="text/javascript" src="dashboard/dashboardController.js"></script>
+        <!-- App Config and Routing Scripts -->
+        <script src="app/app.js"></script>
+        <script type="text/javascript" src="assets/js/config.js"></script>
+        <script src="app/config.js"></script>
+        <script src="app/config.lazyload.js"></script>
+        <script src="app/config.router.js"></script>
+        <script src="app/beyond.js"></script>
     
-  </body>
+    
+        <!-- Layout Related Directives -->
+        <script src="app/directives/loading.js"></script>
+        <!-- // <script src="app/directives/skin.js"></script> -->
+        <script src="app/directives/sidebar.js"></script>
+        <script src="app/directives/header.js"></script>
+        <script src="app/directives/navbar.js"></script>
+        <!-- // <script src="app/directives/chatbar.js"></script> -->
+        <!-- // <script src="app/directives/widget.js"></script> -->
+        
+    </body>
+    <!--  /Body -->
 </html>

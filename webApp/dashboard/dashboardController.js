@@ -1,5 +1,5 @@
 probnsApp.controller('dashboardController', function($scope,$http,$location,
-											   	     $window,dashboardService,ShareData,$routeParams,blockUI){
+											   	     $window,dashboardService,ShareData,blockUI){
 
 	var service = dashboardService;
 	var factory = ShareData;
@@ -10,23 +10,23 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 
 	service.getUserInfoById(userId).then(		
 		function (data){
-			console.log(data);
-			// $scope.datosGenerales = data;			
+			console.log(data.data);
+			$scope.datosGenerales = data.data;			
 		}
 	)
 
 	service.getTotalPropiedadesByUser(userId).then(
 		function (data){
-			console.log(data);
-			// $scope.totalPropiedades = data;			
+			// console.log(data);
+			$scope.totalPropiedades = data.data;			
 		}
 	)
 
 	service.getTotalAgentesByUser(userId).then(
 		function (data){
-			console.log(data);
-			// $scope.totalAgentes = data;
-			// blockUI.stop();
+			// console.log(data);
+			$scope.totalAgentes = data.data;
+			blockUI.stop();
 		}
 	)
 })
