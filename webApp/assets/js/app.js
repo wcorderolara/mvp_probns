@@ -4,13 +4,13 @@ probnsApp.factory('ShareData', function () {
     return { value: 0 };
 })
 
-LaboratoriosApp.config(['$routeProvider','$locationProvider', 'probnsConf', function ($routeProvider,$locationProvider,probnsConf) {
+probnsApp.config(['$routeProvider','$locationProvider', 'probnsConf', function ($routeProvider,$locationProvider,probnsConf) {
     $routeProvider
     .when("/", {
-        templateUrl: probnsConf.templates.loginUser,
-        controller: "authUserController"
+        templateUrl: probnsConf.templates.dashboard//,
+        // controller: "dashboardController"
     }).
-    .when("/logout", {
+    when("/logout", {
     	templateUrl: probnsConf.templates.logoutUser,
     	controller: "authUserController"
     }).
@@ -21,10 +21,6 @@ LaboratoriosApp.config(['$routeProvider','$locationProvider', 'probnsConf', func
     when("/signin", {
     	templateUrl: probnsConf.templates.signinUser,
     	controller: "authUserController"
-    })
-    when("/dashboard", {
-        templateUrl: probnsConf.templates.dashboard,
-        controller: "dashboardController"
     }).
  	when("/agentes", {
  		templateUrl: probnsConf.templates.agentes,
@@ -45,8 +41,13 @@ LaboratoriosApp.config(['$routeProvider','$locationProvider', 'probnsConf', func
  	when("/crearPropiedad", {
  		templateUrl: probnsConf.templates.addProperty,
  		controller: "newPropertyController"
- 	})
+ 	}).
     otherwise({
-    	redirectTo: '/'
+    	redirectTo: '/login'
     })
+
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
 }]);
