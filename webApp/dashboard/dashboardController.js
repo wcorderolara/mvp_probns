@@ -4,7 +4,7 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 
 	var service = dashboardService;
 	var factory = ShareData;
-	var userId = 2;
+	var userId = 1;
 	$scope.datosGenerales = {};
 	$scope.totalPropiedades = 0;
 	$scope.totalAgentes = 0;

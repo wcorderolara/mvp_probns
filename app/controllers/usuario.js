@@ -371,7 +371,6 @@ exports.putUsuario = function(req, res, next){
 			direccion: userInfo.direccion,
 			website: userInfo.website,
 			descripcion: userInfo.descripcion,
-			avatar: userInfo.avatar,
 			padreId: userInfo.padreId,
 		},
 		{
