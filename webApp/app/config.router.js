@@ -35,7 +35,7 @@ angular.module('probnsApp')
                                 function($ocLazyLoad){
                                     return $ocLazyLoad.load({
                                         serie: true,
-                                        files: [
+                                        files: [                                            
                                             'dashboard/dashboardService.js',
                                             'dashboard/dashboardController.js'
                                         ]

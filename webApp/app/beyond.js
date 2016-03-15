@@ -4,6 +4,7 @@ angular.module('probnsApp')
     .controller('AppCtrl', [
         '$rootScope', '$localStorage', '$state', '$timeout',
         function ($rootScope, $localStorage, $state, $timeout) {
+            $rootScope.names = "Walter Cordero";
             $rootScope.settings = {
                 skin: '',
                 color: {

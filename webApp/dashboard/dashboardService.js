@@ -1,4 +1,4 @@
-probnsApp.service('dashboardService', function ($http, $q, probnsConf){
+probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload){
 	var uri = probnsConf.api.url;
 
 	this.getUserInfoById = function(userId){
@@ -33,4 +33,44 @@ probnsApp.service('dashboardService', function ($http, $q, probnsConf){
 
 		return deferred.promise;
 	}
+
+	this.putInfoUsuario = function(userId, params){
+		var deferred = $q.defer();
+
+		$http.put(uri + '/usuario/update/'+ userId, JSON.stringify(params))
+		.success(function (response){
+			deferred.resolve(response);
+		})
+
+		return deferred.promise;
+	}
+
+	this.uploadAvatar = function(file){
+		var deferred = $q.defer();
+
+		file.upload = Upload.upload({
+	      url: uri + '/usuario/upload/avatar',
+	      data: {file: file},
+	    });
+
+	    file.upload.then(function (response) {
+	    	deferred.resolve(response);
+	    }, function (response) {
+	    	deferred.resolve(response);
+	    });
+
+	    return deferred.promise;
+	}
+
+	this.putAvatarUsuario = function(userId, params){
+		var deferred = $q.defer();
+
+		$http.put(uri + '/usuario/put/avatar/' + userId, JSON.stringify(params))
+		.success(function (response){
+			deferred.resolve(response);
+		})
+
+		return deferred.promise;
+	}
+
 })

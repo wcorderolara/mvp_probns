@@ -140,12 +140,6 @@ exports.getVendedoresByPadre = function (req, res, next){
 	});
 };
 
-exports.uploadAvatar = function(req, res, next){
-	cloudinary.uploader.upload(req.files.avatar.path, function(result, callback){
-		return callback(result);
-	});
-}
-
 exports.getUsuarioById = function (req, res, next){
 	models.Usuario.findOne({
 		where: {
@@ -365,48 +359,61 @@ exports.putVerificarEmailUsuario = function (req, res, next){
 };
 
 exports.putUsuario = function(req, res, next){
-	models.Usuario.findOne({
-		where: {
-			id: req.params.id
+	var userInfo = JSON.parse(req.body);
+	models.Usuario.update(
+		{
+			userLogin: userInfo.userLogin,
+			firstName: userInfo.firstName,
+			lastName: userInfo.lastName,
+			email: userInfo.userLogin,
+			telefono1: userInfo.telefono1,
+			telefono2: userInfo.telefono2,
+			direccion: userInfo.direccion,
+			website: userInfo.website,
+			descripcion: userInfo.descripcion,
+			avatar: userInfo.avatar,
+			padreId: userInfo.padreId,
+		},
+		{
+			where:{
+				id: req.params.id
+			}
 		}
-	}).then(function (usuario){
-		if(!usuario){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Registro no encontrado " + usuario
-			});
+	).then(function (result){
+		if(!result){
+			sendJSONresponse(res,500,{"type":false,"message":"error al encontrar el registro", "data":result});
 		}else{
-			Usuario.update({
-				userLogin: req.body.userLogin,
-				firstName: req.body.firstName,
-				lastName: req.body.lastName,
-				email: req.body.email,
-				telefono1: req.body.telefono1,
-				telefono2: req.body.telefono2,
-				direccion: req.body.direccion,
-				website: req.body.website,
-				descripcion: req.body.descripcion,
-				avatar: req.body.avatar,
-				padreId: req.body.padreId,
-			}).then(function (_usuario){
-				if(!_usuario){
-					res.status(500);
-					res.json({
-						type: false,
-						data: "Error al actualizar el registro " + _usuario
-					});
-				}else{
-					res.status(200);
-					res.json({
-						type: true,
-						data: "Registro Actualizado exitosamente..."
-					});
-				};
-			});
-		};
-	});
+			sendJSONresponse(res,200,{"type":true,"message":"Registro Actualizado exitosamente...", "data":result});
+		}
+	})
 };
+
+exports.uploadAvatar = function(req, res, next){
+	cloudinary.uploader.upload(req.files.file.path, function(result, callback){
+		sendJSONresponse(res,200,{"type":true,"data":result});
+	});
+}
+
+exports.putAvatar = function(req, res, next){
+	var userInfo = JSON.parse(req.body);
+	models.Usuario.update(
+		{
+			avatar: userInfo.avatar
+		},
+		{
+			where:{
+				id: req.params.id
+			}
+		}
+	).then(function (result){
+		if(!result){
+			sendJSONresponse(res,500,{"type":false,"message":"error al encontrar el registro", "data":result});
+		}else{
+			sendJSONresponse(res,200,{"type":true,"message":"Image de Perfil Actualizada exitosamente...", "data":result});
+		}
+	})
+
+}
 
 exports.changePassword = function (req, res, next){
 	models.Usuario.findOne({
@@ -455,7 +462,7 @@ exports.deleteUsuario = function (req, res, next){
 				data: "Registro no encontrado " + usuario
 			});
 		}else{
-			Usuario.update({
+			usuario.update({
 				status: 0
 			}).then(function (_usuario){
 				if(!_usuario){
