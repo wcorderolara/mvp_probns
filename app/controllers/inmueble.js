@@ -18,7 +18,7 @@ var sendJSONresponse = function(res, status, content){
 //Inmuebles
 exports.uploadImage = function(req, res, next){
 	cloudinary.uploader.upload(req.files.img_property, function(result, callback){
-		sendJSONresponse(res,200, {"image": result});
+		sendJSONresponse(res,200, {"type":true,"data": result});
 	});
 }
 

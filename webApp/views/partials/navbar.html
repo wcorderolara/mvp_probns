@@ -1,4 +1,4 @@
-<div class="navbar-inner">
+<div class="navbar-inner" ng-controller='dashboardController'>
     <div class="navbar-container">
         <!-- Navbar Barnd -->
         <div class="navbar-header pull-left">
@@ -229,30 +229,29 @@
                     <li>
                         <a class="login-area dropdown-toggle" data-toggle="dropdown">
                             <div class="avatar" title="View your public profile">
-                                <img src="assets/img/avatars/adam-jansen.jpg">
+                                <img src="{{datosGenerales.avatar}}">
                             </div>
                             <section>
-                                <h2><span class="profile"><span>David Stevenson</span></span></h2>
+                                <h2><span class="profile"><span>{{datosGenerales.firstName}}</span></span></h2>
                             </section>
                         </a>
                         <!--Login Area Dropdown-->
                         <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
-                            <li class="username"><a>David Stevenson</a></li>
-                            <li class="email"><a>David.Stevenson@live.com</a></li>
+                            <li class="username"><a>{{datosGenerales.firstName}}</a></li>
+                            <li class="email"><a>{{datosGenerales.email}}</a></li>
                             <!--Avatar Area-->
                             <li>
                                 <div class="avatar-area">
-                                    <img src="assets/img/avatars/adam-jansen.jpg" class="avatar">
-                                    <span class="caption">Change Photo</span>
+                                    <img src="{{datosGenerales.avatar}}" class="avatar">                                    
                                 </div>
                             </li>
                             <!--Avatar Area-->
-                            <li class="edit">
+                            <!-- <li class="edit">
                                 <a href="profile.html" class="pull-left">Profile</a>
                                 <a href="#" class="pull-right">Setting</a>
-                            </li>
+                            </li> -->
                             <!--Theme Selector Area-->
-                            <li class="theme-area">
+                            <!-- <li class="theme-area">
                                 <ul class="colorpicker">
                                     <li><a class="colorpick-btn" href="" style="background-color:#5DB2FF;" skin-changer rel="assets/css/skins/blue.min.css"></a></li>
                                     <li><a class="colorpick-btn" href="" style="background-color:#2dc3e8;" skin-changer rel="assets/css/skins/azure.min.css"></a></li>
@@ -267,7 +266,7 @@
                                     <li><a class="colorpick-btn" href="" style="background-color:#474544;" skin-changer rel="assets/css/skins/black.min.css"></a></li>
                                     <li><a class="colorpick-btn" href="" style="background-color:#001940;" skin-changer rel="assets/css/skins/deepblue.min.css"></a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                             <!--/Theme Selector Area-->
                             <li class="dropdown-footer">
                                 <a href="login.html">

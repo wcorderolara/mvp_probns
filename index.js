@@ -78,7 +78,8 @@ server.get("/usuario/getVendedor/:padreId/:id", controllers.usuario.getVendedorB
 server.post("/usuario/post/cliente", controllers.usuario.postCliente);
 server.post("/usuario/post/vendedor", controllers.usuario.postVendedor);
 server.post("auth/login", controllers.usuario.loginUser);
-server.post("/usuario/upload/avatar", controllers.usuario.uploadAvatar);
+server.post("/usuario/upload/avatar",restify.bodyParser(), controllers.usuario.uploadAvatar);
+server.put("/usuario/put/avatar/:id", controllers.usuario.putAvatar);
 server.put("/usuario/verificaEmail/:id", controllers.usuario.putVerificarEmailUsuario);
 server.put("/usuario/update/:id", controllers.usuario.putUsuario);
 server.put("/usuario/changePassword/:id", controllers.usuario.changePassword);
@@ -86,7 +87,7 @@ server.put("/usuario/delete/:id", controllers.usuario.deleteUsuario);
 
 //Inmuebles
 server.post("/inmuebles/post/inmueble", controllers.inmueble.postInmueble);
-server.post("/inmuebles/image", controllers.inmueble.uploadImage);
+server.post("/inmuebles/image", restify.bodyParser(), controllers.inmueble.uploadImage);
 server.get("/inmuebles/get/all/:usuarioId", controllers.inmueble.getInmueblesUsuario);
 server.get("/inmuebles/get/:id",middleware.trackingInmueble, controllers.inmueble.getInmuebleById);
 server.get("/inmuebles/get/all/count/:usuarioId",controllers.inmueble.getTotalInmueblesUsuario);

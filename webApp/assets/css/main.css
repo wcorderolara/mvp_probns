@@ -106,6 +106,13 @@ picture {
 body {
   font-size: 16px; }
 
+.upload-zone{
+  background-color: #EEEEEE;
+    margin-bottom: 20px;
+    padding: 20px;
+    margin-top: 15px;
+}
+
 .btn {
   background: #3298d4 !important;
   border-radius: 4px;
@@ -113,8 +120,8 @@ body {
   color: white !important;
   display: inline-block;
   line-height: 24px;
-  height: 24px;
-  padding: 0 10px;
+  /*height: 24px;*/
+  /*padding: 0 10px;*/
   transition: background 300ms; }
   .btn:hover {
     background: #47a3d8 !important; }
@@ -123,7 +130,7 @@ body {
     .btn.btn-green:hover {
       background: #95c660 !important; }
   .btn.btn-big {
-    height: 30px;
+    /*height: 30px;*/
     line-height: 30px; }
 
 @media screen and (min-width: 1020px) {

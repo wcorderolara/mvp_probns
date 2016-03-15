@@ -12,5 +12,6 @@ angular.module('probnsApp', [
     'ui.utils',
     'oc.lazyLoad',
     'blockUI',
-    'ui-notification'
+    'ui-notification',
+    'ngFileUpload'
 ]);
