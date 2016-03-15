@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title before-themeprimary">
+            <i class="fa  fa-info-circle themeprimary"></i>
+            Probns te permite publicar tu propiedad en 8 p&aacute;ginas de clasificados y manejar todos tus anuncios en un solo lugar. 
+        </h5>
+        <div id="WiredWizard" class="wizard wizard-wired" data-target="#WiredWizardsteps" ui-jq="wizard">
+            <ul class="steps">
+                <li data-target="#wiredstep1" class="active"><span class="step">1</span><span class="title">Step 1</span><span class="chevron"></span></li>
+                <li data-target="#wiredstep2"><span class="step">2</span><span class="title">Step 2</span> <span class="chevron"></span></li>
+                <li data-target="#wiredstep3"><span class="step">3</span><span class="title">Step 3</span> <span class="chevron"></span></li>
+                <li data-target="#wiredstep4"><span class="step">4</span><span class="title">Step 4</span> <span class="chevron"></span></li>
+                <li data-target="#wiredstep5"><span class="step">5</span><span class="title">Step 5</span> <span class="chevron"></span></li>
+            </ul>
+
+        </div>
+        <div class="step-content" id="WiredWizardsteps">
+            <div class="step-pane active" id="wiredstep1">
+                <div data-ng-include=" 'views/partials/new_property1.html' "></div>
+            </div>
+            <div class="step-pane" id="wiredstep2">
+                <div data-ng-include=" 'views/partials/new_property2.html' "></div>
+            </div>
+            <div class="step-pane" id="wiredstep3">
+                <div data-ng-include=" 'views/partials/new_property3.html' "></div>
+            </div>
+            <div class="step-pane" id="wiredstep4">
+                <div data-ng-include=" 'views/partials/new_property4.html' "></div>
+            </div>
+            <div class="step-pane" id="wiredstep5">
+                <div data-ng-include=" 'views/partials/new_property5.html' "></div>
+            </div>
+        </div>
+        <div class="actions actions-footer" id="WiredWizard-actions">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-sm btn-prev"> <i class="fa fa-angle-left"></i>Prev</button>
+                <button type="button" class="btn btn-default btn-sm btn-next" data-last="Finish">Next<i class="fa fa-angle-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

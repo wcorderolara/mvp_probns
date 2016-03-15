@@ -69,6 +69,29 @@ angular.module('probnsApp')
                                 }
                             ]
                         }
+                    })
+                    .state('app.nuevaPropiedad', {
+                        url: '/agregar/propiedad',
+                        templateUrl: 'views/new_property.html',
+                        controller: 'listingsController',
+                        ncyBreadcrumb:{
+                            label: 'Publica tu nueva propiedad'
+                        },
+                        resolve: {
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'lib/jquery/fuelux/wizard/wizard-custom.js',
+                                            'listings/listingsService.js',
+                                            'listings/listingsController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
                     });
                 // $urlRouterProvider
                 //     .otherwise('/app/dashboard');

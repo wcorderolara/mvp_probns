@@ -244,7 +244,6 @@ exports.getVendedorById = function (req, res, next){
 
 
 exports.postCliente = function (req, res, next){
-	console.log('entro');
 	models.Usuario.create({
 		userLogin: req.body.userLogin,
 		salt: crypto.randomBytes(16).toString('hex'),
@@ -415,6 +414,7 @@ exports.putAvatar = function(req, res, next){
 }
 
 exports.changePassword = function (req, res, next){
+	var _req = JSON.parse(req.body);
 	models.Usuario.findOne({
 		where: {
 			id: req.params.id
@@ -427,57 +427,89 @@ exports.changePassword = function (req, res, next){
 				data: "registro no encontrado"
 			});
 		}else{
-			usuario.update({
-				hash: crypto.pbkdf2Sync(req.body.password, usuario.salt, 1000, 64).toString('hex')
-			}).then(function (_usuario){
-				if(!_usuario){
-					res.status(500);
-					res.json({
-						type: false,
-						data: "Hubo un error al actualizar su Password: " + _usuario
-					});
+			models.Usuario.update(
+				{
+					hash: crypto.pbkdf2Sync(_req.password, usuario.salt, 1000, 64).toString('hex')	
+				},
+				{
+					where: {
+						id: req.params.id
+					}
+				}
+			).then(function (result){
+				if(!result){
+					sendJSONresponse(res,500,{"type":false,"message":"error al encontrar el registro", "data":result});
 				}else{
-					res.status(200);
-					res.json({
-						type: true,
-						data: "Se ha cambiado el password exitosamente"
-					});
-				};
-			});
+					sendJSONresponse(res,200,{"type":true,"message":"Contraseña <b>Actualizada</b> exitosamente"});
+				}
+			})
+			// usuario.update({
+			// 	hash: crypto.pbkdf2Sync(req.body.password, usuario.salt, 1000, 64).toString('hex')
+			// }).then(function (_usuario){
+			// 	if(!_usuario){
+			// 		res.status(500);
+			// 		res.json({
+			// 			type: false,
+			// 			data: "Hubo un error al actualizar su Password: " + _usuario
+			// 		});
+			// 	}else{
+			// 		res.status(200);
+			// 		res.json({
+			// 			type: true,
+			// 			data: "Se ha cambiado el password exitosamente"
+			// 		});
+			// 	};
+			// });
 		};
 	});
 };
 
 exports.deleteUsuario = function (req, res, next){
-	models.Usuario.findOne({
-		where: {
-			id: req.params.id
+	models.Usuario.update(
+		{
+			status: 0
+		},
+		{
+			where: {
+				id: req.params.id
+			}
 		}
-	}).then(function (usuario){
-		if(!usuario){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Registro no encontrado " + usuario
-			});
+	).then(function (result){
+		if(!result){
+			sendJSONresponse(res,500,{"type":false,"message":"error al encontrar el registro", "data":result});
 		}else{
-			usuario.update({
-				status: 0
-			}).then(function (_usuario){
-				if(!_usuario){
-					res.status(500);
-					res.json({
-						type: false,
-						data: "Error al eliminar el registro " + _usuario
-					});
-				}else{
-					res.status(200);
-					res.json({
-						type: true,
-						data: "Registro Eliminado exitosamente..."
-					});
-				};
-			});
-		};
-	});
+			sendJSONresponse(res,200,{"type":true,"message":"Registro <b>Eliminado</b> exitosamente..."});
+		}
+	})
+	// models.Usuario.findOne({
+	// 	where: {
+	// 		id: req.params.id
+	// 	}
+	// }).then(function (usuario){
+	// 	if(!usuario){
+	// 		res.status(500);
+	// 		res.json({
+	// 			type: false,
+	// 			data: "Registro no encontrado " + usuario
+	// 		});
+	// 	}else{
+	// 		usuario.update({
+	// 			status: 0
+	// 		}).then(function (_usuario){
+	// 			if(!_usuario){
+	// 				res.status(500);
+	// 				res.json({
+	// 					type: false,
+	// 					data: "Error al eliminar el registro " + _usuario
+	// 				});
+	// 			}else{
+	// 				res.status(200);
+	// 				res.json({
+	// 					type: true,
+	// 					data: "Registro Eliminado exitosamente..."
+	// 				});
+	// 			};
+	// 		});
+	// 	};
+	// });
 };

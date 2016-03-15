@@ -1,0 +1,47 @@
+<main class="property">
+  
+  <div class="property__new">
+    <form>
+      <div class="property__field">
+        <label class="property__label">Precio </label>
+        <div class="input-group"><span class="input-group-addon">$</span>
+          <input type="text" class="property__input">
+        </div>
+      </div>
+      <div class="property__field">
+        <label class="property__label">Total Comisión</label>
+        <div class="property__input">
+          <div class="property__range">
+            <input type="range" min="0" max="5" value="5" oninput="outputUpdate1(value)">
+          </div><span id="range1">5%</span>
+          <script>
+            function outputUpdate1(vol) {
+              document.querySelector('#range1').innerText = vol + "%";
+            }
+          </script>
+        </div>
+      </div>
+      <div class="property__field">
+        <label class="property__label">Compartida </label>
+        <div class="property__input">
+          <div class="property__range">
+            <input type="range" min="0" max="100" value="50" oninput="outputUpdate2(value)">
+          </div><span id="range2">50%</span>
+          <script>
+            function outputUpdate2(vol) {
+              document.querySelector('#range2').innerText = vol + "%";
+            }
+          </script>
+        </div>
+      </div>
+      <div class="property__field">
+        <label class="property__label">Direccion </label>
+        <div class="property__input">
+          <input type="text" placeholder="Calle y zona" class="property__input-text">
+          <input type="text" placeholder="Número" class="property__input-text">
+        </div>
+      </div>
+      
+    </form>
+  </div>
+</main>
