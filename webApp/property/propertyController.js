@@ -5,21 +5,6 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 	var service = propertyService;
 	var factory = ShareData;
 	var userId = 1;
-	$scope.tiposInmueble = {};
-	$scope._tipoInmueble = 0;
-	$scope.operacionesInmueble = {};
-	$scope._operacionInmueble = 0;
-	$scope.paises = [];
-	$scope.departamentos = [];
-	$scope.municipios = [];
-	$scope.paisSelected = null;
-	$scope.departamentoSelected = null;
-	$scope.municipioSelected = null;
-	$scope.precioPropiedad = 0;
-	$scope.direccionCorta = "";
-	$scope.direccion = "";
-	$scope.totalComision = 0;
-	$scope.comisionCompartida = 0;
 	$scope._newInmueble = {
 		descripcion: "",
 		precioPropiedad: 0,
@@ -43,67 +28,88 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 		imagenesInmueble: [],
 		amenitiesInmueble: [],
 	};
-	
-	service.getTiposInmueble().then(
-		function (data){
-			$scope.tiposInmueble = data.data;			
-		}
-	)
-
-	service.getOperacionesInmueble().then(
-		function (data){
-			$scope.operacionesInmueble = data.data;			
-		}
-	)
-
-	service.getPaises().then(
-		function (data){
-			$scope.paises = data.data;
-		}
-	)
-
-	$scope.setTipoInmueble = function(idTipoInmueble){
-		$scope._tipoInmueble = idTipoInmueble;
-	}
-
-	$scope.setOperacionInmueble = function(idOperacionInmueble){
-		$scope._operacionInmueble = idOperacionInmueble;
-	}
-
-	$scope.getDepartamentos = function(paisId){
-		$scope.paisSelected = paisId;
-		service.getDepartamentos($scope.paisSelected).then(
-			function (data){
-				$scope.departamentos = data.data;
-			}
-		)
-	}
-
-	$scope.getMunicipios = function(deptoId){
-		$scope.departamentoSelected = deptoId;
-		service.getMunicipios($scope.departamentoSelected).then(
-			function (data){
-				$scope.municipios = data.data;
-			}
-		)	
-	}
-
-	$scope.setMunicipio = function(municipioId){
-		$scope.municipioSelected = municipioId;
-	}
-
 	$scope.showInfo = function(){
-		console.log($scope._tipoInmueble);
-		console.log($scope._operacionInmueble);
-		console.log($scope.paisSelected);
-		console.log($scope.departamentoSelected);
-		console.log($scope.municipioSelected);
-
-		console.log($scope.precioPropiedad);
-		console.log($scope.direccionCorta);
-		console.log($scope.direccion);
-		console.log($scope.totalComision);
-		console.log($scope.comisionCompartida);
+		console.log($scope._newInmueble);
 	}
+
+	$scope.$on('setTipoInmueble', function (event, data){		
+		$scope._newInmueble.tipoInmuebleId = data;
+	})
+
+	$scope.$on('setOperacionInmueble', function (event, data){		
+		$scope._newInmueble.operacionInmuebleId = data;
+	})
+
+	$scope.$on('setPais', function (event, data){		
+		$scope._newInmueble.PaiId = data;
+	})
+
+	$scope.$on('setDepartamento', function (event, data){		
+		$scope._newInmueble.DepartamentoId = data;
+	})
+
+	$scope.$on('setMunicipio', function (event, data){		
+		$scope._newInmueble.MunicipioId = data;
+	})
+
+	$scope.$on('setPrecioPropiedad', function (event, data){		
+		$scope._newInmueble.precioPropiedad = data;
+	})
+
+	$scope.$on('setTotalComision', function (event, data){		
+		$scope._newInmueble.totalComision = data;
+	})
+
+	// service.getTiposInmueble().then(
+	// 	function (data){
+	// 		$scope.tiposInmueble = data.data;			
+	// 	}
+	// )
+
+	// service.getOperacionesInmueble().then(
+	// 	function (data){
+	// 		$scope.operacionesInmueble = data.data;			
+	// 	}
+	// )
+
+	// service.getPaises().then(
+	// 	function (data){
+	// 		$scope.paises = data.data;
+	// 	}
+	// )
+
+	// $scope.setTipoInmueble = function(idTipoInmueble){
+	// 	console.log('entro');
+	// 	console.log(idTipoInmueble);
+	// 	$scope._tipoInmueble = idTipoInmueble;
+	// 	console.log('tipo Inmueble');
+	// 	console.log($scope._tipoInmueble);
+	// }
+
+	// $scope.setOperacionInmueble = function(idOperacionInmueble){
+	// 	$scope._operacionInmueble = idOperacionInmueble;
+	// }
+
+	// $scope.getDepartamentos = function(paisId){
+	// 	$scope.paisSelected = paisId;
+	// 	service.getDepartamentos($scope.paisSelected).then(
+	// 		function (data){
+	// 			$scope.departamentos = data.data;
+	// 		}
+	// 	)
+	// }
+
+	// $scope.getMunicipios = function(deptoId){
+	// 	$scope.departamentoSelected = deptoId;
+	// 	service.getMunicipios($scope.departamentoSelected).then(
+	// 		function (data){
+	// 			$scope.municipios = data.data;
+	// 		}
+	// 	)	
+	// }
+
+	// $scope.setMunicipio = function(municipioId){
+	// 	$scope.municipioSelected = municipioId;
+	// }
 
 })

@@ -73,7 +73,7 @@ angular.module('probnsApp')
                     .state('app.nuevaPropiedad', {
                         url: '/agregar/propiedad',
                         templateUrl: 'views/new_property.html',
-                        controller: 'propertyController',
+                        // controller: 'propertyController',
                         ncyBreadcrumb:{
                             label: 'Publica tu nueva propiedad'
                         },
@@ -86,7 +86,12 @@ angular.module('probnsApp')
                                         files: [
                                             'lib/jquery/fuelux/wizard/wizard-custom.js',
                                             'property/propertyService.js',
-                                            'property/propertyController.js'
+                                            'property/propertyController.js',
+                                            'property/propertyStepOneController.js',
+                                            'property/propertyStepTwoController.js',
+                                            'property/propertyStepThreeController.js',
+                                            'property/propertyStepFourController.js',
+                                            'property/propertyStepFiveController.js'
                                         ]
                                     })
                                 }

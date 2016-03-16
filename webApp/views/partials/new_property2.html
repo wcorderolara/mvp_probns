@@ -1,6 +1,6 @@
 <main class="property">
   
-  <div class="property__new">
+  <div class="property__new" ng-controller="propertyStepTwoController">
     <div class="horizontal-form">
       <form class="form-horizontal" role="form">
         
@@ -9,7 +9,7 @@
           <div class="col-sm-7">
             <div class="input-group">
               <span class="input-group-addon">$</span>              
-              <input ng-model="precioPropiedad" type="text" class="form-control">
+              <input ng-model="precioPropiedad" ng-keyup="setPrecioPropiedad();" type="text" class="form-control">
             </div>
           </div>
         </div>
@@ -18,7 +18,7 @@
           <label class="col-sm-4 control-label no-padding-right">Total Comisión</label>
           <div class="col-sm-7">
             <div class="property__range col-sm-9">
-              <input ng-model="totalComision" type="range" min="0" max="5" value="{{totalComision}}" >
+              <input ng-model="totalComision" ng-change="setTotalComision()" type="range" min="0" max="5" value="{{totalComision}}" >
             </div>
             <span class="col-sm-2" id="range1">{{totalComision}}%</span>
             <script>
@@ -33,8 +33,7 @@
           <label class="col-sm-4 control-label no-padding-right">Compartida </label>
           <div class="col-sm-7">
             <div class="property__range col-sm-9">
-              <input ng-model="comisionCompartida" type="range" min="0" max="100" value="{{comisionCompartida}}" 
-                     oninput="outputUpdate2(comisionCompartida)">
+              <input ng-model="comisionCompartida" type="range" min="0" max="100" value="{{comisionCompartida}}" >
             </div>
             <span class="col-sm-2" id="range2">{{comisionCompartida}}%</span>
             <script>
@@ -59,8 +58,7 @@
           </div>
         </div>
         
-      </form>
-      <button ng-click="showInfo()">show info</button>
+      </form>      
     </div>
   </div>
 </main>

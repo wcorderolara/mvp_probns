@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-controller="propertyController">
     <div class="col-lg-12 col-sm-12 col-xs-12">
         <h5 class="row-title before-themeprimary">
             <i class="fa  fa-info-circle themeprimary"></i>
@@ -33,6 +33,7 @@
             </div>
             <alert id="errorAlert" type="danger" class="radius-bordered alert-shadowed hide">
             </alert>
+            <button ng-click="showInfo()">show info</button>
         </div>
 
         <div class="actions actions-footer" id="WiredWizard-actions">
