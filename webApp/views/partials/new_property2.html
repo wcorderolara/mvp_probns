@@ -33,7 +33,8 @@
           <label class="col-sm-4 control-label no-padding-right">Compartida </label>
           <div class="col-sm-7">
             <div class="property__range col-sm-9">
-              <input ng-model="comisionCompartida" type="range" min="0" max="100" value="{{comisionCompartida}}">
+              <input ng-model="comisionCompartida" type="range" min="0" max="100" value="{{comisionCompartida}}" 
+                     oninput="outputUpdate2(comisionCompartida)">
             </div>
             <span class="col-sm-2" id="range2">{{comisionCompartida}}%</span>
             <script>
@@ -59,7 +60,7 @@
         </div>
         
       </form>
-      <button ng-click="showInfo();">show info</button>
+      <button ng-click="showInfo()">show info</button>
     </div>
   </div>
 </main>
