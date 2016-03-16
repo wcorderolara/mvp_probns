@@ -14,6 +14,7 @@
             </ul>
 
         </div>
+        
         <div class="step-content" id="WiredWizardsteps">
             <div class="step-pane active" id="wiredstep1">
                 <div data-ng-include=" 'views/partials/new_property1.html' "></div>
@@ -30,7 +31,10 @@
             <div class="step-pane" id="wiredstep5">
                 <div data-ng-include=" 'views/partials/new_property5.html' "></div>
             </div>
+            <alert id="errorAlert" type="danger" class="radius-bordered alert-shadowed hide">
+            </alert>
         </div>
+
         <div class="actions actions-footer" id="WiredWizard-actions">
             <div class="btn-group">
                 <button type="button" class="btn btn-default btn-sm btn-prev"> <i class="fa fa-angle-left"></i>Prev</button>

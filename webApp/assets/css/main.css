@@ -108,9 +108,21 @@ body {
 
 .upload-zone{
   background-color: #EEEEEE;
-    margin-bottom: 20px;
-    padding: 20px;
-    margin-top: 15px;
+  margin-bottom: 20px;
+  padding: 20px;
+  height: 175px;
+}
+
+.margin-top-less-10{
+  margin-top: -25px;
+}
+
+.margin-left-10{
+  margin-left: 10px;
+}
+
+.padding-left-0{
+  padding-left: 0px;
 }
 
 .margin-bottom-10{
@@ -1442,10 +1454,10 @@ body {
         .property__desc:last-child {
           margin-right: 0; } }
   .property__new {
-    max-width: 100%;
+    /*max-width: 100%;*/
     margin-left: auto;
     margin-right: auto;
-    background: #ccc;
+    background: #ECECEC;
     padding: 20px 0;
     min-height: 350px;
     position: relative; }
@@ -1569,7 +1581,8 @@ body {
     display: inline-block;
     margin-right: 5px;
     padding: 5px 10px;
-    width: 88%; }
+    /*width: 88%; */
+  }
   .property__btns {
     width: 100%; }
     @media screen and (min-width: 720px) {
@@ -1581,8 +1594,7 @@ body {
         .property__btns:last-child {
           margin-right: 0; } }
     .property__btns .btn {
-      float: left;
-      display: block;
+      display: inline-block;
       margin-right: 2.35765%;
       width: 48.82117%;
       background: white !important;

@@ -48,18 +48,27 @@
                 </div>
                 <div  ng-show="cambiarFoto==true" class="col-md-12 animated fadeInDown">
                     <div class="col-md-12">
-                        <form name="myForm" class="upload-zone">
+                        <form name="myForm" class="upload-zone" class="col-md-12">
                             <fieldset>
-                                <input type="file" ngf-select ng-model="picFile" name="file"    
-                                    accept="image/*" ngf-max-size="2MB" required
-                                    ngf-model-invalid="errorFile">
-                                <i ng-show="myForm.file.$error.required">*required</i><br>
-                                <i ng-show="myForm.file.$error.maxSize">File too large 
-                                {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
-                                <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="header-avatar"> <button ng-click="picFile = null" ng-show="picFile">Remove</button>
-                                <br>
-                                <button ng-disabled="!myForm.$valid" class="btn btn-orange btn-xs" ng-click="uploadPic(picFile);">Guardar</button>
-                                <button class="btn btn-orange btn-xs" ng-click="hideChange();">cancelar</button>
+                                <div class="col-md-4">
+                                    <input type="file" ngf-select ng-model="picFile" name="file"    
+                                        accept="image/*" ngf-max-size="2MB" required
+                                        ngf-model-invalid="errorFile">
+                                    <i ng-show="myForm.file.$error.required">*required</i><br>
+                                    <i ng-show="myForm.file.$error.maxSize">File too large 
+                                    {{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+
+                                    <div class="col-md-12 padding-left-0">
+                                        <button ng-disabled="!myForm.$valid" class="btn btn-orange btn-xs" ng-click="uploadPic(picFile);">Guardar</button>
+                                        <button class="btn btn-orange btn-xs" ng-click="hideChange();">cancelar</button>
+                                    </div>
+                                </div>  
+
+                                <div class="col-md-6 margin-top-less-10">
+                                    <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="header-avatar"> 
+                                    <button class="btn btn-primary margin-left-10" ng-click="picFile = null" ng-show="picFile">Remove</button>
+                                </div>
+                                
                             </fieldset>
                             <br>
                             

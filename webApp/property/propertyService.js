@@ -22,5 +22,38 @@ probnsApp.service('propertyService', function ($http, $q, probnsConf){
 
 		return deferred.promise;
 	}
+
+	this.getPaises = function(){
+		var deferred = $q.defer();
+
+		$http.get(uri + '/paises')
+		.success(function (response){
+			deferred.resolve(response);
+		})
+
+		return deferred.promise;
+	}
+
+	this.getDepartamentos = function(paisId){
+		var deferred = $q.defer();
+
+		$http.get(uri + '/departamentos/all/' + paisId)
+		.success(function (response){
+			deferred.resolve(response);
+		})
+
+		return deferred.promise;	
+	}
+
+	this.getMunicipios = function(deptoId){
+		var deferred = $q.defer();
+
+		$http.get(uri + '/municipios/all/' + deptoId)
+		.success(function (response){
+			deferred.resolve(response);
+		})
+
+		return deferred.promise;
+	}
 	
 })

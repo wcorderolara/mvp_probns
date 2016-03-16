@@ -76,24 +76,61 @@
             }
         },
         next: function () {
-            var g = (this.currentStep + 1 <= this.numSteps);
-            var d = (this.currentStep === this.numSteps);
-            if (g) {
-                var f = b.Event("change");
-                this.$element.trigger(f, {
-                    step: this.currentStep,
-                    direction: "next"
-                });
-                if (f.isDefaultPrevented()) {
-                    return
+            //if(this.validateStep(this.currentStep)){
+                var g = (this.currentStep + 1 <= this.numSteps);
+                var d = (this.currentStep === this.numSteps);
+                if (g) {
+                    var f = b.Event("change");
+                    this.$element.trigger(f, {
+                        step: this.currentStep,
+                        direction: "next"
+                    });
+                    if (f.isDefaultPrevented()) {
+                        return
+                    }
+                    this.currentStep += 1;
+                    this.setState()
+                } else {
+                    if (d) {
+                        this.$element.trigger("finished")
+                    }
                 }
-                this.currentStep += 1;
-                this.setState()
-            } else {
-                if (d) {
-                    this.$element.trigger("finished")
-                }
+            //}
+        },
+        validateStep: function(step){
+            switch(step){
+                case 1:
+                    if($('input[name=tipoInmueble]:checked').val() === undefined){
+                        $('#errorAlert').html('<strong>Error:</strong> seleccione un tipo de Propiedad').addClass('show');
+                        return false;
+                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+
+                    if($('input[name=operacionInmueble]:checked').val() === undefined){
+                        $('#errorAlert').html('<strong>Error:</strong> seleccione una operacion a realizar con el inmueble').addClass('show');
+                        return false
+                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+
+                    if($('#cmbPais').val() == ""){
+                        $('#errorAlert').html('<strong>Error:</strong> seleccione un Pais').addClass('show');                   
+                        return false;
+                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+
+                    if($('#cmbDepartamento').val() == ""){
+                        $('#errorAlert').html('<strong>Error:</strong> seleccione un Departamento').addClass('show');
+                        return false;
+                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+
+                    if($('#cmbMunicipio').val() == ""){
+                        $('#errorAlert').html('<strong>Error:</strong> seleccione un Municipio').addClass('show');
+                        return false;
+                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+
+                    break;
+                case 2:
+
             }
+
+            return true;
         },
         selectedItem: function (d) {
             return {

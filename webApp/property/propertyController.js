@@ -1,5 +1,6 @@
 probnsApp.controller('propertyController', function($scope,$http,$location,
-											   	     $window,propertyService,ShareData,blockUI,Notification){
+											   	     $window,propertyService,
+											   	     ShareData,blockUI,Notification){
 
 	var service = propertyService;
 	var factory = ShareData;
@@ -8,10 +9,20 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 	$scope._tipoInmueble = 0;
 	$scope.operacionesInmueble = {};
 	$scope._operacionInmueble = 0;
-	$scope.totalAgentes = 0;
+	$scope.paises = [];
+	$scope.departamentos = [];
+	$scope.municipios = [];
+	$scope.paisSelected = null;
+	$scope.departamentoSelected = null;
+	$scope.municipioSelected = null;
+	$scope.precioPropiedad = 0;
+	$scope.direccionCorta = "";
+	$scope.direccion = "";
+	$scope.totalComision = 0;
+	$scope.comisionCompartida = 0;
 	$scope._newInmueble = {
 		descripcion: "",
-		precioPropiedad: "",
+		precioPropiedad: 0,
 		direccionCorta: "",
 		direccion: "",
 		latitud: "",
@@ -45,12 +56,54 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 		}
 	)
 
+	service.getPaises().then(
+		function (data){
+			$scope.paises = data.data;
+		}
+	)
+
 	$scope.setTipoInmueble = function(idTipoInmueble){
 		$scope._tipoInmueble = idTipoInmueble;
 	}
 
 	$scope.setOperacionInmueble = function(idOperacionInmueble){
 		$scope._operacionInmueble = idOperacionInmueble;
+	}
+
+	$scope.getDepartamentos = function(paisId){
+		$scope.paisSelected = paisId;
+		service.getDepartamentos($scope.paisSelected).then(
+			function (data){
+				$scope.departamentos = data.data;
+			}
+		)
+	}
+
+	$scope.getMunicipios = function(deptoId){
+		$scope.departamentoSelected = deptoId;
+		service.getMunicipios($scope.departamentoSelected).then(
+			function (data){
+				$scope.municipios = data.data;
+			}
+		)	
+	}
+
+	$scope.setMunicipio = function(municipioId){
+		$scope.municipioSelected = municipioId;
+	}
+
+	$scope.showInfo = function(){
+		console.log($scope._tipoInmueble);
+		console.log($scope._operacionInmueble);
+		console.log($scope.paisSelected);
+		console.log($scope.departamentoSelected);
+		console.log($scope.municipioSelected);
+
+		console.log($scope.precioPropiedad);
+		console.log($scope.direccionCorta);
+		console.log($scope.direccion);
+		console.log($scope.totalComision);
+		console.log($scope.comisionCompartida);
 	}
 
 })
