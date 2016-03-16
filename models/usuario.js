@@ -65,7 +65,7 @@ module.exports = function (sequelize, DataTypes){
 			defaultValue: null
 		},
 		descripcion: {
-			type: DataTypes.STRING,
+			type: DataTypes.TEXT,
 			allowNull: true,
 			defaultValue: null
 		},

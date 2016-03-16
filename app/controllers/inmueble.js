@@ -23,24 +23,26 @@ exports.uploadImage = function(req, res, next){
 }
 
 exports.postInmueble = function (req, res, next){
-	var _req = JSON.parse(req.body);
+	// var _req = JSON.parse(req.body);
 	models.Inmueble.create({
-		descripcion: _req.descripcion || "",
-		precioPropiedad: _req.precioPropiedad,
-		direccionCorta: _req.direccionCorta,
-		direccion: _req.direccion,
-		latitud: _req.latitud || "",
-		longitud: _req.longitud || "",
-		extensionPropiedad: _req.extensionPropiedad || "",
-		areaConstruccion: _req.areaConstruccion || "",
-		anioConstruccion: _req.anioConstruccion || "",
-		observaciones: _req.observaciones || "",
-		DepartamentoId: _req.DepartamentoId,
-		estadoInmuebleId: _req.estadoInmuebleId,
-		tipoInmuebleId: _req.tipoInmuebleId,
-		operacionInmuebleId: _req.operacionInmuebleId,
-		PaiId: _req.PaiId,
-		MunicipioId: _req.MunicipioId
+		descripcion: req.body.descripcion || "",
+		precioPropiedad: req.body.precioPropiedad,
+		direccionCorta: req.body.direccionCorta,
+		direccion: req.body.direccion,
+		latitud: req.body.latitud || "",
+		longitud: req.body.longitud || "",
+		extensionPropiedad: req.body.extensionPropiedad || null,
+		areaConstruccion: req.body.areaConstruccion || null,
+		anioConstruccion: req.body.anioConstruccion || null,
+		observaciones: req.body.observaciones || "",
+		totalComision: req.body.totalComision || 0,
+		comisionCompartida: req.body.comisionCompartida || 0,
+		DepartamentoId: req.body.DepartamentoId || 1,
+		estadoInmuebleId: req.body.estadoInmuebleId || 1,
+		tipoInmuebleId: req.body.tipoInmuebleId,
+		operacionInmuebleId: req.body.operacionInmuebleId || 1,
+		PaiId: req.body.PaiId || 1,
+		MunicipioId: req.body.MunicipioId || 1
 	}).then(function (inmueble){
 		if(!inmueble){			
 			sendJSONresponse(res, 400, {"type": false, "data": "Error al agregar la propiedad: " + inmueble});
@@ -54,8 +56,8 @@ exports.postInmueble = function (req, res, next){
 			})
 			//models.Usuario.addInmuebles(inmueble, {status: 1, usuarioId: req.body.userId});
 			//inmueble.addAnunciantes(JSON.parse(req.body.anunciantesInmueble), {status: 1, inmuebleId: inmueble.id});
-			uploadImagenesInmueble(res, JSON.parse(_req.imagenesInmueble), inmueble.id);
-			uploadAmenitiesInmueble(res, JSON.parse(_req.amenitiesInmueble), inmueble.id);
+			uploadImagenesInmueble(res, JSON.parse(req.body.imagenesInmueble), inmueble.id);
+			uploadAmenitiesInmueble(res, JSON.parse(req.body.amenitiesInmueble), inmueble.id);
 			sendJSONresponse(res,200, {"type":true, "data": inmueble, "message": "Propiedad creada exitosamente"})
 		}
 	})

@@ -40,6 +40,12 @@ server.use(function (err, req, res, next){
 	}
 })*/
 
+//Tipo Inmueble
+server.get("/tipoInmueble/get/all", controllers.tipoInmueble.getTipoInmueble);
+
+//Opearcion Inmueble
+server.get("/operacionInmueble/get/all", controllers.operacionInmueble.getOperacionesInmueble);
+
 //Paises
 server.get("/paises", controllers.pais.getPaises);
 server.get("/paises/:id", controllers.pais.getPaisById);

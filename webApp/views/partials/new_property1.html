@@ -1,26 +1,22 @@
-<main class="property">
+<section class="property">
   <div class="property__new">
     <form>
       <div class="property__field">
-        <label class="property__label">Tipo de propiedad</label>
+        <label class="property__label">Tipo de propiedades</label>
         <div data-toggle="buttons" class="property__btns">
-          <label class="btn btn-default">
-            <input type="radio" name="options" autocomplete="off" checked="">Casa 
-          </label>
-          <label class="btn btn-default">
-            <input type="radio" name="options" autocomplete="off" checked="">Apartamento 
+          <label class="btn btn-default" ng-repeat="tipo in tiposInmueble" ng-click="setTipoInmueble(tipo.id);">
+            <input  type="radio" name="tipoInmueble"  
+                   ng-model="$parent.descripcion" value="{{tipo.id}}"> {{tipo.descripcion}}
           </label>
         </div>
       </div>
       <div class="property__field">
         <label class="property__label">Que quieres hacer?</label>
         <div data-toggle="buttons" class="property__btns">
-          <label class="btn btn-default">
-            <input type="radio" name="options" autocomplete="off" checked="">Alquiler 
-          </label>
-          <label class="btn btn-default">
-            <input type="radio" name="options" autocomplete="off" checked="">Venta
-          </label>
+          <label class="btn btn-default" ng-repeat="operacion in operacionesInmueble" ng-click="setOperacionInmueble(operacion.id);">
+            <input  type="radio" name="operacionInmueble"  
+                   ng-model="$parent.descripcion" value="{{operacion.id}}"> {{operacion.descripcion}}
+          </label>          
         </div>
       </div>
       <div class="property__field">
@@ -31,17 +27,4 @@
       </div>
     </form>
   </div>
-  <!-- <div class="property__preview">
-    <div class="property__preview-img"></div>
-    <div class="property__preview-body">
-      <div class="property__preview-heading"></div>
-      <div class="property__preview-content">
-        <div class="property__preview-item"></div>
-        <div class="property__preview-item"></div>
-        <div class="property__preview-item"></div>
-        <div class="property__preview-item"></div>
-      </div>
-      <div class="property__preview-desc"></div>
-    </div>
-  </div> -->
-</main>
+</section>

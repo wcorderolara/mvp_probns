@@ -58,6 +58,16 @@ module.exports = function (sequelize, DataTypes){
 			type: DataTypes.INTEGER,
 			allowNull: true,
 			defaultValue: 0
+		},
+		totalComision: {
+			type: DataTypes.FLOAT,
+	        allowNull: true,
+	        defaultValue: 0
+		},
+		comisionCompartida: {
+			type: DataTypes.FLOAT,
+        	allowNull: true,
+        	defaultValue: 0
 		}
 	}, {
 		classMethods:{

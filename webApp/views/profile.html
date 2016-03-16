@@ -4,7 +4,7 @@
             <div class="profile-header row">
                 <div class="col-lg-2 col-md-4 col-sm-12 text-center">
                     <img src="{{datosGenerales.avatar}}" alt="" class="header-avatar" />
-                    <span ng-click="showChange();" class="btn btn-palegreen btn-sm btn-follow">
+                    <span ng-click="showChange();" class="btn btn-palegreen btn-sm btn-follow margin-bottom-10">
                         <i class="fa fa-camera"></i>
                         Editar fotograf&iacute;a
                     </span>                    
@@ -151,6 +151,21 @@
                                             <span class="input-icon icon-right">
                                                 <input ng-model="putUserInfo.userLogin" type="text" class="form-control" placeholder="correo Electronico">
                                                 <i class="fa fa-envelope blue"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-title">
+                                    Descripci&oacute;n del Cliente
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <span class="input-icon icon-right">
+                                                <textarea ng-model="putUserInfo.descripcion" class="form-control" placeholder="Descripcion el cliente"></textarea>
+                                                <!-- <input ng-model="putUserInfo.descripcion" type="text" class="form-control" placeholder="Descripcion"> -->
+                                                <i class="fa fa-align-justify blue"></i>
                                             </span>
                                         </div>
                                     </div>
