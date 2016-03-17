@@ -1,27 +1,78 @@
-<main class="property">
-  <div class="property__new">
-    <form>
-      <div class="property__field">
-        <label class="property__label">Ambientes </label>
-        <div class="property__input">
-          <div class="property__small"><i class="fa fa-bed"></i>
-            <input type="text">
-          </div>
-          <div class="property__small"><img src="img/toilet.svg" width="16">
-            <input type="text">
-          </div>
-          <div class="property__small"><i class="fa fa-car"></i>
-            <input type="text">
+<section class="row padding-20" >
+  <div class="col-sm-12 background-grey padding-20" ng-controller="propertyStepThreeController" style="min-height: 350px">
+    <div class="horizontal-form">
+      <form class="form-horizontal" role="form">
+        
+        <div class="form-group">
+          <label class="col-sm-4 control-label no-padding-right">Ambientes </label>
+          <div class="col-sm-7 well with-header margin-left-10">
+            <div class="header bordered-blue">
+              Listado de Ambientes 
+              <button class="btn btn-blue btn-xs pull-right" ng-click="openModal('','myModalContent.html', 'sm')">Agregar Ambiente</button>
+            </div>
+
+            <div class="col-sm-4 form-group" ng-repeat="amenity in listAmenities">
+              <label class="col-sm-6 control-label no-padding-right"><stron>{{amenity.descripcion}}</strong> </label>
+              <div class="col-sm-6">
+                <input class="form-control" ng-keyup="setAmenitiesInmueble()" 
+                       ng-model="amenity.cantidad" type="text" placeholder="No.">
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="property__field">
-        <label class="property__label">Terreno y construcción </label>
-        <div class="property__input">
-          <input type="text" placeholder="Varas cuadradas" class="property__input-text">
-          <input type="text" placeholder="Metros cuadrados" class="property__input-text">
+
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title">Agregar nuevos Ambientes</h3>
+            </div>
+            <div class="modal-body">
+                <div class="horizontal-form">
+                  <form class="form-horizontal">
+
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label no-padding-right">Ambiente </label>
+                      <div class="col-sm-7">
+                        <input ng-model="newDescripcion" type="text" placeholder="Nombre del Ambiente" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label no-padding-right">Cantidad </label>
+                      <div class="col-sm-7">
+                        <input ng-model="newCantidad" type="text" placeholder="numero de ambientes" class="form-control">
+                      </div>
+                    </div> 
+                  </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-blue" ng-click="addAmenity()">Agregar</button>
+                <button class="btn btn-danger" ng-click="cancel()">Cancelar</button>
+            </div>
+        </script>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label no-padding-right">Extensi&oacute;n Territorial </label>
+          <div class="col-sm-7">
+            <input id="txtExtensionPropiedad" ng-model="extensionPropiedad" type="text" ng-keyup="setExtensionPropiedad()" placeholder="Metros cuadradas" class="form-control">
+          </div>
         </div>
-      </div>
-    </form>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label no-padding-right">&Aacute;rea de construcci&oacute;n </label>
+          <div class="col-sm-7">
+            <input id="txtAreaPropiedad" ng-model="areaConstruccion" type="text" ng-keyup="setAreaConstruccion()" placeholder="Metros cuadradas" class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label no-padding-right">A&ntilde;o de construcci&oacute;n </label>
+          <div class="col-sm-7">
+            <input id="txtAnioPropiedad" ng-model="anioConstruccion" type="text" ng-keyup="setAnioConstruccion()" placeholder="Año de construccion" class="form-control">
+          </div>
+        </div>
+
+      </form>
+    </div>
   </div>
-</main>
+</section>

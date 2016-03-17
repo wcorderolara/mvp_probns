@@ -1,4 +1,4 @@
-probnsApp.service('propertyService', function ($http, $q, probnsConf){
+probnsApp.service('propertyService', function ($http, $q, probnsConf, Upload){
 	var uri = probnsConf.api.url;
 
 	this.getTiposInmueble = function(){
@@ -54,6 +54,23 @@ probnsApp.service('propertyService', function ($http, $q, probnsConf){
 		})
 
 		return deferred.promise;
+	}
+
+	this.uploadImagenInmueble = function(file){
+		var deferred = $q.defer();
+
+		file.upload = Upload.upload({
+	      url: uri + '/inmuebles/image',
+	      data: {file: file},
+	    });
+
+	    file.upload.then(function (response) {
+	    	deferred.resolve(response.data);
+	    }, function (response) {
+	    	deferred.resolve(response.data);
+	    });
+
+	    return deferred.promise;
 	}
 	
 })

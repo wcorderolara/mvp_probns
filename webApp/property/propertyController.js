@@ -60,56 +60,48 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 		$scope._newInmueble.totalComision = data;
 	})
 
-	// service.getTiposInmueble().then(
-	// 	function (data){
-	// 		$scope.tiposInmueble = data.data;			
-	// 	}
-	// )
+	$scope.$on('setComisionCompartida', function (event, data){		
+		$scope._newInmueble.comisionCompartida = data;
+	})
 
-	// service.getOperacionesInmueble().then(
-	// 	function (data){
-	// 		$scope.operacionesInmueble = data.data;			
-	// 	}
-	// )
+	$scope.$on('setDireccionCorta', function (event, data){		
+		$scope._newInmueble.direccionCorta = data;
+	})
 
-	// service.getPaises().then(
-	// 	function (data){
-	// 		$scope.paises = data.data;
-	// 	}
-	// )
+	$scope.$on('setDireccion', function (event, data){		
+		$scope._newInmueble.direccion = data;
+	})
 
-	// $scope.setTipoInmueble = function(idTipoInmueble){
-	// 	console.log('entro');
-	// 	console.log(idTipoInmueble);
-	// 	$scope._tipoInmueble = idTipoInmueble;
-	// 	console.log('tipo Inmueble');
-	// 	console.log($scope._tipoInmueble);
-	// }
+	$scope.$on('setAmenitiesInmueble', function (event, data){
+		$scope._newInmueble.amenitiesInmueble = data;
+	})
 
-	// $scope.setOperacionInmueble = function(idOperacionInmueble){
-	// 	$scope._operacionInmueble = idOperacionInmueble;
-	// }
+	$scope.$on('setExtensionPropiedad', function (event, data){
+		$scope._newInmueble.extensionPropiedad = data;
+	})
 
-	// $scope.getDepartamentos = function(paisId){
-	// 	$scope.paisSelected = paisId;
-	// 	service.getDepartamentos($scope.paisSelected).then(
-	// 		function (data){
-	// 			$scope.departamentos = data.data;
-	// 		}
-	// 	)
-	// }
+	$scope.$on('setAreaConstruccion', function (event, data){
+		$scope._newInmueble.areaConstruccion = data;
+	})
 
-	// $scope.getMunicipios = function(deptoId){
-	// 	$scope.departamentoSelected = deptoId;
-	// 	service.getMunicipios($scope.departamentoSelected).then(
-	// 		function (data){
-	// 			$scope.municipios = data.data;
-	// 		}
-	// 	)	
-	// }
+	$scope.$on('setAnioConstruccion', function (event, data){
+		$scope._newInmueble.anioConstruccion = data;
+	})
 
-	// $scope.setMunicipio = function(municipioId){
-	// 	$scope.municipioSelected = municipioId;
-	// }
+	$scope.$on('setImagenesInmueble', function (event, data){
+		$scope._newInmueble.imagenesInmueble = data;
+	})
+
+	$scope.$on('setDescripcion', function (event, data){
+		$scope._newInmueble.descripcion = data;
+		$scope.$broadcast('setInmueblePreview', $scope._newInmueble);
+	})
+
+	$scope.$on('setObservaciones', function (event, data){
+		$scope._newInmueble.observaciones = data;
+		$scope.$broadcast('setInmueblePreview', $scope._newInmueble);
+	})
+
+
 
 })

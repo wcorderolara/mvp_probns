@@ -1,21 +1,28 @@
 <main class="property">
-  <div class="property__preview">
-    <div class="property__preview-img"><img src="img/new_property.jpg"></div>
+  <div class="property__preview" ng-controller="propertyStepFiveController">
+    <div class="property__preview-img"
+         style="background-image: url('{{_newInmueble.imagenesInmueble[0].img_url}}');">
+      <!-- <img src="{{_newInmueble.imagenesInmueble[0].img_url}}"> -->
+    </div>
     <div class="property__preview-body">
       <div class="property__preview-heading">
-        <h3 class="pull-left property__preview-title">12 calle Z.10</h3>
+        <h3 class="pull-left property__preview-title">{{_newInmueble.direccionCorta}}</h3>
         <div class="pull-right">
-          <div class="property__preview-commission">5%<br>Total Comisión</div>
-          <div class="property__preview-commission">50%<br>Compartida</div>
+          <div class="property__preview-commission">{{_newInmueble.totalComision}}%<br>Total Comisión</div>
+          <div class="property__preview-commission">{{_newInmueble.comisionCompartida}}%<br>Compartida</div>
         </div>
       </div>
       <div class="property__preview-content">
-        <div class="property__preview-item">$400,000</div>
-        <div class="property__preview-item"><span>2<i class="fa fa-bed"></i></span><span>2<img src="img/toilet.svg" height="12"></span><span>2<i class="fa fa-car"></i></span></div>
-        <div class="property__preview-item">1,500 mt2</div>
-        <div class="property__preview-item">2,800 V2</div>
+        <div class="property__preview-item">{{_newInmueble.precioPropiedad | currency:"USD$"}}</div>
+        <div class="property__preview-item">
+          <span class="label label-primary" ng-repeat="amenity in _newInmueble.amenitiesInmueble">
+              {{amenity.cantidad}} - {{amenity.descripcion}}
+          </span>
+        </div>
+        <div class="property__preview-item">Extensi&oacute;n: {{_newInmueble.extensionPropiedad}} mt<sup>2</sup></div>
+        <div class="property__preview-item">Construcci&oacute;n: {{_newInmueble.areaConstruccion}} mt<sup>2</sup></div>
       </div>
-      <div class="property__preview-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget.</div>
+      <div class="property__preview-desc">{{_newInmueble.descripcion}}</div>
     </div>
   </div>
 </main>

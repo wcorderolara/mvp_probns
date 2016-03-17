@@ -1,6 +1,6 @@
-<main class="property">
+<main class="row padding-20">
   
-  <div class="property__new" ng-controller="propertyStepTwoController">
+  <div class="col-sm-12 background-grey padding-20" ng-controller="propertyStepTwoController">
     <div class="horizontal-form">
       <form class="form-horizontal" role="form">
         
@@ -9,7 +9,7 @@
           <div class="col-sm-7">
             <div class="input-group">
               <span class="input-group-addon">$</span>              
-              <input ng-model="precioPropiedad" ng-keyup="setPrecioPropiedad();" type="text" class="form-control">
+              <input id="txtPrecioPropiedad" ng-model="precioPropiedad" ng-keyup="setPrecioPropiedad();" type="text" class="form-control">
             </div>
           </div>
         </div>
@@ -33,7 +33,7 @@
           <label class="col-sm-4 control-label no-padding-right">Compartida </label>
           <div class="col-sm-7">
             <div class="property__range col-sm-9">
-              <input ng-model="comisionCompartida" type="range" min="0" max="100" value="{{comisionCompartida}}" >
+              <input ng-model="comisionCompartida" ng-change="setComisionCompartida();" type="range" min="0" max="100" value="{{comisionCompartida}}" >
             </div>
             <span class="col-sm-2" id="range2">{{comisionCompartida}}%</span>
             <script>
@@ -47,14 +47,14 @@
         <div class="form-group">
           <label class="col-sm-4 control-label no-padding-right">Direcci&oacute;n corta </label>
           <div class="col-sm-7">
-            <input ng-model="direccionCorta" type="text" placeholder="Direccion de referencia" class="property__input-text">
+            <input id="txtShortAddress" ng-model="direccionCorta" ng-keyup="setDireccionCorta();" type="text" placeholder="Direccion de referencia" class="form-control">
           </div>
         </div>
 
         <div class="form-group">
           <label class="col-sm-4 control-label no-padding-right">Direccion </label>
           <div class="col-sm-7">
-            <input ng-model="direccion" type="text" placeholder="Direccion completa" class="property__input-text">            
+            <input id="txtFullAddress" ng-model="direccion" ng-keyup="setDireccion();" type="text" placeholder="Direccion completa" class="form-control">            
           </div>
         </div>
         

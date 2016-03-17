@@ -19,4 +19,17 @@ probnsApp.controller('propertyStepTwoController', function($scope,$http,$locatio
 		$scope.$emit('setTotalComision', $scope.totalComision);
 	}
 
+	$scope.setComisionCompartida = function(){
+		$scope.$emit('setComisionCompartida', $scope.comisionCompartida);
+	}
+
+
+	$scope.setDireccionCorta = function(){
+		$scope.$emit('setDireccionCorta', $scope.direccionCorta);	
+	}
+
+	$scope.setDireccion = function(){
+		$scope.$emit('setDireccion', $scope.direccion);	
+	}
+
 })

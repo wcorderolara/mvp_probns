@@ -1,15 +1,48 @@
-<main class="property">
-  <div class="property__new">
-    <form>
-      <div class="property__btns property__fw">
-        <label for="file" class="btn btn-default btn-lg"> <i class="glyphicon glyphicon-cloud-upload"></i>Agregar fotos
-          <input id="file" type="file">
-        </label>
-      </div>
-      <div class="property__field">
-        <label class="property__label centered">Descripción </label>
-        <textarea placeholder="Escribe tu descripción..." class="property__input"></textarea>
-      </div>
-    </form>
+<main class="row padding-20">
+  <div class="col-sm-12 background-grey padding-20" ng-controller="propertyStepFourController">
+    <div class="horizontal-form">
+      <form class="form-horizontal" role="form">
+        
+        <div class="form-group">
+          <label class="col-sm-4 control-label no-padding-right">Agregar fotos</label>
+          <div class="col-sm-7">
+            <button class="btn btn-labeled btn-blue" 
+                    type="file" ngf-select="uploadImagenInmueble($file, $invalidFiles)"
+                    accept="image/*" ngf-max-size="2MB">
+              <i class="btn-label fa fa-upload"></i>
+              Subir Imagen
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-7 col-sm-7 col-xs-12 col-lg-offset-4" ng-show="listImagenesInmueble.length > 0">
+              <div class="well with-header">
+                  <div class="header bordered-blue">Listado de im&aacute;genes del Inmueble</div>
+                  <div class="row">
+                    <div class="col-sm-3" ng-repeat="imagen in listImagenesInmueble">
+                      <img src="{{imagen.img_url}}" alt="Imagen" title="Imagen" class="img-thumbnail">
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label no-padding-right">Descripción Propiedad </label>
+          <div class="col-sm-7">
+            <textarea id="txtDescripcionPropiedad" ng-model="descripcionPropiedad" ng-keyup="setDescripcion();" class="form-control" placeholder="descripcion de la propiedad" rows="5"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label no-padding-right">Observaciones </label>
+          <div class="col-sm-7">
+            <textarea ng-model="observacionesPropiedad" ng-keyup="setObservaciones();" class="form-control" placeholder="Observaciones a tomar para la propiedad" rows="5"></textarea>
+          </div>
+        </div>
+
+      </form>
+    </div>
   </div>
 </main>

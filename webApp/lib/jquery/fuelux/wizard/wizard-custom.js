@@ -76,7 +76,7 @@
             }
         },
         next: function () {
-            //if(this.validateStep(this.currentStep)){
+            if(this.validateStep(this.currentStep)){
                 var g = (this.currentStep + 1 <= this.numSteps);
                 var d = (this.currentStep === this.numSteps);
                 if (g) {
@@ -95,7 +95,7 @@
                         this.$element.trigger("finished")
                     }
                 }
-            //}
+            }
         },
         validateStep: function(step){
             switch(step){
@@ -127,7 +127,45 @@
 
                     break;
                 case 2:
+                    if($('#txtPrecioPropiedad').val() == ""){
+                        $('#errorAlert').html('<strong>Error:</strong> Debe ingresar el precio de la propiedad').addClass('show');                   
+                        return false;
+                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
 
+                    if($('#txtShortAddress').val() == ""){
+                        $('#errorAlert').html('<strong>Error:</strong> Ingrese una direccion descriptiva para la propiedad').addClass('show');
+                        return false;
+                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+
+                    if($('#txtFullAddress').val() == ""){
+                        $('#errorAlert').html('<strong>Error:</strong> Ingrese la direccion exacta de la propiedad').addClass('show');
+                        return false;
+                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+
+                    break;
+                case 3:
+                    if($('#txtExtensionPropiedad').val() == ""){
+                        $('#errorAlert').html('<strong>Error:</strong> Ingrese la Extensi&oacute;n Territorial de la Propiedad').addClass('show');                   
+                        return false;
+                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+
+                    if($('#txtAreaPropiedad').val() == ""){
+                        $('#errorAlert').html('<strong>Error:</strong> Ingrese el area de construcci&oacute;n de la Propiedad').addClass('show');
+                        return false;
+                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+
+                    if($('#txtAnioPropiedad').val() == ""){
+                        $('#errorAlert').html('<strong>Error:</strong> Ingrese el A&ntilde;o de construcci&oacute;n').addClass('show');
+                        return false;
+                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+
+                    break;
+                case 4:
+                    if($('#txtDescripcionPropiedad').val() == ""){
+                        $('#errorAlert').html('<strong>Error:</strong> Ingrese una descripcion de la Propiedad').addClass('show');
+                        return false;
+                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+                    break;
             }
 
             return true;
