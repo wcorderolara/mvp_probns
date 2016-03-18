@@ -53,17 +53,9 @@ exports.getUsuarios = function (req, res, next){
 		order: 'PaiId'
 	}).then(function (clientes){
 		if(!clientes){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Error al obtener los clientes" + clientes
-			});
+			sendJSONresponse(res,500, {"type":false, "message":"Error al obtener los clientes", "data": clientes});
 		}else{
-			res.status(200);
-			res.json({
-				type: true,
-				data: clientes
-			});
+			sendJSONresponse(res,200,{"type":true,"data":clientes});
 		};
 	});
 };
@@ -125,17 +117,9 @@ exports.getVendedoresByPadre = function (req, res, next){
 		]
 	}).then(function (clientes){
 		if(!clientes){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Error al obtener los clientes" + clientes
-			});
+			sendJSONresponse(res,500,{"type":false,"message":"Error al obtener los clientes", "data":clientes});
 		}else{
-			res.status(200);
-			res.json({
-				type: true,
-				data: clientes
-			});
+			sendJSONresponse(res,200,{"type":true,"data":clientes});
 		};
 	});
 };
@@ -171,17 +155,9 @@ exports.getUsuarioById = function (req, res, next){
 		]
 	}).then(function (cliente){
 		if(!cliente){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Error al obtener el registro" + cliente
-			});
+			sendJSONresponse(res,500,{"type":false,"message":"Error al obtener el registro","data":cliente});
 		}else{
-			res.status(200);
-			res.json({
-				type: true,
-				data: cliente
-			})
+			sendJSONresponse(res,200,{"type":true,"data":cliente});
 		}
 	})
 }
@@ -189,8 +165,8 @@ exports.getUsuarioById = function (req, res, next){
 exports.getVendedorById = function (req, res, next){
 	models.Usuario.findOne({
 		where: {
-			id: req.body.id,
-			padreId: req.body.padreId,
+			id: req.params.id,
+			padreId: req.params.padreId,
 			status: 1
 		},
 		include: [
@@ -227,43 +203,33 @@ exports.getVendedorById = function (req, res, next){
 		]
 	}).then(function (cliente){
 		if(!cliente){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Error al obtener el registro " + cliente
-			});
+			sendJSONresponse(res,500,{"type":false,"message":"Error al obtener el registro","data":cliente});
 		}else{
-			res.status(200);
-			res.json({
-				type: true,
-				data: cliente
-			})
+			sendJSONresponse(res,200,{"type":true,"data":cliente});
 		}
 	})
 }
 
 
 exports.postCliente = function (req, res, next){
+	var _req = JSON.parse(req.body);
+
 	models.Usuario.create({
-		userLogin: req.body.userLogin,
+		userLogin: _req.userLogin,
 		salt: crypto.randomBytes(16).toString('hex'),
-		email: req.body.userLogin,
+		email: _req.userLogin,
 		verificadoEmail: 0,
 		status: 1,
-		tipoUsuarioId: req.body.tipoUsuarioId,
-		PaiId: req.body.PaiId,
-		estadoUsuarioId: req.body.estadoUsuarioId || 1
+		tipoUsuarioId: _req.tipoUsuarioId,
+		PaiId: _req.PaiId,
+		estadoUsuarioId: _req.estadoUsuarioId || 1
 	}).then(function (user){
 		if(!user){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Error al crear el registro: " + user
-			});
+			sendJSONresponse(res,500,{"type":false,"message":"Error al crear el registro","data":user});
 		}else{
 			var _token = service.createToken(user);
 			user.update({
-				hash: crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64).toString('hex')
+				hash: crypto.pbkdf2Sync(_req.password, user.salt, 1000, 64).toString('hex')
 			}).then(function(){
 				sendJSONresponse(res, 200, {"type": true, "data": "Registro creado exitosamente", "token": _token})
 			})
@@ -272,29 +238,26 @@ exports.postCliente = function (req, res, next){
 };
 
 exports.postVendedor = function(req,res,next){
+	var _req = JSON.parse(req.body);
 	models.Usuario.create({
-		userLogin: req.body.userLogin,		
-		firstName: req.body.firstName,
-		lastName: req.body.lastName || null,
+		userLogin: _req.userLogin,		
+		firstName: _req.firstName,
+		lastName: _req.lastName || null,
 		salt: crypto.randomBytes(16).toString('hex'),
-		email: req.body.userLogin,
+		email: _req.userLogin,
 		verificadoEmail: 0,
 		status: 1,
-		tipoUsuarioId: req.body.tipoUsuarioId,
-		PaiId: req.body.PaiId,
-		estadoUsuarioId: req.body.estadoUsuarioId || 1,
-		padreId: req.body.padreId
+		tipoUsuarioId: _req.tipoUsuarioId,
+		PaiId: _req.PaiId,
+		estadoUsuarioId: _req.estadoUsuarioId || 1,
+		padreId: _req.padreId
 	}).then(function (user){
 		if(!user){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Error al crear el registro: " + user
-			});
+			sendJSONresponse(res,500,{"type":false,"message":"Error al crear el registro","data":user});
 		}else{
 			var _token = service.createToken(user);
 			user.update({
-				hash: crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64).toString('hex')
+				hash: crypto.pbkdf2Sync(_req.password, user.salt, 1000, 64).toString('hex')
 			}).then(function(){
 				sendJSONresponse(res, 200, {"type": true, "data": "Registro creado exitosamente", "token": _token})
 			})
@@ -303,7 +266,9 @@ exports.postVendedor = function(req,res,next){
 };
 
 exports.loginUser = function(req, res, next){
-	if(!req.body.loginUser ||  !req.body.password){
+	var _req = JSON.parse(req.body);
+
+	if(!_req.loginUser ||  !_req.password){
 		sendJSONresponse(res, 400, {"type": false, "data": "Todos los campos son requeridos"});
 		return;
 	}
@@ -330,27 +295,15 @@ exports.putVerificarEmailUsuario = function (req, res, next){
 		}
 	}).then(function (cliente){
 		if(!cliente){
-			res.status(500);
-			res.json({
-				type: false,
-				data: "Imposible verificar el Correo Electronico, usuaro no existe..."
-			});
+			sendJSONresponse(res,500,{"type":false,"message":"Imposible verificar el Correo Electronico, usuaro no existe...","data":cliente});
 		}else{
 			cliente.update({
 				verificadoEmail: 1
 			}).then(function (_cliente){
 				if(!_cliente){
-					res.status(500);
-					res.json({
-						type: false,
-						data: "Error al intentar verificar el correo Electronico"
-					});
+					sendJSONresponse(res,500,{"type":false,"message":"Error al intentar verificar el correo Electronico","data":_cliente});
 				}else{
-					res.status(200);
-					res.json({
-						type: true,
-						data: "Email verificado..."
-					});
+					sendJSONresponse(res,200,{"type":true,"message":"Email verificado...","data":_cliente});
 				};
 			});
 		};
@@ -443,23 +396,6 @@ exports.changePassword = function (req, res, next){
 					sendJSONresponse(res,200,{"type":true,"message":"Contraseña <b>Actualizada</b> exitosamente"});
 				}
 			})
-			// usuario.update({
-			// 	hash: crypto.pbkdf2Sync(req.body.password, usuario.salt, 1000, 64).toString('hex')
-			// }).then(function (_usuario){
-			// 	if(!_usuario){
-			// 		res.status(500);
-			// 		res.json({
-			// 			type: false,
-			// 			data: "Hubo un error al actualizar su Password: " + _usuario
-			// 		});
-			// 	}else{
-			// 		res.status(200);
-			// 		res.json({
-			// 			type: true,
-			// 			data: "Se ha cambiado el password exitosamente"
-			// 		});
-			// 	};
-			// });
 		};
 	});
 };
@@ -481,35 +417,4 @@ exports.deleteUsuario = function (req, res, next){
 			sendJSONresponse(res,200,{"type":true,"message":"Registro <b>Eliminado</b> exitosamente..."});
 		}
 	})
-	// models.Usuario.findOne({
-	// 	where: {
-	// 		id: req.params.id
-	// 	}
-	// }).then(function (usuario){
-	// 	if(!usuario){
-	// 		res.status(500);
-	// 		res.json({
-	// 			type: false,
-	// 			data: "Registro no encontrado " + usuario
-	// 		});
-	// 	}else{
-	// 		usuario.update({
-	// 			status: 0
-	// 		}).then(function (_usuario){
-	// 			if(!_usuario){
-	// 				res.status(500);
-	// 				res.json({
-	// 					type: false,
-	// 					data: "Error al eliminar el registro " + _usuario
-	// 				});
-	// 			}else{
-	// 				res.status(200);
-	// 				res.json({
-	// 					type: true,
-	// 					data: "Registro Eliminado exitosamente..."
-	// 				});
-	// 			};
-	// 		});
-	// 	};
-	// });
 };

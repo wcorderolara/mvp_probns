@@ -94,6 +94,7 @@ server.put("/usuario/delete/:id", controllers.usuario.deleteUsuario);
 //Inmuebles
 server.post("/inmuebles/post/inmueble", controllers.inmueble.postInmueble);
 server.post("/inmuebles/image", restify.bodyParser(), controllers.inmueble.uploadImage);
+server.post("/inmuebles/delete/image", controllers.inmueble.deleteImage);
 server.get("/inmuebles/get/all/:usuarioId", controllers.inmueble.getInmueblesUsuario);
 server.get("/inmuebles/get/:id",middleware.trackingInmueble, controllers.inmueble.getInmuebleById);
 server.get("/inmuebles/get/all/count/:usuarioId",controllers.inmueble.getTotalInmueblesUsuario);

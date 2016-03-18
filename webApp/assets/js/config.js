@@ -1,8 +1,8 @@
 angular.module('probnsApp')
   .constant("probnsConf", {
   api: {
-    url: "http://ec2-52-37-254-25.us-west-2.compute.amazonaws.com",
-    //url: "http://localhost:3000",
+    // url: "http://ec2-52-37-254-25.us-west-2.compute.amazonaws.com",
+    url: "http://localhost:3000",
     format: "format=json"
   },
   loading: {

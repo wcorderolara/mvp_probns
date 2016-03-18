@@ -30,7 +30,11 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 		userId: _userId //este campo sera obtenido el localstorage ya que ahi estara guardado
 	};
 	$scope.showInfo = function(){
-		console.log($scope._newInmueble);
+		// console.log('hola'); return false;
+		// console.log($window.location.href = '#app.propiedades');
+		console.log('hola');
+		$window.location = '#/app/propiedades';
+		// $location.url('#/app/propiedades');
 	}
 
 	$scope.guardarPropiedad = function(){
@@ -42,7 +46,7 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 				}else{
 					Notification.success(data.message);
 					setTimeout(function(){
-						$location.path('/propiedades');
+						$window.location = '#/app/propiedades';
 					}, 1500);
 				}
 			}
