@@ -77,6 +77,9 @@
         },
         next: function () {
             if(this.validateStep(this.currentStep)){
+                if(this.currentStep == 4){
+                    angular.element(document.getElementById('wizardStep4')).scope().setObservaciones();
+                }
                 var g = (this.currentStep + 1 <= this.numSteps);
                 var d = (this.currentStep === this.numSteps);
                 if (g) {

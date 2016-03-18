@@ -16,7 +16,7 @@
         <div class="property__preview-item">{{_newInmueble.precioPropiedad | currency:"USD$"}}</div>
         <div class="property__preview-item">
           <span class="label label-primary" ng-repeat="amenity in _newInmueble.amenitiesInmueble">
-              {{amenity.cantidad}} - {{amenity.descripcion}}
+            {{amenity.descripcion}} ({{amenity.cantidad}})
           </span>
         </div>
         <div class="property__preview-item">Extensi&oacute;n: {{_newInmueble.extensionPropiedad}} mt<sup>2</sup></div>

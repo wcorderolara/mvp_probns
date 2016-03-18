@@ -29,6 +29,10 @@ probnsApp.controller('propertyStepFourController', function($scope,$http,$locati
 		$scope.$emit('setImagenesInmueble', $scope.listImagenesInmueble);	
 	}
 
+	$scope.sayHi = function(){
+		console.log("hola Mundo");
+	}
+
 	$scope.uploadImagenInmueble = function(file, errFiles) {
 	    service.uploadImagenInmueble(file).then(
 	    	function (data){
@@ -46,4 +50,4 @@ probnsApp.controller('propertyStepFourController', function($scope,$http,$locati
 	    )
     }
 
-})
+	})
