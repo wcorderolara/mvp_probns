@@ -72,5 +72,16 @@ probnsApp.service('propertyService', function ($http, $q, probnsConf, Upload){
 
 	    return deferred.promise;
 	}
+
+	this.guardarPropiedad = function(params){
+		var deferred = $q.defer();
+
+		$http.post(uri + '/inmuebles/post/inmueble', JSON.stringify(params))
+		.success(function (response){
+			deferred.resolve(response);
+		})
+
+		return deferred.promise;
+	}
 	
 })

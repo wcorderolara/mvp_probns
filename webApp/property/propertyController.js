@@ -4,7 +4,7 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 
 	var service = propertyService;
 	var factory = ShareData;
-	var userId = 1;
+	var _userId = 1;
 	$scope._newInmueble = {
 		descripcion: "",
 		precioPropiedad: 0,
@@ -27,9 +27,26 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 		userId: 0,
 		imagenesInmueble: [],
 		amenitiesInmueble: [],
+		userId: _userId //este campo sera obtenido el localstorage ya que ahi estara guardado
 	};
 	$scope.showInfo = function(){
 		console.log($scope._newInmueble);
+	}
+
+	$scope.guardarPropiedad = function(){
+		service.guardarPropiedad($scope._newInmueble).then(
+			function (data){
+				if(data.type == false){
+					Notification.error(data.message);
+					return false;
+				}else{
+					Notification.success(data.message);
+					setTimeout(function(){
+						$location.path('/propiedades');
+					}, 1500);
+				}
+			}
+		)
 	}
 
 	$scope.$on('setTipoInmueble', function (event, data){		
@@ -101,7 +118,5 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 		$scope._newInmueble.observaciones = data;
 		$scope.$broadcast('setInmueblePreview', $scope._newInmueble);
 	})
-
-
 
 })

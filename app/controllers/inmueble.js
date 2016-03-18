@@ -23,41 +23,41 @@ exports.uploadImage = function(req, res, next){
 }
 
 exports.postInmueble = function (req, res, next){
-	// var _req = JSON.parse(req.body);
+	var _req = JSON.parse(req.body);
 	models.Inmueble.create({
-		descripcion: req.body.descripcion || "",
-		precioPropiedad: req.body.precioPropiedad,
-		direccionCorta: req.body.direccionCorta,
-		direccion: req.body.direccion,
-		latitud: req.body.latitud || "",
-		longitud: req.body.longitud || "",
-		extensionPropiedad: req.body.extensionPropiedad || null,
-		areaConstruccion: req.body.areaConstruccion || null,
-		anioConstruccion: req.body.anioConstruccion || null,
-		observaciones: req.body.observaciones || "",
-		totalComision: req.body.totalComision || 0,
-		comisionCompartida: req.body.comisionCompartida || 0,
-		DepartamentoId: req.body.DepartamentoId || 1,
-		estadoInmuebleId: req.body.estadoInmuebleId || 1,
-		tipoInmuebleId: req.body.tipoInmuebleId,
-		operacionInmuebleId: req.body.operacionInmuebleId || 1,
-		PaiId: req.body.PaiId || 1,
-		MunicipioId: req.body.MunicipioId || 1
+		descripcion: _req.descripcion || "",
+		precioPropiedad: _req.precioPropiedad,
+		direccionCorta: _req.direccionCorta,
+		direccion: _req.direccion,
+		latitud: _req.latitud || "",
+		longitud: _req.longitud || "",
+		extensionPropiedad: _req.extensionPropiedad || null,
+		areaConstruccion: _req.areaConstruccion || null,
+		anioConstruccion: _req.anioConstruccion || null,
+		observaciones: _req.observaciones || "",
+		totalComision: _req.totalComision || 0,
+		comisionCompartida: _req.comisionCompartida || 0,
+		DepartamentoId: _req.DepartamentoId || 1,
+		estadoInmuebleId: _req.estadoInmuebleId || 1,
+		tipoInmuebleId: _req.tipoInmuebleId,
+		operacionInmuebleId: _req.operacionInmuebleId || 1,
+		PaiId: _req.PaiId || 1,
+		MunicipioId: _req.MunicipioId || 1
 	}).then(function (inmueble){
 		if(!inmueble){			
-			sendJSONresponse(res, 400, {"type": false, "data": "Error al agregar la propiedad: " + inmueble});
+			sendJSONresponse(res, 400, {"type": false, "message": "Error al agregar la propiedad: ", "data": inmueble});
 		}else{
 			models.Usuario.findOne({
 				where: {
-					id: req.body.userId
+					id: _req.userId
 				}
 			}).then(function (user){
 				user.addInmuebles(inmueble, {status: 1})
 			})
 			//models.Usuario.addInmuebles(inmueble, {status: 1, usuarioId: req.body.userId});
 			//inmueble.addAnunciantes(JSON.parse(req.body.anunciantesInmueble), {status: 1, inmuebleId: inmueble.id});
-			uploadImagenesInmueble(res, JSON.parse(req.body.imagenesInmueble), inmueble.id);
-			uploadAmenitiesInmueble(res, JSON.parse(req.body.amenitiesInmueble), inmueble.id);
+			uploadImagenesInmueble(res, JSON.parse(_req.imagenesInmueble), inmueble.id);
+			uploadAmenitiesInmueble(res, JSON.parse(_req.amenitiesInmueble), inmueble.id);
 			sendJSONresponse(res,200, {"type":true, "data": inmueble, "message": "Propiedad creada exitosamente"})
 		}
 	})

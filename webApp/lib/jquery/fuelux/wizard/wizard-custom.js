@@ -94,6 +94,8 @@
                     this.currentStep += 1;
                     this.setState()
                 } else {
+
+                    angular.element(document.getElementById('containerWizardProperty')).scope().guardarPropiedad();
                     if (d) {
                         this.$element.trigger("finished")
                     }
