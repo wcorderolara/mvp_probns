@@ -43,7 +43,7 @@ restify.CORS.ALLOW_HEADERS.push('x-requested-with');
 // 	}
 // )
 
-server.use(restify.urlEncodedBodyParser({ mapParams : false }));
+// server.use(restify.urlEncodedBodyParser({ mapParams : false }));
 server.use(passport.initialize());
 
 // server.use(function (req, res,err,next){
