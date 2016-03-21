@@ -266,9 +266,9 @@ exports.postVendedor = function(req,res,next){
 };
 
 exports.loginUser = function(req, res, next){
-	//var _req = JSON.parse(req.body);
+	var _req = JSON.parse(req.body);
 
-	if(!req.body.userLogin ||  !req.body.password){
+	if(!_req.userLogin ||  !_req.password){
 		sendJSONresponse(res, 400, {"type": false, "data": "Todos los campos son requeridos"});
 		return;
 	}

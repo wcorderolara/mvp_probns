@@ -35,15 +35,7 @@ restify.CORS.ALLOW_HEADERS.push('origin');
 restify.CORS.ALLOW_HEADERS.push('withcredentials');
 restify.CORS.ALLOW_HEADERS.push('x-requested-with');
 
-// server.use(
-// 	function crossOrigin(req, res, next){
-// 		res.header("Access-Control-Allow-Origin", "*");
-// 		res.header("Access-Control-Allow-Headers", "X-Requested-With");
-// 		return next();
-// 	}
-// )
-
-// server.use(restify.urlEncodedBodyParser({ mapParams : false }));
+server.use(restify.urlEncodedBodyParser({ mapParams : false }));
 server.use(passport.initialize());
 
 // server.use(function (req, res,err,next){
