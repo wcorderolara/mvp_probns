@@ -9,7 +9,8 @@ function validatePassword(password, user){
 }
 
 passport.use(new LocalStrategy({
-		usernameField: 'userLogin'
+		usernameField: 'userLogin',
+		passwordField: 'password'
 	},
 	function (username, password, done){
 		//console.log(username);

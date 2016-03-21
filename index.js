@@ -35,7 +35,7 @@ restify.CORS.ALLOW_HEADERS.push('origin');
 restify.CORS.ALLOW_HEADERS.push('withcredentials');
 restify.CORS.ALLOW_HEADERS.push('x-requested-with');
 
-server.use(restify.urlEncodedBodyParser({ mapParams : false }));
+// server.use(restify.urlEncodedBodyParser({ mapParams : false }));
 server.use(passport.initialize());
 
 // server.use(function (req, res,err,next){
@@ -92,7 +92,7 @@ server.get("/usuario/get/clienteById/:id", controllers.usuario.getUsuarioById);
 server.get("/usuario/getVendedor/:padreId/:id", controllers.usuario.getVendedorById);
 server.post("/usuario/post/cliente", controllers.usuario.postCliente);
 server.post("/usuario/post/vendedor", controllers.usuario.postVendedor);
-server.post("/auth/login",urlencodedParser, controllers.usuario.loginUser);
+server.post("/auth/login", controllers.usuario.loginUser);
 server.post("/usuario/upload/avatar",restify.bodyParser(), controllers.usuario.uploadAvatar);
 server.put("/usuario/put/avatar/:id", controllers.usuario.putAvatar);
 server.put("/usuario/verificaEmail/:id", controllers.usuario.putVerificarEmailUsuario);
