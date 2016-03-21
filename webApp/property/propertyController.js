@@ -115,12 +115,10 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 
 	$scope.$on('setDescripcion', function (event, data){
 		$scope._newInmueble.descripcion = data;
-		$scope.$broadcast('setInmueblePreview', $scope._newInmueble);
 	})
 
 	$scope.$on('setObservaciones', function (event, data){
 		$scope._newInmueble.observaciones = data;
-		$scope.$broadcast('setInmueblePreview', $scope._newInmueble);
 	})
 
 })
