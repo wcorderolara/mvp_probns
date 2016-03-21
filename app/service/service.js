@@ -3,7 +3,7 @@ var moment = require('moment');
 
 exports.createToken = function(user){
 	var payload = {
-		sub: user.id,
+		sub: user.id,		
 		iat: moment().unix(),
 		exp: moment().add(1,"days").unix(),
 	};

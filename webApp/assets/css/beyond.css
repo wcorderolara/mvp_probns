@@ -442,7 +442,7 @@
   background-color: #262626 !important;
 }
 .bg-blue {
-  background-color: #5db2ff !important;
+  background-color: #428bca !important;
 }
 .bg-info {
   background-color: #57b5e3 !important;
@@ -5445,8 +5445,8 @@ width:calc(100% - 250px);
 /*#region Primary Button*/
 .btn-primary,
 .btn-primary:focus {
-  background-color: #427fed !important;
-  border-color: #427fed;
+  background-color: #428bca !important;
+  border-color: #428bca;
   color: #ffffff;
 }
 .btn-primary:hover {
@@ -13194,7 +13194,7 @@ div[data-role="editor-toolbar"] {
 }
 .login-container .loginbox {
   position: relative;
-  width: 300px !important;
+  width: 550px !important;
   height: auto !important;
   padding: 0 0 20px 0;
   -webkit-box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
@@ -13210,7 +13210,7 @@ div[data-role="editor-toolbar"] {
   font-family: 'Lucida Sans', 'trebuchet MS', Arial, Helvetica;
   font-size: 20px;
   font-weight: normal;
-  color: #444444;
+  /*color: #444444;*/
 }
 .login-container .loginbox .loginbox-social {
   padding: 0 10px 10px;
@@ -13324,7 +13324,7 @@ left:calc(50% - 25px);
   color: #666666;
 }
 .login-container .logobox {
-  width: 300px !important;
+  width: 550px !important;
   height: 50px !important;
   padding: 5px;
   margin-top: 15px;

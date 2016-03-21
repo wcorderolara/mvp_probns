@@ -106,11 +106,23 @@ picture {
 body {
   font-size: 16px; }
 
+
+.space-6 {
+    max-height: 1px;
+    min-height: 1px;
+    overflow: hidden;
+    margin: 12px 0;
+    margin: 6px 0 5px;
+}
 .upload-zone{
   background-color: #EEEEEE;
   margin-bottom: 20px;
   padding: 20px;
   height: 175px;
+}
+
+.center, .align-center{
+  text-align: center !important;
 }
 
 .margin-top-less-10{
@@ -815,9 +827,9 @@ body {
     @media screen and (min-width: 720px) {
       .listings__item .ribbon {
         display: block; } }
-    .listings__item .ribbon.sale {
+    .listings__item .ribbon.venta {
       background: rgba(219, 127, 103, 0.4); }
-    .listings__item .ribbon.rent {
+    .listings__item .ribbon.renta {
       background: rgba(36, 123, 160, 0.4); }
   .listings__item .arrow {
     background: white url(../img/arrow-down.png) no-repeat center;
@@ -858,9 +870,9 @@ body {
     width: 100%;
     padding: 10px;
     top: 45px; }
-    .listings__item-content.sale {
+    .listings__item-content.venta {
       background: rgba(219, 127, 103, 0.55); }
-    .listings__item-content.rent {
+    .listings__item-content.renta {
       background: rgba(51, 153, 204, 0.55); }
     @media screen and (min-width: 400px) {
       .listings__item-content {
@@ -1116,7 +1128,7 @@ body {
         -webkit-transform: rotate(-90deg);
         transform: rotate(-90deg);
         width: 115px; } }
-    .settings__item-img .ribbon.sale {
+    .settings__item-img .ribbon.venta {
       background: rgba(219, 127, 103, 0.55); }
   .settings__item-img .photos {
     background-color: #ccc;

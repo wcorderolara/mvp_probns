@@ -12,15 +12,17 @@ passport.use(new LocalStrategy({
 		usernameField: 'userLogin'
 	},
 	function (username, password, done){
+		//console.log(username);
+		// console.log(password);
 		models.Usuario.findOne({
-			where: {
+			where: {	
 				userLogin: username
 			}
 		}).then(function (user, err){
 			if(err) {return done(err);}
 			if(!user){
 				return done(null, false, {
-					message: 'El usuasrio proporcionado no existe'
+					message: 'El usuario proporcionado no existe'
 				})
 			}
 			if(!validatePassword(password,user)){

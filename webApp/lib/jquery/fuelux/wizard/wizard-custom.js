@@ -106,70 +106,70 @@
             switch(step){
                 case 1:
                     if($('input[name=tipoInmueble]:checked').val() === undefined){
-                        $('#errorAlert').html('<strong>Error:</strong> seleccione un tipo de Propiedad').addClass('show');
+                        $('#errorAlert').html('<strong>Error:</strong> seleccione un tipo de Propiedad').removeClass('hide animated fadeOutup').addClass('show animated fadeInDown');
                         return false;
-                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+                    }else{$('#errorAlert').removeClass('show animated fadeInDown').addClass('hide animated fadeOutup');}
 
                     if($('input[name=operacionInmueble]:checked').val() === undefined){
-                        $('#errorAlert').html('<strong>Error:</strong> seleccione una operacion a realizar con el inmueble').addClass('show');
+                        $('#errorAlert').html('<strong>Error:</strong> seleccione una operacion a realizar con el inmueble').removeClass('hide animated fadeOutup').addClass('show');
                         return false
-                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+                    }else{$('#errorAlert').removeClass('show animated fadeInDown').addClass('animated fadeOutup hide');}
 
                     if($('#cmbPais').val() == ""){
-                        $('#errorAlert').html('<strong>Error:</strong> seleccione un Pais').addClass('show');                   
+                        $('#errorAlert').html('<strong>Error:</strong> seleccione un Pais').removeClass('hide animated fadeOutup').addClass('show animated fadeInDown');                   
                         return false;
-                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+                    }else{$('#errorAlert').removeClass('show animated fadeInDown').addClass('animated fadeOutup hide');}
 
                     if($('#cmbDepartamento').val() == ""){
-                        $('#errorAlert').html('<strong>Error:</strong> seleccione un Departamento').addClass('show');
+                        $('#errorAlert').html('<strong>Error:</strong> seleccione un Departamento').removeClass('hide animated fadeOutup').addClass('show animated fadeInDown');
                         return false;
-                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+                    }else{$('#errorAlert').removeClass('show animated fadeInDown').addClass('animated fadeOutup hide');}
 
                     if($('#cmbMunicipio').val() == ""){
-                        $('#errorAlert').html('<strong>Error:</strong> seleccione un Municipio').addClass('show');
+                        $('#errorAlert').html('<strong>Error:</strong> seleccione un Municipio').removeClass('hide animated fadeOutup').addClass('show animated fadeInDown');
                         return false;
-                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+                    }else{$('#errorAlert').removeClass('show animated fadeInDown').addClass('animated fadeOutup hide');}
 
                     break;
                 case 2:
                     if($('#txtPrecioPropiedad').val() == ""){
-                        $('#errorAlert').html('<strong>Error:</strong> Debe ingresar el precio de la propiedad').addClass('show');                   
+                        $('#errorAlert').html('<strong>Error:</strong> Debe ingresar el precio de la propiedad').removeClass('hide animated fadeOutup').addClass('show animated fadeInDown');                   
                         return false;
-                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+                    }else{$('#errorAlert').removeClass('show animated fadeInDown').addClass('animated fadeOutup hide');}
 
                     if($('#txtShortAddress').val() == ""){
-                        $('#errorAlert').html('<strong>Error:</strong> Ingrese una direccion descriptiva para la propiedad').addClass('show');
+                        $('#errorAlert').html('<strong>Error:</strong> Ingrese una direccion descriptiva para la propiedad').removeClass('hide animated fadeOutup').addClass('show animated fadeInDown');
                         return false;
-                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+                    }else{$('#errorAlert').removeClass('show animated fadeInDown').addClass('animated fadeOutup hide');}
 
                     if($('#txtFullAddress').val() == ""){
-                        $('#errorAlert').html('<strong>Error:</strong> Ingrese la direccion exacta de la propiedad').addClass('show');
+                        $('#errorAlert').html('<strong>Error:</strong> Ingrese la direccion exacta de la propiedad').removeClass('hide animated fadeOutup').addClass('show animated fadeInDown');
                         return false;
-                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+                    }else{$('#errorAlert').removeClass('show animated fadeInDown').addClass('animated fadeOutup hide');}
 
                     break;
                 case 3:
                     if($('#txtExtensionPropiedad').val() == ""){
-                        $('#errorAlert').html('<strong>Error:</strong> Ingrese la Extensi&oacute;n Territorial de la Propiedad').addClass('show');                   
+                        $('#errorAlert').html('<strong>Error:</strong> Ingrese la Extensi&oacute;n Territorial de la Propiedad').removeClass('hide animated fadeOutup').addClass('show animated fadeInDown');                   
                         return false;
-                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+                    }else{$('#errorAlert').removeClass('show animated fadeInDown').addClass('animated fadeOutup hide');}
 
                     if($('#txtAreaPropiedad').val() == ""){
-                        $('#errorAlert').html('<strong>Error:</strong> Ingrese el area de construcci&oacute;n de la Propiedad').addClass('show');
+                        $('#errorAlert').html('<strong>Error:</strong> Ingrese el area de construcci&oacute;n de la Propiedad').removeClass('hide animated fadeOutup').addClass('show animated fadeInDown');
                         return false;
-                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+                    }else{$('#errorAlert').removeClass('show animated fadeInDown').addClass('animated fadeOutup hide');}
 
                     if($('#txtAnioPropiedad').val() == ""){
-                        $('#errorAlert').html('<strong>Error:</strong> Ingrese el A&ntilde;o de construcci&oacute;n').addClass('show');
+                        $('#errorAlert').html('<strong>Error:</strong> Ingrese el A&ntilde;o de construcci&oacute;n').removeClass('hide animated fadeOutup').addClass('show animated fadeInDown');
                         return false;
-                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+                    }else{$('#errorAlert').removeClass('show animated fadeInDown').addClass('animated fadeOutup hide');}
 
                     break;
                 case 4:
                     if($('#txtDescripcionPropiedad').val() == ""){
-                        $('#errorAlert').html('<strong>Error:</strong> Ingrese una descripcion de la Propiedad').addClass('show');
+                        $('#errorAlert').html('<strong>Error:</strong> Ingrese una descripcion de la Propiedad').removeClass('hide animated fadeOutup').addClass('show animated fadeInDown');
                         return false;
-                    }else{$('#errorAlert').removeClass('show').addClass('hide');}
+                    }else{$('#errorAlert').removeClass('show animated fadeInDown').addClass('animated fadeOutup hide');}
                     break;
             }
 

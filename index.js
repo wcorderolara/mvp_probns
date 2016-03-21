@@ -4,11 +4,15 @@ var fs = require('fs');
 var models = require('./models');
 var passport = require('passport');
 var middleware = require('./app/middlewares/middleware');
+var cors = require('cors');
+var bodyParser = require('body-parser');
+
 var jwt = require('restify-jwt');
 var auth = jwt({
 	secret: process.env.JWT_SECRET,
 	requestProperty: 'payload'
 });
+
 var controllers = {},
 	controllers_path = process.cwd() + '/app/controllers';
 
@@ -17,10 +21,12 @@ fs.readdirSync(controllers_path).forEach(function (file){
 		controllers[file.split('.')[0]] = require(controllers_path + '/' + file)
 	}
 })
+
 require('./config/passport');
 
 var server = restify.createServer();
 server.use(restify.fullResponse());
+server.use(cors());
 
 restify.CORS.ALLOW_HEADERS.push('accept');
 restify.CORS.ALLOW_HEADERS.push('sid');
@@ -30,18 +36,20 @@ restify.CORS.ALLOW_HEADERS.push('withcredentials');
 restify.CORS.ALLOW_HEADERS.push('x-requested-with');
 
 server.use(restify.urlEncodedBodyParser({ mapParams : false }));
-/*server.use(passport.initialize());
-server.use(function (err, req, res, next){
-	if(err.name === 'UnauthorizedError'){
-		res.status(401);
-		res.json({
-			"message": err.name + ": " + err.message
-		})
-	}
-})*/
+server.use(passport.initialize());
+
+// server.use(function (req, res,err,next){
+// 	console.log(err.called);
+// 	if(err.called === false){
+// 		res.status(401);
+// 		res.json({
+// 			"type": err.called,  "message" : "No tiene autorizacion para realizar esta accion"
+// 		})
+// 	}
+// })
 
 //Tipo Inmueble
-server.get("/tipoInmueble/get/all", controllers.tipoInmueble.getTipoInmueble);
+server.get("/tipoInmueble/get/all",controllers.tipoInmueble.getTipoInmueble);
 
 //Opearcion Inmueble
 server.get("/operacionInmueble/get/all", controllers.operacionInmueble.getOperacionesInmueble);
@@ -76,6 +84,7 @@ server.put("/tipousuario", controllers.tipoUsuario.putTipoUsuario);
 server.put("/tipousuario", controllers.tipoUsuario.deleteTipoUsuario);
 
 //Cliente
+var urlencodedParser = bodyParser.urlencoded({extended: true});
 server.get("/usuario/all/getClientes", controllers.usuario.getUsuarios);
 server.get("/usuario/all/getVendedores/:padreId", controllers.usuario.getVendedoresByPadre);
 server.get("/usuario/all/vendedores/count/:padreId",controllers.usuario.getTotalVendedoresAgencia);
@@ -83,7 +92,7 @@ server.get("/usuario/get/clienteById/:id", controllers.usuario.getUsuarioById);
 server.get("/usuario/getVendedor/:padreId/:id", controllers.usuario.getVendedorById);
 server.post("/usuario/post/cliente", controllers.usuario.postCliente);
 server.post("/usuario/post/vendedor", controllers.usuario.postVendedor);
-server.post("auth/login", controllers.usuario.loginUser);
+server.post("/auth/login",urlencodedParser, controllers.usuario.loginUser);
 server.post("/usuario/upload/avatar",restify.bodyParser(), controllers.usuario.uploadAvatar);
 server.put("/usuario/put/avatar/:id", controllers.usuario.putAvatar);
 server.put("/usuario/verificaEmail/:id", controllers.usuario.putVerificarEmailUsuario);

@@ -268,22 +268,27 @@ exports.postVendedor = function(req,res,next){
 exports.loginUser = function(req, res, next){
 	var _req = JSON.parse(req.body);
 
-	if(!_req.loginUser ||  !_req.password){
+	if(!_req.userLogin ||  !_req.password){
 		sendJSONresponse(res, 400, {"type": false, "data": "Todos los campos son requeridos"});
 		return;
 	}
 
+	
+
 	passport.authenticate('local', function(err, user, info){
+		console.log(info);
 		var _token;
 		if(err){
-			sendJSONresponse(res,404,err);
+			sendJSONresponse(res,404,{"type":false, "data":err,"dataType": "Error"});
 			return;
 		}
+
 		if(user){
 			_token = service.createToken(user);
-			sendJSONresponse(res,200, {"token": _token});
+			console.log(_token);
+			sendJSONresponse(res,200, {"type":true, "token": _token});
 		}else{
-			sendJSONresponse(res,401,info);
+			sendJSONresponse(res,401,{"type":false, "data": info, "dataType": "Info"});
 		}
 	})(req, res);
 }

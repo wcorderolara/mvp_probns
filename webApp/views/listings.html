@@ -1,5 +1,5 @@
 <div class="content">
-  <div class="panel">
+  <div class="panel" ng-controller="listingsController">
     <div class="panel__header">
       <div class="panel__form">
         <input type="text">
@@ -13,15 +13,23 @@
       </div>
     </div>
     <div class="panel__content">
-      <div class="listings__item"><span class="ribbon sale">Venta</span><img src="img/listing.jpg">
+
+      <div class="listings__item" ng-repeat="propiedad in listadoPropiedades">
+        <span class="ribbon {{propiedad.operacionInmueble.descripcion | lowercase}}">{{propiedad.operacionInmueble.descripcion}}</span>
+        <img src="{{propiedad.imagenInmuebles[0].path}}">
         <div class="listings__item-content sale">
-          <h2><a href="#">Apartamento z.14</a></h2>
-          <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14 <br>Código No. 03024</p>
+          <h2><a href="#">{{propiedad.direccionCorta}}</a></h2>
+          <p>
+            <strong>{{propiedad.Municipio.descripcion}}, {{propiedad.Departamento.descripcion}}</strong>
+            <br>{{propiedad.direccion}}
+          </p>
         </div>
         <div class="listings__item-price">
-          <p><strong>$400,000</strong>50%<br>Compartida</p>
-        </div><a href="#" class="btn btn-green btn-big">Editar tu propiedad</a><a href="#" class="remove"><i class="glyphicon glyphicon-remove"></i></a>
-        <div class="listings__item-details">
+          <p><strong>{{propiedad.precioPropiedad | currency:"USD$"}}</strong>{{propiedad.comisionCompartida}}%<br>Compartida</p>
+        </div>
+        <a href="#" class="btn btn-palegreen btn-big">Editar tu propiedad</a>
+        <a href="#" class="remove"><i class="fa fa-times"></i></a>
+        <!-- <div class="listings__item-details">
           <ul role="tablist" class="tablist">
             <li class="active"><a href="#home-1" data-toggle="tab" role="tab">Analisis</a></li>
             <li><a href="#profile-1" data-toggle="tab" role="tab">Ver agenda</a></li>
@@ -41,161 +49,13 @@
               <div class="calendar"></div>
             </div>
           </div>
-        </div><i class="arrow"></i>
+        </div> -->
+        <i class="arrow"></i>
       </div>
-      <div class="listings__item"><span class="ribbon rent">Alquiler</span><img src="img/listing.jpg">
-        <div class="listings__item-content rent">
-          <h2><a href="#">Apartamento z.14</a></h2>
-          <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14 <br>Código No. 03024</p>
-        </div>
-        <div class="listings__item-price">
-          <p><strong>$400,000</strong>50%<br>Compartida</p>
-        </div><a href="#" class="btn btn-green btn-big">Editar tu propiedad</a><a href="#" class="remove"><i class="glyphicon glyphicon-remove"></i></a>
-        <div class="listings__item-details">
-          <ul role="tablist" class="tablist">
-            <li class="active"><a href="#home-s1" data-toggle="tab" role="tab">Analisis</a></li>
-            <li><a href="#profile-s1" data-toggle="tab" role="tab">Ver agenda</a></li>
-          </ul>
-          <div class="tab-content tabcontent">
-            <div id="home-s1" class="tab-pane active fade in">
-              <ul role="tablist" class="tabpills">
-                <li class="active"><a href="#data1-s1" data-toggle="tab" role="tab"><i class="fa fa-home"> </i> # de visitas</a></li>
-                <li><a href="#data2-s1" data-toggle="tab" role="tab"><i class="fa fa-envelope-o"></i> # de mensajes</a></li>
-              </ul>
-              <div class="tab-content tabpill">
-                <div id="data1-s1" class="tab-pane active fade in"><img src="img/graph1.png"></div>
-                <div id="data2-s1" class="tab-pane fade"><img src="img/graph2.png"></div>
-              </div>
-            </div>
-            <div id="profile-s1" class="tab-pane fade">
-              <div class="calendar"></div>
-            </div>
-          </div>
-        </div><i class="arrow"></i>
-      </div>
-      <div class="listings__item"><span class="ribbon sale">Venta</span><img src="img/listing.jpg">
-        <div class="listings__item-content sale">
-          <h2><a href="#">Apartamento z.14</a></h2>
-          <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14 <br>Código No. 03024</p>
-        </div>
-        <div class="listings__item-price">
-          <p><strong>$400,000</strong>50%<br>Compartida</p>
-        </div><a href="#" class="btn btn-green btn-big">Editar tu propiedad</a><a href="#" class="remove"><i class="glyphicon glyphicon-remove"></i></a>
-        <div class="listings__item-details">
-          <ul role="tablist" class="tablist">
-            <li class="active"><a href="#home-2" data-toggle="tab" role="tab">Analisis</a></li>
-            <li><a href="#profile-2" data-toggle="tab" role="tab">Ver agenda</a></li>
-          </ul>
-          <div class="tab-content tabcontent">
-            <div id="home-2" class="tab-pane active fade in">
-              <ul role="tablist" class="tabpills">
-                <li class="active"><a href="#data1-2" data-toggle="tab" role="tab"><i class="fa fa-home"> </i> # de visitas</a></li>
-                <li><a href="#data2-2" data-toggle="tab" role="tab"><i class="fa fa-envelope-o"></i> # de mensajes</a></li>
-              </ul>
-              <div class="tab-content tabpill">
-                <div id="data1-2" class="tab-pane active fade in"><img src="img/graph1.png"></div>
-                <div id="data2-2" class="tab-pane fade"><img src="img/graph2.png"></div>
-              </div>
-            </div>
-            <div id="profile-2" class="tab-pane fade">
-              <div class="calendar"></div>
-            </div>
-          </div>
-        </div><i class="arrow"></i>
-      </div>
-      <div class="listings__item"><span class="ribbon rent">Alquiler</span><img src="img/listing.jpg">
-        <div class="listings__item-content rent">
-          <h2><a href="#">Apartamento z.14</a></h2>
-          <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14 <br>Código No. 03024</p>
-        </div>
-        <div class="listings__item-price">
-          <p><strong>$400,000</strong>50%<br>Compartida</p>
-        </div><a href="#" class="btn btn-green btn-big">Editar tu propiedad</a><a href="#" class="remove"><i class="glyphicon glyphicon-remove"></i></a>
-        <div class="listings__item-details">
-          <ul role="tablist" class="tablist">
-            <li class="active"><a href="#home-s2" data-toggle="tab" role="tab">Analisis</a></li>
-            <li><a href="#profile-s2" data-toggle="tab" role="tab">Ver agenda</a></li>
-          </ul>
-          <div class="tab-content tabcontent">
-            <div id="home-s2" class="tab-pane active fade in">
-              <ul role="tablist" class="tabpills">
-                <li class="active"><a href="#data1-s2" data-toggle="tab" role="tab"><i class="fa fa-home"> </i> # de visitas</a></li>
-                <li><a href="#data2-s2" data-toggle="tab" role="tab"><i class="fa fa-envelope-o"></i> # de mensajes</a></li>
-              </ul>
-              <div class="tab-content tabpill">
-                <div id="data1-s2" class="tab-pane active fade in"><img src="img/graph1.png"></div>
-                <div id="data2-s2" class="tab-pane fade"><img src="img/graph2.png"></div>
-              </div>
-            </div>
-            <div id="profile-s2" class="tab-pane fade">
-              <div class="calendar"></div>
-            </div>
-          </div>
-        </div><i class="arrow"></i>
-      </div>
-      <div class="listings__item"><span class="ribbon sale">Venta</span><img src="img/listing.jpg">
-        <div class="listings__item-content sale">
-          <h2><a href="#">Apartamento z.14</a></h2>
-          <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14 <br>Código No. 03024</p>
-        </div>
-        <div class="listings__item-price">
-          <p><strong>$400,000</strong>50%<br>Compartida</p>
-        </div><a href="#" class="btn btn-green btn-big">Editar tu propiedad</a><a href="#" class="remove"><i class="glyphicon glyphicon-remove"></i></a>
-        <div class="listings__item-details">
-          <ul role="tablist" class="tablist">
-            <li class="active"><a href="#home-3" data-toggle="tab" role="tab">Analisis</a></li>
-            <li><a href="#profile-3" data-toggle="tab" role="tab">Ver agenda</a></li>
-          </ul>
-          <div class="tab-content tabcontent">
-            <div id="home-3" class="tab-pane active fade in">
-              <ul role="tablist" class="tabpills">
-                <li class="active"><a href="#data1-3" data-toggle="tab" role="tab"><i class="fa fa-home"> </i> # de visitas</a></li>
-                <li><a href="#data2-3" data-toggle="tab" role="tab"><i class="fa fa-envelope-o"></i> # de mensajes</a></li>
-              </ul>
-              <div class="tab-content tabpill">
-                <div id="data1-3" class="tab-pane active fade in"><img src="img/graph1.png"></div>
-                <div id="data2-3" class="tab-pane fade"><img src="img/graph2.png"></div>
-              </div>
-            </div>
-            <div id="profile-3" class="tab-pane fade">
-              <div class="calendar"></div>
-            </div>
-          </div>
-        </div><i class="arrow"></i>
-      </div>
-      <div class="listings__item"><span class="ribbon rent">Alquiler</span><img src="img/listing.jpg">
-        <div class="listings__item-content rent">
-          <h2><a href="#">Apartamento z.14</a></h2>
-          <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14 <br>Código No. 03024</p>
-        </div>
-        <div class="listings__item-price">
-          <p><strong>$400,000</strong>50%<br>Compartida</p>
-        </div><a href="#" class="btn btn-green btn-big">Editar tu propiedad</a><a href="#" class="remove"><i class="glyphicon glyphicon-remove"></i></a>
-        <div class="listings__item-details">
-          <ul role="tablist" class="tablist">
-            <li class="active"><a href="#home-s3" data-toggle="tab" role="tab">Analisis</a></li>
-            <li><a href="#profile-s3" data-toggle="tab" role="tab">Ver agenda</a></li>
-          </ul>
-          <div class="tab-content tabcontent">
-            <div id="home-s3" class="tab-pane active fade in">
-              <ul role="tablist" class="tabpills">
-                <li class="active"><a href="#data1-s3" data-toggle="tab" role="tab"><i class="fa fa-home"> </i> # de visitas</a></li>
-                <li><a href="#data2-s3" data-toggle="tab" role="tab"><i class="fa fa-envelope-o"></i> # de mensajes</a></li>
-              </ul>
-              <div class="tab-content tabpill">
-                <div id="data1-s3" class="tab-pane active fade in"><img src="img/graph1.png"></div>
-                <div id="data2-s3" class="tab-pane fade"><img src="img/graph2.png"></div>
-              </div>
-            </div>
-            <div id="profile-s3" class="tab-pane fade">
-              <div class="calendar"></div>
-            </div>
-          </div>
-        </div><i class="arrow"></i>
-      </div>
+
     </div>
   </div>
-  <div class="pagination">
+  <!-- <div class="pagination">
     <ul>
       <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
       <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
@@ -206,5 +66,5 @@
       <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
       <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
     </ul>
-  </div>
+  </div> -->
 </div>

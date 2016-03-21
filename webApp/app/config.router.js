@@ -16,6 +16,13 @@ angular.module('probnsApp')
                 $urlRouterProvider
                     .otherwise('/app/dashboard');
                 $stateProvider
+                    .state('login',{
+                        url: '/login',
+                        templateUrl: 'views/login.html',
+                        ncyBreadcrumb: {
+                            label: 'Login'
+                        }
+                    })
                     .state('app',{
                         abstract: true,
                         url: '/app',
@@ -46,8 +53,7 @@ angular.module('probnsApp')
                     })
                     .state('app.propiedades',{
                         url: '/propiedades',
-                        templateUrl: 'views/listings.html',
-                        controller: 'listingsController',
+                        templateUrl: 'views/listings.html',                        
                         ncyBreadcrumb: {
                             label: 'Listado Propiedades'
                         },

@@ -1,0 +1,49 @@
+<div class="col-sm-10">
+    <div class="login-container animated fadeInDown">
+        <div class="logobox center">
+            <small>
+                <img src="assets/img/logo.png" alt="Probns S.A." title="Probns S.A."/>
+            </small>
+        </div>
+        <div class="space-6"></div>
+
+        <div class="loginbox col-md-12 bg-white" ng-controller="authController">
+
+            <div class="loginbox-title text-primary margin-bottom-5">
+                Ingrese sus credenciales.
+            </div>
+            
+            <div class="loginbox-textbox">
+                <span class="input-icon icon-right inverted">
+                    <input ng-model="userLogin" type="text" class="form-control input-lg" placeholder="Correo Electronico">
+                    <i class="fa fa-user bg-blue"></i>
+                </span>
+            </div>
+            <div class="loginbox-textbox">
+                <span class="input-icon icon-right inverted">
+                    <input ng-model="password" type="password" class="form-control input-lg" placeholder="Contraseña">
+                    <i class="fa fa-lock bg-blue"></i>
+                </span>
+            </div>
+            <div class="loginbox-forgot">
+                <a href="">¿Olvidaste tu Contrase&ntilde;a?</a>
+            </div>
+            <div class="loginbox-submit">
+                <button class="btn btn-primary btn-lg btn-block" ng-click="onSubmitForm();">
+                    <i class="fa fa-key" />
+                    Iniciar Sesi&oacute;n
+                </button>
+            </div>
+
+            <alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
+                {{formError}}
+            </alert>
+
+            <div class="loginbox-signup">
+
+                <a href="register.html">Registrase a la plataforma</a>
+            </div>
+        </div>
+        
+    </div>
+</div>

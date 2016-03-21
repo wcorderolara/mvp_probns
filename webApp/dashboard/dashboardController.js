@@ -1,5 +1,6 @@
 probnsApp.controller('dashboardController', function($scope,$http,$location,
-											   	     $window,dashboardService,ShareData,blockUI,Notification){
+											   	     $window,dashboardService,ShareData,blockUI,
+											   	     Notification, authService){
 
 	var service = dashboardService;
 	var factory = ShareData;
