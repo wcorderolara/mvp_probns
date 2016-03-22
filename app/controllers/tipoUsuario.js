@@ -3,7 +3,10 @@ var models = require('../../models');
 exports.getTiposUsuario = function(req, res, next){
 	models.tipoUsuario.findAll({
 		where:{
-			status: 1
+			status: 1,
+			$or:[
+				{id: [1,3,4]}
+			]
 		}
 	}).then(function (response){
 		if(!response){

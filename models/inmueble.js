@@ -74,8 +74,9 @@ module.exports = function (sequelize, DataTypes){
 			associate: function(models){
 				Inmueble.belongsToMany(models.Buscador, {through: models.inmuebleBuscador, foreignKey: 'inmuebleId'});
 				Inmueble.belongsToMany(models.Usuario, {through: models.inmuebleUsuario, foreignKey: 'inmuebleId'});
-				//Inmueble.belongsToMany(models.Vendedor, {through: models.inmuebleVendedor, foreignKey: 'inmuebleId'});
 				Inmueble.belongsToMany(models.Anunciantes, {through: models.anuncianteInmueble, foreignKey: 'inmuebleId'});
+				
+				// Inmueble.belongsToMany(models.Usuario, {through: models.inmuebleVendedor, foreignKey: 'inmuebleId'});
 				
 				Inmueble.belongsTo(models.tipoInmueble, {foreignKey: {allowNull: false} } );
 				Inmueble.belongsTo(models.estadoInmueble, {foreignKey: {allowNull: false } } );

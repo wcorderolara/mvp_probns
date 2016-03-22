@@ -89,12 +89,14 @@ module.exports = function (sequelize, DataTypes){
 				Usuario.belongsTo(models.tipoUsuario, {foreignKey: {allowNull: false}});
 				Usuario.belongsTo(models.Pais, {foreignKey: {allowNull: false }});
 				Usuario.belongsTo(models.estadoUsuario, {foreignKey: {allowNull: true}});
+				Usuario.belongsTo(models.Usuario, {as: 'Padre', foreignKey: {name: 'padreId',field: 'padreId', allowNull: true}});
+				
 				Usuario.belongsToMany(models.Inmueble, {through: models.inmuebleUsuario, foreignKey: 'usuarioId'});
 				Usuario.belongsToMany(models.tipoAccion, {through: models.accionesBuscador, foreignKey: 'usuarioId'});
+				// Usuario.belongsToMany(models.Inmueble, {through: models.inmuebleVendedor, foreignKey: 'vendedorId'});
+				
 				Usuario.hasMany(models.Buscador);
 				Usuario.hasMany(models.Agenda);
-				Usuario.belongsTo(models.Usuario, {as: 'Padre', foreignKey: {name: 'padreId',field: 'padreId', allowNull: true}});
-
 			}
 		},
 		freezeTableName: true,

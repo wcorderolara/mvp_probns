@@ -243,11 +243,13 @@ exports.postVendedor = function(req,res,next){
 		userLogin: req.body.userLogin,		
 		firstName: req.body.firstName,
 		lastName: req.body.lastName || null,
+		telefono1: req.body.telefono1 || null,
 		salt: crypto.randomBytes(16).toString('hex'),
 		email: req.body.userLogin,
+		avatar: req.body.avatar || null,
 		verificadoEmail: 0,
 		status: 1,
-		tipoUsuarioId: req.body.tipoUsuarioId,
+		tipoUsuarioId: req.body.tipoUsuarioId || 2,
 		PaiId: req.body.PaiId,
 		estadoUsuarioId: req.body.estadoUsuarioId || 1,
 		padreId: req.body.padreId
@@ -255,11 +257,11 @@ exports.postVendedor = function(req,res,next){
 		if(!user){
 			sendJSONresponse(res,500,{"type":false,"message":"Error al crear el registro","data":user});
 		}else{
-			var _token = service.createToken(user);
+			// var _token = service.createToken(user);
 			user.update({
 				hash: crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64).toString('hex')
 			}).then(function(){
-				sendJSONresponse(res, 200, {"type": true, "data": "Registro creado exitosamente", "token": _token})
+				sendJSONresponse(res, 200, {"type": true, "message": "Registro creado exitosamente"})
 			})
 		};
 	});

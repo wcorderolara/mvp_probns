@@ -26,7 +26,7 @@ probnsApp.service('propertyService', function ($http, $q, probnsConf, Upload, au
 	this.getPaises = function(){
 		var deferred = $q.defer();
 
-		$http.get(uri + '/paises', authService.setHeaders())
+		$http.get(uri + '/paises')
 		.success(function (response){
 			deferred.resolve(response);
 		})

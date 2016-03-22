@@ -26,7 +26,7 @@ var routesController = function (server){
 	server.get("/operacionInmueble/get/all", controllers.operacionInmueble.getOperacionesInmueble);
 
 	//Paises
-	server.get("/paises", auth, controllers.pais.getPaises);
+	server.get("/paises", controllers.pais.getPaises);
 	server.get("/paises/:id", auth, controllers.pais.getPaisById);
 	server.post("/paises", auth, controllers.pais.postPais);
 	server.put("/update/paises/:id", auth, controllers.pais.putPais);
@@ -48,7 +48,7 @@ var routesController = function (server){
 
 
 	//TipoUsuario
-	server.get("/tiposusuario", auth, controllers.tipoUsuario.getTiposUsuario);
+	server.get("/tiposusuario", controllers.tipoUsuario.getTiposUsuario);
 	server.get("/tipousuario/:id", auth, controllers.tipoUsuario.getTipoUsuarioById);
 	server.post("/tipousuario", auth, controllers.tipoUsuario.postTipoUsuario);
 	server.put("/tipousuario", auth, controllers.tipoUsuario.putTipoUsuario);
@@ -60,7 +60,7 @@ var routesController = function (server){
 	server.get("/usuario/all/vendedores/count/:padreId", auth, controllers.usuario.getTotalVendedoresAgencia);
 	server.get("/usuario/get/clienteById/:id", auth, controllers.usuario.getUsuarioById);
 	server.get("/usuario/getVendedor/:padreId/:id", auth, controllers.usuario.getVendedorById);
-	server.post("/usuario/post/cliente", auth, controllers.usuario.postCliente);
+	server.post("/usuario/post/cliente", controllers.usuario.postCliente);
 	server.post("/usuario/post/vendedor", auth, controllers.usuario.postVendedor);
 	server.post("/auth/login", controllers.usuario.loginUser);
 	server.post("/usuario/upload/avatar", multipartMiddleware, controllers.usuario.uploadAvatar);

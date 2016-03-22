@@ -23,6 +23,28 @@ angular.module('probnsApp')
                             label: 'Login'
                         }
                     })
+                    .state('register', {
+                        url: '/registro',
+                        templateUrl: 'views/register.html',
+                        ncyBreadcrumb: {
+                            label: 'Registro Probns'
+                        },
+                        resolve: {
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'property/propertyService.js',
+                                            'auth/registerService.js',
+                                            'auth/registerController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
                     .state('app',{
                         abstract: true,
                         url: '/app',
@@ -98,6 +120,32 @@ angular.module('probnsApp')
                                             'property/propertyStepThreeController.js',
                                             'property/propertyStepFourController.js',
                                             'property/propertyStepFiveController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
+                    .state('app.agentes', {
+                        url: '/agentes',
+                        templateUrl: 'views/agents.html',
+                        ncyBreadcrumb: {
+                            label: 'Agentes'
+                        },
+                        resolve: {
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'lib/jquery/fullcalendar/moment.min.js',
+                                            'lib/jquery/fullcalendar/fullcalendar.js',
+                                            'lib/main_utilities.js',
+                                            'lib/main_calendar.js',
+                                            'generalServices/generalServices.js',
+                                            'agents/agentService.js',
+                                            'agents/agentController.js'
                                         ]
                                     })
                                 }

@@ -1,0 +1,63 @@
+<div class="col-sm-10">
+    <div class="login-container animated fadeInDown">
+        <div class="logobox center">
+            <small>
+                <img src="assets/img/logo.png" alt="Probns S.A." title="Probns S.A."/>
+            </small>
+        </div>
+        <div class="space-6"></div>
+
+        <div class="loginbox col-md-12 bg-white" ng-controller="registerController">
+
+            <div class="loginbox-title green margin-bottom-10 ">
+                <span class="fa fa-users"></span> Registro de Usuarios
+            </div>
+            
+            <div class="loginbox-textbox">
+                <span class="input-icon icon-right inverted">
+                    <input ng-model="userLogin" type="text" class="form-control" placeholder="Correo Electronico">
+                    <i class="fa fa-user bg-palegreen"></i>
+                </span>
+            </div>
+            <div class="loginbox-textbox">
+                <span class="input-icon icon-right inverted">
+                    <input ng-model="password" type="password" class="form-control" placeholder="Contraseña">
+                    <i class="fa fa-lock bg-palegreen"></i>
+                </span>
+            </div>
+
+            <div class="loginbox-textbox">
+                <select ng-model="tipoUsuarioId" name="cmbTipoUsuario"  
+                    class="col-sm-12 margin-bottom-20"
+                    id="cmbTipoUsuario" ng-options="tipoUsuario.id as tipoUsuario.descripcion for tipoUsuario in tiposUsuario">
+                    <option value="">Tipo de Usuario</option>
+                </select>
+            </div>
+
+            <div class="loginbox-textbox">
+                <select ng-model="PaiId" name="cmbPais"
+                    class="col-sm-12 margin-bottom-20"
+                    id="cmbPais" ng-options="pais.id as pais.descripcion for pais in paises">
+                    <option value="">Pais</option>
+                </select>
+            </div>            
+            
+            <div class="loginbox-submit">
+                <button class="btn btn-palegreen btn-lg btn-block" ng-click="onSubmitForm();">
+                    <i class="fa fa-user-plus" />
+                    Registrarme
+                </button>
+            </div>
+
+            <alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
+                {{formError}}
+            </alert>
+
+            <div class="loginbox-signup">
+
+                <a ui-sref="login" class="green"><span class="fa fa-arrow-circle-left"></span> Iniciar sesi&oacute;n</a>
+            </div>
+        </div>
+        
+    </div>
+</div>

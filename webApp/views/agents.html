@@ -1,0 +1,128 @@
+<main class="content">
+  <div class="panel">
+    <div class="panel__header" ng-controller="agentController">
+      <div class="panel__form">
+        <input type="text">
+        <input type="submit" value="Buscar">
+      </div>
+      <h1 class="panel__title">Listado oficial de Agentes</h1>
+      <div class="panel__btns">
+        <a href="#"><span>Agregar nuevo agente </span><i class="fa fa-plus-circle"></i></a>
+      </div>
+      <script type="text/ng-template" id="AgentesModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Agregar nuevos Ambientes</h3>
+        </div>
+        <div class="modal-body">
+            <div class="horizontal-form">
+              <form class="form-horizontal">
+
+                <div class="form-group">
+                  <label class="col-sm-4 control-label no-padding-right">Ambiente </label>
+                  <div class="col-sm-7">
+                    <input ng-model="newDescripcion" type="text" placeholder="Nombre del Ambiente" class="form-control">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-4 control-label no-padding-right">Cantidad </label>
+                  <div class="col-sm-7">
+                    <input ng-model="newCantidad" type="text" placeholder="numero de ambientes" class="form-control">
+                  </div>
+                </div> 
+              </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-blue" ng-click="addAmenity()">Agregar</button>
+            <button class="btn btn-danger" ng-click="cancel()">Cancelar</button>
+        </div>
+      </script>
+    </div>
+    <div class="panel__content">
+      <div class="agents__item">
+        <img src="assets/img/agent.jpg" class="header-avatar">
+        <div class="agents__item-content">
+          <h2><a href="#">Nombre del agente </a></h2>
+          <ul>
+            <li>Correo electrónico</li>
+            <li>Teléfono </li>
+            <li>Creado en: (fecha) </li>
+          </ul>
+        </div>
+        <ul class="agents__item-actions">
+          <li class="first"><a href="#deals-1" data-toggle="tab">
+            <strong>3</strong>Tratos Cerrados</a>
+          </li>
+          <li class="second"><a href="#clients-1" data-toggle="tab">
+            <strong>5</strong>Clientes Nuevos </a>
+          </li>
+          <li class="third"><a href="#calendar-1" data-toggle="tab">
+            <strong>15</strong>Citas </a>
+          </li>
+          <li class="fourth"><a href="#inbox-1" data-toggle="tab">
+            <strong>10</strong>Mensajes No Leídos </a>
+          </li>
+        </ul>
+        <div class="agents__item-commission">
+          <p>Total de comisiones: $33,000 </p>
+        <!-- </div><a href="#" class="remove"><i class="glyphicon glyphicon-remove"></i></a> -->
+        <!-- <div class="agents__item-details">
+          <div id="deals-1" class="agent-pane fade in active">
+            <div class="listings__item sm"><img src="img/listing.jpg">
+              <div class="listings__item-content sale">
+                <h2><a href="#">Apartamento z.14</a></h2>
+                <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14 <br>Código No. 03024</p>
+              </div>
+              <div class="pull-right">
+                <div class="listings__item-final-price"><strong>Precio de venta</strong>$248,900</div>
+                <div class="listings__item-final-commission"><strong>Comisión </strong>5% </div>
+                <div class="listings__item-total-commission"><small>Comisión Total (Hover)</small>
+                  <div class="label-price">$1,550.00</div>
+                </div>
+              </div>
+            </div>
+            <div class="listings__item sm"><img src="img/listing.jpg">
+              <div class="listings__item-content sale">
+                <h2><a href="#">Apartamento z.14</a></h2>
+                <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14 <br>Código No. 03024</p>
+              </div>
+              <div class="pull-right">
+                <div class="listings__item-final-price"><strong>Precio de venta</strong>$248,900</div>
+                <div class="listings__item-final-commission"><strong>Comisión </strong>5% </div>
+                <div class="listings__item-total-commission"><small>Comisión Total (Hover)</small>
+                  <div class="label-price">$1,550.00</div>
+                </div>
+              </div>
+            </div>
+            <div class="listings__item sm"><img src="img/listing.jpg">
+              <div class="listings__item-content sale">
+                <h2><a href="#">Apartamento z.14</a></h2>
+                <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14 <br>Código No. 03024</p>
+              </div>
+              <div class="pull-right">
+                <div class="listings__item-final-price"><strong>Precio de venta</strong>$248,900</div>
+                <div class="listings__item-final-commission"><strong>Comisión </strong>5% </div>
+                <div class="listings__item-total-commission"><small>Comisión Total (Hover)</small>
+                  <div class="label-price">$1,550.00</div>
+                </div>
+              </div>
+            </div>
+          </div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="pagination">
+    <ul>
+      <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+      <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+      <li><a>1</a></li>
+      <li><a>2</a></li>
+      <li><a>3</a></li>
+      <li><a>4</a></li>
+      <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+      <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+    </ul>
+  </div> -->
+</main>

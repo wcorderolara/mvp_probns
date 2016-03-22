@@ -10,7 +10,7 @@ probnsApp.service('authService', function ($http, $q, probnsConf, $window){
 		return $window.localStorage['probns-token'];
 	}
 
-	self.registrarUsuairo = function(params){
+	self.registrarUsuario = function(params){
 		var deferred = $q.defer();
 
 		$http.post(uri + '/usuario/post/cliente', params)
