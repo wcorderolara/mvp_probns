@@ -58,7 +58,7 @@ var routesController = function (server){
 	server.get("/usuario/all/getClientes", controllers.usuario.getUsuarios);
 	server.get("/usuario/all/getVendedores/:padreId", controllers.usuario.getVendedoresByPadre);
 	server.get("/usuario/all/vendedores/count/:padreId",controllers.usuario.getTotalVendedoresAgencia);
-	server.get("/usuario/get/clienteById/:id", controllers.usuario.getUsuarioById);
+	server.get("/usuario/get/clienteById/:id", auth, controllers.usuario.getUsuarioById);
 	server.get("/usuario/getVendedor/:padreId/:id", controllers.usuario.getVendedorById);
 	server.post("/usuario/post/cliente", controllers.usuario.postCliente);
 	server.post("/usuario/post/vendedor", controllers.usuario.postVendedor);

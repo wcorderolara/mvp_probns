@@ -1,10 +1,11 @@
-probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload){
+probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload, authService){
 	var uri = probnsConf.api.url;
+	var self = this;
 
-	this.getUserInfoById = function(userId){
+	self.getUserInfoById = function(userId){
 		var deferred = $q.defer();
 
-		$http.get(uri + '/usuario/get/clienteById/' + userId)
+		$http.get(uri + '/usuario/get/clienteById/' + userId, authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})
@@ -12,7 +13,7 @@ probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload){
 		return deferred.promise;
 	}
 
-	this.getTotalPropiedadesByUser = function(userId){
+	self.getTotalPropiedadesByUser = function(userId){
 		var deferred = $q.defer();
 
 		$http.get(uri + '/inmuebles/get/all/count/' + userId)
@@ -23,7 +24,7 @@ probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload){
 		return deferred.promise;
 	}
 
-	this.getTotalAgentesByUser = function(userId){
+	self.getTotalAgentesByUser = function(userId){
 		var deferred = $q.defer();
 
 		$http.get(uri + '/usuario/all/vendedores/count/' + userId)
@@ -34,7 +35,7 @@ probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload){
 		return deferred.promise;
 	}
 
-	this.putInfoUsuario = function(userId, params){
+	self.putInfoUsuario = function(userId, params){
 		var deferred = $q.defer();
 
 		$http.put(uri + '/usuario/update/'+ userId, params)
@@ -45,7 +46,7 @@ probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload){
 		return deferred.promise;
 	}
 
-	this.uploadAvatar = function(file){
+	self.uploadAvatar = function(file){
 		var deferred = $q.defer();
 		file.upload = Upload.upload({
 	      url: uri + '/usuario/upload/avatar',
@@ -61,7 +62,7 @@ probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload){
 	    return deferred.promise;
 	}
 
-	this.putAvatarUsuario = function(userId, params){
+	self.putAvatarUsuario = function(userId, params){
 		var deferred = $q.defer();
 
 		$http.put(uri + '/usuario/put/avatar/' + userId, JSON.stringify(params))

@@ -64,4 +64,8 @@ probnsApp.service('authService', function ($http, $q, probnsConf, $window){
 		$window.localStorage.removeItem('probns-token');
 	}
 
+	self.setHeaders = function(){
+		return { headers: { Authorization: 'Bearer ' + self.getToken() } };
+	}
+
 })
