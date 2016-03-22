@@ -1,10 +1,10 @@
-probnsApp.service('propertyService', function ($http, $q, probnsConf, Upload){
+probnsApp.service('propertyService', function ($http, $q, probnsConf, Upload, authService){
 	var uri = probnsConf.api.url;
 
 	this.getTiposInmueble = function(){
 		var deferred = $q.defer();
 
-		$http.get(uri + '/tipoInmueble/get/all')
+		$http.get(uri + '/tipoInmueble/get/all', authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})
@@ -15,7 +15,7 @@ probnsApp.service('propertyService', function ($http, $q, probnsConf, Upload){
 	this.getOperacionesInmueble = function(){
 		var deferred = $q.defer();
 
-		$http.get(uri + '/operacionInmueble/get/all')
+		$http.get(uri + '/operacionInmueble/get/all', authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})
@@ -26,7 +26,7 @@ probnsApp.service('propertyService', function ($http, $q, probnsConf, Upload){
 	this.getPaises = function(){
 		var deferred = $q.defer();
 
-		$http.get(uri + '/paises')
+		$http.get(uri + '/paises', authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})
@@ -37,7 +37,7 @@ probnsApp.service('propertyService', function ($http, $q, probnsConf, Upload){
 	this.getDepartamentos = function(paisId){
 		var deferred = $q.defer();
 
-		$http.get(uri + '/departamentos/all/' + paisId)
+		$http.get(uri + '/departamentos/all/' + paisId, authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})
@@ -48,7 +48,7 @@ probnsApp.service('propertyService', function ($http, $q, probnsConf, Upload){
 	this.getMunicipios = function(deptoId){
 		var deferred = $q.defer();
 
-		$http.get(uri + '/municipios/all/' + deptoId)
+		$http.get(uri + '/municipios/all/' + deptoId, authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})
@@ -76,7 +76,7 @@ probnsApp.service('propertyService', function ($http, $q, probnsConf, Upload){
 	this.guardarPropiedad = function(params){
 		var deferred = $q.defer();
 
-		$http.post(uri + '/inmuebles/post/inmueble', params)
+		$http.post(uri + '/inmuebles/post/inmueble', params, authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})

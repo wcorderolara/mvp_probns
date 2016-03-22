@@ -26,71 +26,71 @@ var routesController = function (server){
 	server.get("/operacionInmueble/get/all", controllers.operacionInmueble.getOperacionesInmueble);
 
 	//Paises
-	server.get("/paises", controllers.pais.getPaises);
-	server.get("/paises/:id", controllers.pais.getPaisById);
-	server.post("/paises", controllers.pais.postPais);
-	server.put("/update/paises/:id", controllers.pais.putPais);
-	server.put("/del/paises/:id", controllers.pais.deletePais);
+	server.get("/paises", auth, controllers.pais.getPaises);
+	server.get("/paises/:id", auth, controllers.pais.getPaisById);
+	server.post("/paises", auth, controllers.pais.postPais);
+	server.put("/update/paises/:id", auth, controllers.pais.putPais);
+	server.put("/del/paises/:id", auth, controllers.pais.deletePais);
 
 	//Departamentos
-	server.get("/departamentos/all/:paisId", controllers.departamento.getDepartamentos);
-	server.get("/departamentos/:id", controllers.departamento.getDepartamentoById);
-	server.post("/departamentos", controllers.departamento.postDepartamento);
-	server.put("/update/departamentos/:id", controllers.departamento.putDepartamento);
-	server.put("/del/departamentos/:id", controllers.departamento.deleteDepartamento);
+	server.get("/departamentos/all/:paisId", auth, controllers.departamento.getDepartamentos);
+	server.get("/departamentos/:id", auth, controllers.departamento.getDepartamentoById);
+	server.post("/departamentos", auth, controllers.departamento.postDepartamento);
+	server.put("/update/departamentos/:id", auth, controllers.departamento.putDepartamento);
+	server.put("/del/departamentos/:id", auth, controllers.departamento.deleteDepartamento);
 
 	//Municipios
-	server.get("/municipios/all/:DepartamentoId", controllers.municipio.getMunicipios);
-	server.get("/municipios/:id", controllers.municipio.getMunicipioById);
-	server.post("/municipios", controllers.municipio.postMunicipio);
-	server.put("/update/municipios/:id", controllers.municipio.putMunicipio);
-	server.put("/del/municipios/:id", controllers.municipio.deleteMunicipio);
+	server.get("/municipios/all/:DepartamentoId", auth, controllers.municipio.getMunicipios);
+	server.get("/municipios/:id", auth, controllers.municipio.getMunicipioById);
+	server.post("/municipios", auth, controllers.municipio.postMunicipio);
+	server.put("/update/municipios/:id", auth, controllers.municipio.putMunicipio);
+	server.put("/del/municipios/:id", auth, controllers.municipio.deleteMunicipio);
 
 
 	//TipoUsuario
-	server.get("/tiposusuario", controllers.tipoUsuario.getTiposUsuario);
-	server.get("/tipousuario/:id", controllers.tipoUsuario.getTipoUsuarioById);
-	server.post("/tipousuario", controllers.tipoUsuario.postTipoUsuario);
-	server.put("/tipousuario", controllers.tipoUsuario.putTipoUsuario);
-	server.put("/tipousuario", controllers.tipoUsuario.deleteTipoUsuario);
+	server.get("/tiposusuario", auth, controllers.tipoUsuario.getTiposUsuario);
+	server.get("/tipousuario/:id", auth, controllers.tipoUsuario.getTipoUsuarioById);
+	server.post("/tipousuario", auth, controllers.tipoUsuario.postTipoUsuario);
+	server.put("/tipousuario", auth, controllers.tipoUsuario.putTipoUsuario);
+	server.put("/tipousuario", auth, controllers.tipoUsuario.deleteTipoUsuario);
 
 	//Cliente
-	server.get("/usuario/all/getClientes", controllers.usuario.getUsuarios);
-	server.get("/usuario/all/getVendedores/:padreId", controllers.usuario.getVendedoresByPadre);
-	server.get("/usuario/all/vendedores/count/:padreId",controllers.usuario.getTotalVendedoresAgencia);
+	server.get("/usuario/all/getClientes", auth, controllers.usuario.getUsuarios);
+	server.get("/usuario/all/getVendedores/:padreId", auth, controllers.usuario.getVendedoresByPadre);
+	server.get("/usuario/all/vendedores/count/:padreId", auth, controllers.usuario.getTotalVendedoresAgencia);
 	server.get("/usuario/get/clienteById/:id", auth, controllers.usuario.getUsuarioById);
-	server.get("/usuario/getVendedor/:padreId/:id", controllers.usuario.getVendedorById);
-	server.post("/usuario/post/cliente", controllers.usuario.postCliente);
-	server.post("/usuario/post/vendedor", controllers.usuario.postVendedor);
+	server.get("/usuario/getVendedor/:padreId/:id", auth, controllers.usuario.getVendedorById);
+	server.post("/usuario/post/cliente", auth, controllers.usuario.postCliente);
+	server.post("/usuario/post/vendedor", auth, controllers.usuario.postVendedor);
 	server.post("/auth/login", controllers.usuario.loginUser);
-	server.post("/usuario/upload/avatar",multipartMiddleware, controllers.usuario.uploadAvatar);
+	server.post("/usuario/upload/avatar", multipartMiddleware, controllers.usuario.uploadAvatar);
 	// server.post("/usuario/upload/avatar",restify.bodyParser(), controllers.usuario.uploadAvatar);
-	server.put("/usuario/put/avatar/:id", controllers.usuario.putAvatar);
-	server.put("/usuario/verificaEmail/:id", controllers.usuario.putVerificarEmailUsuario);
-	server.put("/usuario/update/:id", controllers.usuario.putUsuario);
-	server.put("/usuario/changePassword/:id", controllers.usuario.changePassword);
-	server.put("/usuario/delete/:id", controllers.usuario.deleteUsuario);
+	server.put("/usuario/put/avatar/:id", auth, controllers.usuario.putAvatar);
+	server.put("/usuario/verificaEmail/:id", auth, controllers.usuario.putVerificarEmailUsuario);
+	server.put("/usuario/update/:id", auth, controllers.usuario.putUsuario);
+	server.put("/usuario/changePassword/:id", auth, controllers.usuario.changePassword);
+	server.put("/usuario/delete/:id", auth, controllers.usuario.deleteUsuario);
 
 	//Inmuebles
-	server.post("/inmuebles/post/inmueble", controllers.inmueble.postInmueble);
+	server.post("/inmuebles/post/inmueble", auth, controllers.inmueble.postInmueble);
 	server.post("/inmuebles/image", multipartMiddleware, controllers.inmueble.uploadImage);
 	// server.post("/inmuebles/image", restify.bodyParser(), controllers.inmueble.uploadImage);
-	server.post("/inmuebles/delete/image", controllers.inmueble.deleteImage);
-	server.get("/inmuebles/get/all/:usuarioId", controllers.inmueble.getInmueblesUsuario);
-	server.get("/inmuebles/get/:id",middleware.trackingInmueble, controllers.inmueble.getInmuebleById);
-	server.get("/inmuebles/get/all/count/:usuarioId",controllers.inmueble.getTotalInmueblesUsuario);
-	server.put("/inmuebles/put/:id",controllers.inmueble.putInmueble);
-	server.put("/inmuebles/delete/:id", controllers.inmueble.deleteInmueble);
+	server.post("/inmuebles/delete/image", auth, controllers.inmueble.deleteImage);
+	server.get("/inmuebles/get/all/:usuarioId", auth, controllers.inmueble.getInmueblesUsuario);
+	server.get("/inmuebles/get/:id",auth, middleware.trackingInmueble, controllers.inmueble.getInmuebleById);
+	server.get("/inmuebles/get/all/count/:usuarioId", auth,controllers.inmueble.getTotalInmueblesUsuario);
+	server.put("/inmuebles/put/:id", auth,controllers.inmueble.putInmueble);
+	server.put("/inmuebles/delete/:id", auth, controllers.inmueble.deleteInmueble);
 
 	//Buscador
-	server.get("/buscador/get/all/:agenciaAsociadaId",controllers.buscador.getBuscadoresByAgencia);
-	server.get("/buscador/get/:id", controllers.buscador.getBuscadorById);
-	server.get("/buscador/get/inmuebles/:buscadorId", controllers.buscador.getInmueblesBuscador);
-	server.get("/buscador/get/all/count/:agenciaAsociadaId", controllers.buscador.getTotalBuscadoresCliente);
-	server.post("/buscador/post", controllers.buscador.postBuscador);
-	server.post("/buscador/add/inmuble/:inmuebleId", controllers.buscador.addInmuebleBuscador);
-	server.put("/buscador/put/:id", controllers.buscador.putBuscador);
-	server.put("/buscador/delete/:id", controllers.buscador.deleteBuscador);
+	server.get("/buscador/get/all/:agenciaAsociadaId", auth, controllers.buscador.getBuscadoresByAgencia);
+	server.get("/buscador/get/:id", auth, controllers.buscador.getBuscadorById);
+	server.get("/buscador/get/inmuebles/:buscadorId", auth, controllers.buscador.getInmueblesBuscador);
+	server.get("/buscador/get/all/count/:agenciaAsociadaId", auth, controllers.buscador.getTotalBuscadoresCliente);
+	server.post("/buscador/post", auth, controllers.buscador.postBuscador);
+	server.post("/buscador/add/inmuble/:inmuebleId", auth, controllers.buscador.addInmuebleBuscador);
+	server.put("/buscador/put/:id", auth, controllers.buscador.putBuscador);
+	server.put("/buscador/delete/:id", auth, controllers.buscador.deleteBuscador);
 }
 
 module.exports = routesController;

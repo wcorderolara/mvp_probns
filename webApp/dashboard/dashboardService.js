@@ -16,7 +16,7 @@ probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload, au
 	self.getTotalPropiedadesByUser = function(userId){
 		var deferred = $q.defer();
 
-		$http.get(uri + '/inmuebles/get/all/count/' + userId)
+		$http.get(uri + '/inmuebles/get/all/count/' + userId, authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})
@@ -27,7 +27,7 @@ probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload, au
 	self.getTotalAgentesByUser = function(userId){
 		var deferred = $q.defer();
 
-		$http.get(uri + '/usuario/all/vendedores/count/' + userId)
+		$http.get(uri + '/usuario/all/vendedores/count/' + userId, authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})
@@ -38,7 +38,7 @@ probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload, au
 	self.putInfoUsuario = function(userId, params){
 		var deferred = $q.defer();
 
-		$http.put(uri + '/usuario/update/'+ userId, params)
+		$http.put(uri + '/usuario/update/'+ userId, params, authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})
@@ -65,7 +65,7 @@ probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload, au
 	self.putAvatarUsuario = function(userId, params){
 		var deferred = $q.defer();
 
-		$http.put(uri + '/usuario/put/avatar/' + userId, JSON.stringify(params))
+		$http.put(uri + '/usuario/put/avatar/' + userId, params, authService.setHeaders())
 		.success(function (response){
 			deferred.resolve(response);
 		})

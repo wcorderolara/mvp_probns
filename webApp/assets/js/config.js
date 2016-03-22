@@ -1,8 +1,8 @@
 angular.module('probnsApp')
   .constant("probnsConf", {
   api: {
-    url: "http://ec2-52-37-254-25.us-west-2.compute.amazonaws.com",
-    // url: "http://localhost:3000",
+    // url: "http://ec2-52-37-254-25.us-west-2.compute.amazonaws.com",
+    url: "http://localhost:3000",
     format: "format=json"
   },
   loading: {
@@ -11,12 +11,7 @@ angular.module('probnsApp')
     css:{border :'none', padding:'20px', backgroundColor:'transparent', top: '30%'},
     overlayCSS: {backgroundColor: '#fff', opacity: 0.8}
   },
-  // security:{
-  //   loggedUserInformation: "probnsLoggedUserInformation",
-  //   selectedRole: "probnsSelectedRole",
-  //   selectedCliente: "probnsSelectedCliente",
-  //   selectedVendedor: "probnsSelectedVendedor",
-  // },
+  
   templates: {
     dashboard: "/templates/profile.html",
     agentes: "/templates/agents.html",
