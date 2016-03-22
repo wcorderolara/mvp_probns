@@ -4,7 +4,6 @@ probnsApp.controller('propertyStepOneController', function($scope,$http,$locatio
 
 	var service = propertyService;
 	var factory = ShareData;
-	var userId = 1;
 	$scope.tiposInmueble = {};
 	$scope._tipoInmueble = 0;
 	$scope.operacionesInmueble = {};

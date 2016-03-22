@@ -3,8 +3,10 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 											   	     Notification, authService){
 
 	var service = dashboardService;
+	var auth = authService;
 	var factory = ShareData;
-	var userId = 1;
+	var userId = auth.getUserLogged();
+
 	$scope.datosGenerales = {};
 	$scope.totalPropiedades = 0;
 	$scope.totalAgentes = 0;
@@ -80,6 +82,7 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 	$scope.uploadPic = function(file) {
 	    service.uploadAvatar(file).then(
 	    	function (data){
+	    		console.log(data);
 	    		$scope.updateAvatar({"avatar": data.data.data.url});
 	    	}
 	    )

@@ -1,9 +1,14 @@
-probnsApp.controller('userController', function($scope,userService,ShareData,blockUI){
+probnsApp.controller('userController', function($scope,$window, userService,ShareData,blockUI, authService){
 
 	var service = userService;
+	var auth = authService;
 	var factory = ShareData;
-	var userId = 1;
+	var userId = auth.getUserLogged();
 	$scope.datosGenerales = {};
+
+	if(!auth.isLoggedIn()){
+		$window.location = "#/login";
+	}
 
 	service.getUserInfoById(userId).then(		
 		function (data){
@@ -13,5 +18,10 @@ probnsApp.controller('userController', function($scope,userService,ShareData,blo
 			blockUI.stop();
 		}
 	)
+
+	$scope.signOut = function(){
+		auth.logout();
+		$window.location = '#/login';
+	}
 
 })

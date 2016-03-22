@@ -1,45 +1,44 @@
 probnsApp.service('authService', function ($http, $q, probnsConf, $window){
 	var uri = probnsConf.api.url;
+	var self = this;
 
-	this.saveToken = function(token){
+	self.saveToken = function(token){
 		$window.localStorage['probns-token'] = token;
 	};
 
-	this.getToken = function(){
+	self.getToken = function(){
 		return $window.localStorage['probns-token'];
 	}
 
-	this.registrarUsuairo = function(params){
+	self.registrarUsuairo = function(params){
 		var deferred = $q.defer();
 
-		$http.post(uri + '/usuario/post/cliente', JSON.stringify(params))
+		$http.post(uri + '/usuario/post/cliente', params)
 		.success(function (response){
-			this.saveToken(response.token);
+			self.saveToken(response.token);
 			deferred.resolve(response);
 		})
 
 		return deferred.promise;
 	}
 
-	this.loginUser = function(params){
+	self.loginUser = function(params){
 		var deferred = $q.defer();
 
 		$http.post(uri + '/auth/login', params)
 		.success(function (response, status,config){
-			console.log(response);
-			this.saveToken(response.token)
+			self.saveToken(response.token)
 			deferred.resolve(response);
 		})
 		.error(function (response){
-			console.log("error");
-			console.log(response);
+			deferred.resolve(response);
 		})
 
 		return deferred.promise;
 	}
 
-	this.isLoggedInd = function(){
-		var token = this.getToken();
+	self.isLoggedIn = function(){
+		var token = self.getToken();
 
 		if(token){
 			var payload = JSON.parse($window.atob(token.split('.')[1]));
@@ -50,7 +49,18 @@ probnsApp.service('authService', function ($http, $q, probnsConf, $window){
 
 	}
 
-	this.logout = function(){
+	self.getUserLogged = function(){
+		var token = self.getToken();
+		
+		if(token){
+			var payload = JSON.parse($window.atob(token.split('.')[1]));
+			return payload.sub;
+		}else{
+			return false;
+		}
+	}
+
+	self.logout = function(){
 		$window.localStorage.removeItem('probns-token');
 	}
 

@@ -37,7 +37,7 @@ probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload){
 	this.putInfoUsuario = function(userId, params){
 		var deferred = $q.defer();
 
-		$http.put(uri + '/usuario/update/'+ userId, JSON.stringify(params))
+		$http.put(uri + '/usuario/update/'+ userId, params)
 		.success(function (response){
 			deferred.resolve(response);
 		})
@@ -47,7 +47,6 @@ probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload){
 
 	this.uploadAvatar = function(file){
 		var deferred = $q.defer();
-
 		file.upload = Upload.upload({
 	      url: uri + '/usuario/upload/avatar',
 	      data: {file: file},

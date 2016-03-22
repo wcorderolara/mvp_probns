@@ -1,9 +1,9 @@
 probnsApp.controller('listingsController', function($scope,$http,$location,
-											   	     $window,listingsService,ShareData,blockUI){
+											   	     $window,listingsService,ShareData,blockUI, authService){
 
 	var service = listingsService;
 	var factory = ShareData;
-	var userId = 1;
+	var userId = authService.getUserLogged();
 	$scope.listadoPropiedades = [];
 
 	service.getPropidadesUsuario(userId).then(

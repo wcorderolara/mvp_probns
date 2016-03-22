@@ -1,10 +1,10 @@
 probnsApp.controller('propertyController', function($scope,$http,$location,
 											   	     $window,propertyService,
-											   	     ShareData,blockUI,Notification){
+											   	     ShareData,blockUI,Notification, authService){
 
 	var service = propertyService;
 	var factory = ShareData;
-	var _userId = 1;
+	var _userId = authService.getUserLogged();
 	$scope._newInmueble = {
 		descripcion: "",
 		precioPropiedad: 0,
@@ -27,13 +27,14 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 		userId: 0,
 		imagenesInmueble: [],
 		amenitiesInmueble: [],
-		userId: _userId //este campo sera obtenido el localstorage ya que ahi estara guardado
+		userId: _userId 
 	};
 	$scope.showInfo = function(){
+		console.log($scope._newInmueble)
 		// console.log('hola'); return false;
 		// console.log($window.location.href = '#app.propiedades');
-		console.log('hola');
-		$window.location = '#/app/propiedades';
+		//console.log('hola');
+		//$window.location = '#/app/propiedades';
 		// $location.url('#/app/propiedades');
 	}
 
@@ -94,7 +95,7 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 	})
 
 	$scope.$on('setAmenitiesInmueble', function (event, data){
-		$scope._newInmueble.amenitiesInmueble = data;
+		$scope._newInmueble.amenitiesInmueble = JSON.stringify(data);
 	})
 
 	$scope.$on('setExtensionPropiedad', function (event, data){
@@ -110,7 +111,7 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 	})
 
 	$scope.$on('setImagenesInmueble', function (event, data){
-		$scope._newInmueble.imagenesInmueble = data;
+		$scope._newInmueble.imagenesInmueble = JSON.stringify(data);
 	})
 
 	$scope.$on('setDescripcion', function (event, data){
@@ -119,6 +120,7 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 
 	$scope.$on('setObservaciones', function (event, data){
 		$scope._newInmueble.observaciones = data;
+		$scope.$broadcast('setInmueblePreview', $scope._newInmueble);
 	})
 
 })

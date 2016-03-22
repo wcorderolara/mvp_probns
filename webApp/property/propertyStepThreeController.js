@@ -4,7 +4,6 @@ probnsApp.controller('propertyStepThreeController', function($scope, $http, $loc
 
 	var service = propertyService;
 	var factory = ShareData;
-	var userId = 1;
 	$scope.extensionPropiedad = "";
 	$scope.areaConstruccion = "";
 	$scope.anioConstruccion = "";

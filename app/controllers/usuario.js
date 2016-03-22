@@ -212,24 +212,24 @@ exports.getVendedorById = function (req, res, next){
 
 
 exports.postCliente = function (req, res, next){
-	var _req = JSON.parse(req.body);
+	// var _req = JSON.parse(req.body);
 
 	models.Usuario.create({
-		userLogin: _req.userLogin,
+		userLogin: req.body.userLogin,
 		salt: crypto.randomBytes(16).toString('hex'),
-		email: _req.userLogin,
+		email: req.body.userLogin,
 		verificadoEmail: 0,
 		status: 1,
-		tipoUsuarioId: _req.tipoUsuarioId,
-		PaiId: _req.PaiId,
-		estadoUsuarioId: _req.estadoUsuarioId || 1
+		tipoUsuarioId: req.body.tipoUsuarioId,
+		PaiId: req.body.PaiId,
+		estadoUsuarioId: req.body.estadoUsuarioId || 1
 	}).then(function (user){
 		if(!user){
 			sendJSONresponse(res,500,{"type":false,"message":"Error al crear el registro","data":user});
 		}else{
 			var _token = service.createToken(user);
 			user.update({
-				hash: crypto.pbkdf2Sync(_req.password, user.salt, 1000, 64).toString('hex')
+				hash: crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64).toString('hex')
 			}).then(function(){
 				sendJSONresponse(res, 200, {"type": true, "data": "Registro creado exitosamente", "token": _token})
 			})
@@ -238,26 +238,26 @@ exports.postCliente = function (req, res, next){
 };
 
 exports.postVendedor = function(req,res,next){
-	var _req = JSON.parse(req.body);
+	// var _req = JSON.parse(req.body);
 	models.Usuario.create({
-		userLogin: _req.userLogin,		
-		firstName: _req.firstName,
-		lastName: _req.lastName || null,
+		userLogin: req.body.userLogin,		
+		firstName: req.body.firstName,
+		lastName: req.body.lastName || null,
 		salt: crypto.randomBytes(16).toString('hex'),
-		email: _req.userLogin,
+		email: req.body.userLogin,
 		verificadoEmail: 0,
 		status: 1,
-		tipoUsuarioId: _req.tipoUsuarioId,
-		PaiId: _req.PaiId,
-		estadoUsuarioId: _req.estadoUsuarioId || 1,
-		padreId: _req.padreId
+		tipoUsuarioId: req.body.tipoUsuarioId,
+		PaiId: req.body.PaiId,
+		estadoUsuarioId: req.body.estadoUsuarioId || 1,
+		padreId: req.body.padreId
 	}).then(function (user){
 		if(!user){
 			sendJSONresponse(res,500,{"type":false,"message":"Error al crear el registro","data":user});
 		}else{
 			var _token = service.createToken(user);
 			user.update({
-				hash: crypto.pbkdf2Sync(_req.password, user.salt, 1000, 64).toString('hex')
+				hash: crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64).toString('hex')
 			}).then(function(){
 				sendJSONresponse(res, 200, {"type": true, "data": "Registro creado exitosamente", "token": _token})
 			})
@@ -266,17 +266,12 @@ exports.postVendedor = function(req,res,next){
 };
 
 exports.loginUser = function(req, res, next){
-	var _req = JSON.parse(req.body);
-
-	if(!_req.userLogin ||  !_req.password){
+	if(!req.body.userLogin ||  !req.body.password){
 		sendJSONresponse(res, 400, {"type": false, "data": "Todos los campos son requeridos"});
 		return;
 	}
 
-	
-
 	passport.authenticate('local', function(err, user, info){
-		console.log(info);
 		var _token;
 		if(err){
 			sendJSONresponse(res,404,{"type":false, "data":err,"dataType": "Error"});
@@ -285,7 +280,6 @@ exports.loginUser = function(req, res, next){
 
 		if(user){
 			_token = service.createToken(user);
-			console.log(_token);
 			sendJSONresponse(res,200, {"type":true, "token": _token});
 		}else{
 			sendJSONresponse(res,401,{"type":false, "data": info, "dataType": "Info"});
@@ -316,19 +310,18 @@ exports.putVerificarEmailUsuario = function (req, res, next){
 };
 
 exports.putUsuario = function(req, res, next){
-	var userInfo = JSON.parse(req.body);
 	models.Usuario.update(
 		{
-			userLogin: userInfo.userLogin,
-			firstName: userInfo.firstName,
-			lastName: userInfo.lastName,
-			email: userInfo.userLogin,
-			telefono1: userInfo.telefono1,
-			telefono2: userInfo.telefono2,
-			direccion: userInfo.direccion,
-			website: userInfo.website,
-			descripcion: userInfo.descripcion,
-			padreId: userInfo.padreId,
+			userLogin: req.body.userLogin,
+			firstName: req.body.firstName,
+			lastName: req.body.lastName,
+			email: req.body.userLogin,
+			telefono1: req.body.telefono1,
+			telefono2: req.body.telefono2,
+			direccion: req.body.direccion,
+			website: req.body.website,
+			descripcion: req.body.descripcion,
+			padreId: req.body.padreId,
 		},
 		{
 			where:{
@@ -351,10 +344,9 @@ exports.uploadAvatar = function(req, res, next){
 }
 
 exports.putAvatar = function(req, res, next){
-	var userInfo = JSON.parse(req.body);
 	models.Usuario.update(
 		{
-			avatar: userInfo.avatar
+			avatar: req.body.avatar
 		},
 		{
 			where:{
@@ -365,14 +357,13 @@ exports.putAvatar = function(req, res, next){
 		if(!result){
 			sendJSONresponse(res,500,{"type":false,"message":"error al encontrar el registro", "data":result});
 		}else{
-			sendJSONresponse(res,200,{"type":true,"message":"Image de Perfil Actualizada exitosamente...", "data":result});
+			sendJSONresponse(res,200,{"type":true,"message":"Imagen de Perfil Actualizada exitosamente...", "data":result});
 		}
 	})
 
 }
 
 exports.changePassword = function (req, res, next){
-	var _req = JSON.parse(req.body);
 	models.Usuario.findOne({
 		where: {
 			id: req.params.id
@@ -387,7 +378,7 @@ exports.changePassword = function (req, res, next){
 		}else{
 			models.Usuario.update(
 				{
-					hash: crypto.pbkdf2Sync(_req.password, usuario.salt, 1000, 64).toString('hex')	
+					hash: crypto.pbkdf2Sync(req.body.password, usuario.salt, 1000, 64).toString('hex')	
 				},
 				{
 					where: {

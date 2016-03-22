@@ -4,7 +4,6 @@ probnsApp.controller('propertyStepTwoController', function($scope,$http,$locatio
 
 	var service = propertyService;
 	var factory = ShareData;
-	var userId = 1;
 	$scope.precioPropiedad = 0;
 	$scope.direccionCorta = "";
 	$scope.direccion = "";

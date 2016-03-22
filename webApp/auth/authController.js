@@ -27,9 +27,10 @@ probnsApp.controller('authController', function($scope, $window,$location,
 		auth.loginUser(params).then(
 			function (data){
 				if(data.type == true){
-					console.log(data.token);
+					auth.saveToken(data.token);
+					$window.location = '#/app/dashboard';
 				}else{
-					$scope.formError = data.data;
+					$scope.formError = data.data.message;
 				}
 			}
 		)

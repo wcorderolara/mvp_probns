@@ -4,7 +4,6 @@ probnsApp.controller('propertyStepFourController', function($scope,$http,$locati
 
 	var service = propertyService;
 	var factory = ShareData;
-	var userId = 1;
 	$scope.descripcionPropiedad = "";
 	$scope.observacionesPropiedad = "";
 	$scope.listImagenesInmueble = [];
@@ -27,10 +26,6 @@ probnsApp.controller('propertyStepFourController', function($scope,$http,$locati
 
 	$scope.setImagenesInmueble = function(){
 		$scope.$emit('setImagenesInmueble', $scope.listImagenesInmueble);	
-	}
-
-	$scope.sayHi = function(){
-		console.log("hola Mundo");
 	}
 
 	$scope.uploadImagenInmueble = function(file, errFiles) {
