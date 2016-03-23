@@ -315,16 +315,15 @@ exports.putVerificarEmailUsuario = function (req, res, next){
 exports.putUsuario = function(req, res, next){
 	models.Usuario.update(
 		{
-			userLogin: req.body.userLogin,
-			firstName: req.body.firstName,
-			lastName: req.body.lastName,
-			email: req.body.userLogin,
-			telefono1: req.body.telefono1,
-			telefono2: req.body.telefono2,
-			direccion: req.body.direccion,
-			website: req.body.website,
-			descripcion: req.body.descripcion,
-			padreId: req.body.padreId,
+			userLogin: req.body.userLogin || null,
+			firstName: req.body.firstName || null,
+			lastName: req.body.lastName || null,
+			email: req.body.userLogin || null,
+			telefono1: req.body.telefono1 || null,
+			telefono2: req.body.telefono2 || null,
+			direccion: req.body.direccion || null,
+			website: req.body.website || null,
+			descripcion: req.body.descripcion || null
 		},
 		{
 			where:{
