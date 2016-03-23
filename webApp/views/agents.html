@@ -1,54 +1,105 @@
-<main class="content">
+<main class="content" ng-controller="agentController">
   <div class="panel">
-    <div class="panel__header" ng-controller="agentController">
+    <div class="panel__header" >
       <div class="panel__form">
         <input type="text">
         <input type="submit" value="Buscar">
       </div>
       <h1 class="panel__title">Listado oficial de Agentes</h1>
       <div class="panel__btns">
-        <a href="#"><span>Agregar nuevo agente </span><i class="fa fa-plus-circle"></i></a>
+        <a style="cursor:pointer;" ng-click="openModal('','addAgenteModal.html','md')">
+          <span>Agregar nuevo agente </span><i class="fa fa-plus-circle"></i>
+        </a>
       </div>
-      <script type="text/ng-template" id="AgentesModal.html">
-        <div class="modal-header">
-            <h3 class="modal-title">Agregar nuevos Ambientes</h3>
-        </div>
-        <div class="modal-body">
-            <div class="horizontal-form">
-              <form class="form-horizontal">
+      <script type="text/ng-template" id="addAgenteModal.html">
+          <div class="modal-header">
+              <h3 class="modal-title blue"><i class="fa fa-user-plus"></i> Nuevo Agente</h3>
+          </div>
+          <div class="modal-body">
+            <form role="form">
 
-                <div class="form-group">
-                  <label class="col-sm-4 control-label no-padding-right">Ambiente </label>
-                  <div class="col-sm-7">
-                    <input ng-model="newDescripcion" type="text" placeholder="Nombre del Ambiente" class="form-control">
+              <div class="form-title">Informaci&oacute;n del Agente</div>
+
+              <div class="text-align-center">
+                <div class="col-sm-12 margin-bottom-10">
+                  <div class="col-md-12 margin-top-less-10">
+                    <img src="{{newAvatar}}" class="header-avatar"> 
                   </div>
+                  <button class="btn btn-labeled btn-blue" type="file" ngf-select="uploadPic($file, $invalidFiles)"
+                          accept="image/*" ngf-max-size="2MB">
+                    <i class="btn-label fa fa-upload"></i>Subir Fotograf&iacute;a
+                  </button>
+
                 </div>
+              </div>
 
-                <div class="form-group">
-                  <label class="col-sm-4 control-label no-padding-right">Cantidad </label>
-                  <div class="col-sm-7">
-                    <input ng-model="newCantidad" type="text" placeholder="numero de ambientes" class="form-control">
-                  </div>
-                </div> 
-              </form>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-blue" ng-click="addAmenity()">Agregar</button>
-            <button class="btn btn-danger" ng-click="cancel()">Cancelar</button>
-        </div>
+              <div class="form-group">
+                <span class="input-icon icon-right inverted">
+                  <input ng-model="newFirstName" type="text" class="form-control" placeholder="Nombre del agente">
+                  <i class="fa fa-user bg-blue"></i>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <span class="input-icon icon-right inverted">
+                  <input ng-model="newLastName" type="text" class="form-control" placeholder="Apellido del Agente">
+                  <i class="fa fa-user bg-blue"></i>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <span class="input-icon icon-right inverted">
+                  <input ng-model="newUserLogin" type="text" class="form-control" placeholder="Correo Electronico del Agente">
+                  <i class="fa fa-envelope bg-blue"></i>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <span class="input-icon icon-right inverted">
+                  <input ng-model="newPassword" type="text" class="form-control" placeholder="Contraseña por Defecto">
+                  <i class="fa fa-lock bg-blue"></i>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <span class="input-icon icon-right inverted">
+                  <input ng-model="newTelefono" type="text" class="form-control" placeholder="Telefono del Agente">
+                  <i class="fa fa-phone bg-blue"></i>
+                </span>
+              </div>
+
+              <div class="form-group clearfix">
+                <select ng-model="newPaiId" name="cmbPais" class="col-sm-12"
+                  id="cmbPais" ng-options="pais.id as pais.descripcion for pais in paises">
+                  <option value="">Pais</option>
+                </select>
+              </div>
+
+            </form>
+            <alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
+                {{formError}}
+            </alert>
+          </div>
+          <div class="modal-footer">
+              <button class="btn btn-blue" ng-click="postVendedor()">Agregar</button>
+              <button class="btn btn-danger" ng-click="cancel()">Cancelar</button>
+          </div>
       </script>
     </div>
     <div class="panel__content">
-      <div class="agents__item">
-        <img src="assets/img/agent.jpg" class="header-avatar">
+      <div class="agents__item" ng-repeat="agente in listadoAgentes">
+        <img src="{{agente.avatar}}" class="header-avatar">
         <div class="agents__item-content">
-          <h2><a href="#">Nombre del agente </a></h2>
+          <h2><a href="#">{{agente.firstName}} {{agente.lastName}} </a></h2>
           <ul>
-            <li>Correo electrónico</li>
-            <li>Teléfono </li>
-            <li>Creado en: (fecha) </li>
+            <li class="margin-bottom-5"><i class="fa fa-envelope"></i> {{agente.email}}</li>
+            <li class="margin-bottom-5"><i class="fa fa-phone"></i> {{agente.telefono1}} </li>
+            <li><i class="fa fa-clock-o"></i> {{agente.createdAt}} </li>
           </ul>
+          <button class="btn btn-blue btn-sm btn-follow col-sm-2" ng-click="editAgente({{agente.id}})">
+            <i class="fa fa-pencil-square-o"></i>
+            Editar Agente
+          </button>
         </div>
         <ul class="agents__item-actions">
           <li class="first"><a href="#deals-1" data-toggle="tab">
@@ -126,3 +177,64 @@
     </ul>
   </div> -->
 </main>
+
+<script type="text/ng-template" id="editAgenteModal.html">
+  <div class="modal-header">
+      <h3 class="modal-title blue"><i class="fa fa-pencil-square"></i> Editar Agente</h3>
+  </div>
+  <div class="modal-body">
+    <form role="form">
+
+      <div class="form-title">Informaci&oacute;n del Agente</div>
+
+      <div class="text-align-center">
+        <div class="col-sm-12 margin-bottom-10">
+          <div class="col-md-12 margin-top-less-10">
+            <img src="{{editItem.avatar}}" class="header-avatar"> 
+          </div>
+          <button class="btn btn-labeled btn-blue" type="file" ngf-select="uploadPic($file, $invalidFiles)"
+                  accept="image/*" ngf-max-size="2MB">
+            <i class="btn-label fa fa-upload"></i>Subir Fotograf&iacute;a
+          </button>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <span class="input-icon icon-right inverted">
+          <input ng-model="editItem.firstName" type="text" class="form-control" placeholder="Nombre del agente">
+          <i class="fa fa-user bg-blue"></i>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <span class="input-icon icon-right inverted">
+          <input ng-model="editItem.lastName" type="text" class="form-control" placeholder="Apellido del Agente">
+          <i class="fa fa-user bg-blue"></i>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <span class="input-icon icon-right inverted">
+          <input ng-model="editItem.userLogin" type="text" class="form-control" placeholder="Correo Electronico del Agente">
+          <i class="fa fa-envelope bg-blue"></i>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <span class="input-icon icon-right inverted">
+          <input ng-model="editItem.telefono1" type="text" class="form-control" placeholder="Telefono del Agente">
+          <i class="fa fa-phone bg-blue"></i>
+        </span>
+      </div>
+
+    </form>
+    <alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
+        {{formError}}
+    </alert>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-blue" ng-click="putVendedor()"><i class="fa fa-pencil"></i> Editar</button>
+      <button class="btn btn-danger" ng-click="cancel()"><i class="fa fa-times"></i> Cancelar</button>
+  </div>
+</script>

@@ -3,9 +3,9 @@ probnsApp.controller('agentController', function ($scope, $window,$location,
 											    Notification, agentService, $modal){
 	var auth = authService;
 	var service = agentService;
-	var user: auth.getUserLogged();
-	$scope.listVendedores = [];
-
+	var user= auth.getUserLogged();
+	$scope.listadoAgentes = [];
+	$scope.editVendedor = {};
 	$scope.newVendedor = {
 		userLogin: "",
 		password: "",
@@ -14,18 +14,22 @@ probnsApp.controller('agentController', function ($scope, $window,$location,
 		telefono1: "",
 		PaiId: "",
 		avatar: "",
-		padreId: user
+		padreId: ""
 	}
 
-	service.getVendedoresByPadre(user).then(
-		function (data){
-			if(data.type){
-				$scope.listVendedores = data.data
+	$scope.getVendedoresByPadre = function(user){
+		service.getVendedoresByPadre(user).then(
+			function (data){
+				if(data.type){
+					$scope.listadoAgentes = data.data
+				}
 			}
-		}
-	)
+		)
+	}
 
-	$scope.openModal = function(windowClass, templateUrl, size){
+	$scope.getVendedoresByPadre(user);
+
+	$scope.openModal = function(windowClass,templateUrl,size){
 		var modalInstance = $modal.open({
 			windowClass: windowClass,
 			templateUrl: templateUrl,
@@ -41,33 +45,105 @@ probnsApp.controller('agentController', function ($scope, $window,$location,
 		modalInstance.result.then(function (data){
 			if(data.type){
 				Notification.success(data.message)
-				service.getVendedoresByPadre(user).then(
-					function (data){
-						if(data.type){
-							$scope.listVendedores = data.data;
-						}
-					}
-				)
+				$scope.getVendedoresByPadre(user);
+			}
+		});
+	}
+
+	$scope.openEditModal = function(agente,windowClass, templateUrl, size){
+		var modalInstance = $modal.open({
+			windowClass: windowClass,
+			templateUrl: templateUrl,
+			controller: 'editAgenteController',
+			size: size,
+			resolve: {
+				items: function(){
+					return agente;
+				}
 			}
 		});
 
+		modalInstance.result.then(function (data){
+			if(data.type){
+				Notification.success(data.message)
+				$scope.getVendedoresByPadre(user);
+			}
+		});
+	}
+
+	$scope.editAgente = function(agente){
+		service.getVendedorById(agente).then(
+			function (data){
+				if(data.type){
+					$scope.editVendedor = data.data;
+					$scope.openEditModal($scope.editVendedor,'','editAgenteModal.html','md');
+				}else{
+					Notification.error(data.message);
+				}
+			}
+		)
+	}
+
+})
+
+probnsApp.controller('editAgenteController', function($scope, $modalInstance, items, 
+													  agentService, generalServices, 
+													  authService){
+
+	var general = generalServices;
+	var service = agentService;
+	$scope.editItem = {
+		firstName: items.firstName,
+		lastName: items.lastName,
+		userLogin: items.userLogin,
+		telefono1: items.telefono1,
+		avatar: items.avatar,
+	}	
+
+	$scope.uploadPic = function(file, errFiles) {
+	    general.uploadAvatar(file).then(
+	    	function (data){
+	    		$scope.editItem.avatar = data.data.data.url;
+	    	}
+	    )
+    }
+
+	$scope.putVendedor = function(){
+		$scope.formError = "";
+
+		if(!$scope.editItem.userLogin || !$scope.editItem.firstName || !$scope.editItem.lastName || !$scope.editItem.telefono1){
+			$scope.formError = "El nombre, apellido, correo electronico y telefono, son obligatorios";
+			return false
+		}
+
+		service.putVendedor($scope.editItem, items.id).then(
+			function (response){
+				$modalInstance.close(response);
+			}
+		)
+
+	}
+
+	$scope.cancel = function(){
+
+		$modalInstance.dismiss('cancel');
 	}
 
 })
 
 
 probnsApp.controller('addAgenteController', function($scope, $modalInstance, items, 
-													  agentService, generalServices, authService){
+													  agentService, generalServices, 
+													  authService){
 
 	var general = generalServices;
 	var service = agentService;
 	$scope.newItem = items;
 	$scope.paises = [];
-	
-	$scope.newUserLogin = "";
 	$scope.newFirstName = "";
 	$scope.newLastName = "";
 	$scope.newPassword = "";
+	$scope.newUserLogin = "";
 	$scope.newTelefono = "";
 	$scope.newAvatar = "";
 	$scope.newPaiId = "";
@@ -78,22 +154,43 @@ probnsApp.controller('addAgenteController', function($scope, $modalInstance, ite
 		}
 	);
 
+	$scope.uploadPic = function(file, errFiles) {
+	    general.uploadAvatar(file).then(
+	    	function (data){
+	    		$scope.newAvatar = data.data.data.url;
+	    	}
+	    )
+    }
+
 	$scope.postVendedor = function(){
-		
+		$scope.formError = "";
 
-		if(!$scope.newUserLogin ||)
-
-		$scope.newItem = {
-			userLogin: $scope.newUserLogin,
-			password: $scope.newFirstName,
-			firstName: $scope.newLastName,
-			lastName: $scope.newPassword,
-			telefono1: $scope.newTelefono,
-			avatar: $scope.newAvatar,
-			PaiId: $scope.newPaiId
+		if(!$scope.newPassword){
+			$scope.newPassword = "ClaveAgenteProbns"; //se creara un password generator por el momente esta sera
 		}
 
-		$modalInstance.close($scope.newItem);
+		if(!$scope.newUserLogin || !$scope.newFirstName || !$scope.newLastName || !$scope.newTelefono || !$scope.newPaiId){
+			$scope.formError = "El nombre, apellido, correo electronico, telefono y pais, son obligatorios";
+			return false
+		}
+
+		$scope.newItem = {
+			firstName: $scope.newFirstName,
+			lastName: $scope.newLastName,
+			password: $scope.newPassword,
+			userLogin: $scope.newUserLogin,
+			telefono1: $scope.newTelefono,
+			avatar: $scope.newAvatar,
+			PaiId: $scope.newPaiId,
+			padreId: authService.getUserLogged()
+		}
+
+		service.postVendedor($scope.newItem).then(
+			function (response){
+				$modalInstance.close(response);
+			}
+		)
+
 	}
 
 	$scope.cancel = function(){

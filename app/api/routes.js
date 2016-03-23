@@ -68,6 +68,7 @@ var routesController = function (server){
 	server.put("/usuario/put/avatar/:id", auth, controllers.usuario.putAvatar);
 	server.put("/usuario/verificaEmail/:id", auth, controllers.usuario.putVerificarEmailUsuario);
 	server.put("/usuario/update/:id", auth, controllers.usuario.putUsuario);
+	server.put("/usuario/agente/update/:id", auth, controllers.usuario.putVendedor);
 	server.put("/usuario/changePassword/:id", auth, controllers.usuario.changePassword);
 	server.put("/usuario/delete/:id", auth, controllers.usuario.deleteUsuario);
 

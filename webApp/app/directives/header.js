@@ -49,7 +49,7 @@ angular.module('probnsApp')
         function($rootScope, $state, $stateParams) {
             return {
                 restrict: 'AC',
-                template: '<i class="glyphicon glyphicon-refresh"></i>',
+                template: '<i class="fa fa-refresh"></i>',
                 link: function(scope, el, attr) {
                     el.on('click', function() {
                         $state.transitionTo($state.current, $stateParams, {

@@ -81,9 +81,8 @@ exports.getVendedoresByPadre = function (req, res, next){
 			status: 1,
 			padreId: req.params.padreId
 		},
-		attributes: ['id','padreId','userLogin','firstName','lastName','email','telefono1','telefono2','direccion',
-					 'website','descripcion','createdAt','status', 'tipoUsuarioId', 'PaiId','estadoUsuarioId',
-					 'avatar'],
+		attributes: ['id','padreId','userLogin','firstName','lastName','email','telefono1',
+					 'createdAt','status', 'PaiId','avatar'],
 		include: [
 			{
 				model: models.tipoUsuario,
@@ -130,6 +129,8 @@ exports.getUsuarioById = function (req, res, next){
 			id: req.params.id,
 			status: 1
 		},
+		attributes: ['id','padreId','userLogin','firstName','lastName','email','telefono1',
+					 'createdAt','status','avatar'],
 		include: [
 			{
 				model: models.tipoUsuario,
@@ -324,6 +325,30 @@ exports.putUsuario = function(req, res, next){
 			website: req.body.website,
 			descripcion: req.body.descripcion,
 			padreId: req.body.padreId,
+		},
+		{
+			where:{
+				id: req.params.id
+			}
+		}
+	).then(function (result){
+		if(!result){
+			sendJSONresponse(res,500,{"type":false,"message":"error al encontrar el registro", "data":result});
+		}else{
+			sendJSONresponse(res,200,{"type":true,"message":"Registro Actualizado exitosamente...", "data":result});
+		}
+	})
+};
+
+exports.putVendedor = function(req, res, next){
+	models.Usuario.update(
+		{
+			userLogin: req.body.userLogin,
+			firstName: req.body.firstName,
+			lastName: req.body.lastName,
+			telefono1: req.body.telefono1,
+			email: req.body.userLogin,
+			avatar: req.body.avatar
 		},
 		{
 			where:{
