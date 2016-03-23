@@ -20,11 +20,8 @@ module.exports = function (sequelize, DataTypes){
 			}
 		},
 		direccion: {
-			type: DataTypes.STRING,
+			type: DataTypes.TEXT,
 			allowNull: false,
-			validate: {
-				len: [5, 500]
-			}
 		},
 		latitud: {
 			type: DataTypes.STRING,

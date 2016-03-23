@@ -12,7 +12,7 @@ module.exports = function (sequelize, DataTypes){
 			type: DataTypes.STRING,
 			allowNull: true,
 			validate: {
-				len: [5,150]
+				len: [1,150]
 			}
 		},
 		lastName: {
@@ -20,7 +20,7 @@ module.exports = function (sequelize, DataTypes){
 			allowNull: true,
 			defaultValue: null,
 			validate: {
-				len: [5,150]
+				len: [1,150]
 			}
 		},
 		salt: {
@@ -43,7 +43,7 @@ module.exports = function (sequelize, DataTypes){
 			allowNull: true,
 			defaultValue: null,
 			validate: {
-				len: [8,15]
+				len: [8,125]
 			}
 		},
 		telefono2: {
@@ -51,7 +51,7 @@ module.exports = function (sequelize, DataTypes){
 			allowNull: true,
 			defaultValue: null,
 			validate: {
-				len: [8,15]
+				len: [8,125]
 			}
 		},
 		direccion: {
@@ -93,6 +93,7 @@ module.exports = function (sequelize, DataTypes){
 				
 				Usuario.belongsToMany(models.Inmueble, {through: models.inmuebleUsuario, foreignKey: 'usuarioId'});
 				Usuario.belongsToMany(models.tipoAccion, {through: models.accionesBuscador, foreignKey: 'usuarioId'});
+				
 				// Usuario.belongsToMany(models.Inmueble, {through: models.inmuebleVendedor, foreignKey: 'vendedorId'});
 				
 				Usuario.hasMany(models.Buscador);

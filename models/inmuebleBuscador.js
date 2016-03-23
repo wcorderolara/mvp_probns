@@ -1,11 +1,8 @@
 
 module.exports = function (sequelize, DataTypes){
 	var inmuebleBuscador = sequelize.define('inmuebleBuscador',{
-		descripcion: {
-			type: DataTypes.STRING,
-			validate: {
-				len: [1, 500]
-			},
+		vendedorAsignado: {
+			type: DataTypes.INTEGER,
 			allowNull: true,
 		},
 		status: {
