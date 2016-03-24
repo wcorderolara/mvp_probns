@@ -130,7 +130,7 @@ exports.getUsuarioById = function (req, res, next){
 			status: 1
 		},
 		attributes: ['id','padreId','userLogin','firstName','lastName','email','telefono1',
-					 'createdAt','status','avatar'],
+					 'createdAt','status','avatar','direccion', 'telefono2', 'website'],
 		include: [
 			{
 				model: models.tipoUsuario,
