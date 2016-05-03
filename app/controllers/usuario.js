@@ -129,8 +129,9 @@ exports.getUsuarioById = function (req, res, next){
 			id: req.params.id,
 			status: 1
 		},
-		attributes: ['id','padreId','userLogin','firstName','lastName','email','telefono1',
-					 'createdAt','status','avatar','direccion', 'telefono2', 'website'],
+		attributes: ['id','padreId','userLogin','firstName','lastName','email','telefono1','telefono2','direccion',
+					 'website','descripcion','createdAt','status', 'tipoUsuarioId', 'PaiId','estadoUsuarioId',
+					 'avatar'],
 		include: [
 			{
 				model: models.tipoUsuario,

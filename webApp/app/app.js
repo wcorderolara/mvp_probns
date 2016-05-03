@@ -1,5 +1,5 @@
 'use strict';
-angular.module('alquitrackApp', [
+angular.module('probnsApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
