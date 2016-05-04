@@ -52,8 +52,8 @@ angular.module('probnsApp')
                     })
                     .state('app.dashboard', {
                         url: '/dashboard',
-                        templateUrl: 'views/profile.html',
-                        controller: 'dashboardController',
+                        templateUrl: 'views/dashboard.html',
+                        // controller: 'dashboardController',
                         ncyBreadcrumb: {
                             label: 'Dashboard y Perfil',
                             description: ''
