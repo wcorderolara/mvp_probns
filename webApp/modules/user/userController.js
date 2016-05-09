@@ -4,6 +4,7 @@ probnsApp.controller('userController', function($scope,$window, userService,Shar
 	var auth = authService;
 	var factory = ShareData;
 	var userId = auth.getUserLogged();
+	var datosGenerales = {};
 	$scope.datosGenerales = {};
 
 	if(!auth.isLoggedIn()){
@@ -13,8 +14,10 @@ probnsApp.controller('userController', function($scope,$window, userService,Shar
 	service.getUserInfoById(userId).then(		
 		function (data){
 			blockUI.start();
-			$scope.datosGenerales = data.data;	
-			$scope.putUserInfo = JSON.parse(JSON.stringify(data.data));		
+			$scope.datosGenerales = data.data;
+			datosGenerales = data.data;
+			console.log(datosGenerales);
+			// $scope.putUserInfo = JSON.parse(JSON.stringify(data.data));		
 			blockUI.stop();
 		}
 	)

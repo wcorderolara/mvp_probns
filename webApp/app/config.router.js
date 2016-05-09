@@ -55,7 +55,7 @@ angular.module('probnsApp')
                         templateUrl: 'views/dashboard.html',
                         // controller: 'dashboardController',
                         ncyBreadcrumb: {
-                            label: 'Dashboard y Perfil',
+                            label: 'Dashboard Principal',
                             description: ''
                         },
                         resolve: {
@@ -65,8 +65,8 @@ angular.module('probnsApp')
                                     return $ocLazyLoad.load({
                                         serie: true,
                                         files: [                                            
-                                            'dashboard/dashboardService.js',
-                                            'dashboard/dashboardController.js'
+                                            'modules/dashboard/dashboardService.js',
+                                            'modules/dashboard/dashboardController.js'
                                         ]
                                     })
                                 }
@@ -90,8 +90,8 @@ angular.module('probnsApp')
                                             'lib/jquery/fullcalendar/fullcalendar.js',
                                             'lib/main_utilities.js',
                                             'lib/main_calendar.js',
-                                            'listings/listingsService.js',
-                                            'listings/listingsController.js'
+                                            'modules/listings/listingsService.js',
+                                            'modules/listings/listingsController.js'
                                         ]
                                     })
                                 }
@@ -113,13 +113,13 @@ angular.module('probnsApp')
                                         serie: true,
                                         files: [
                                             'lib/jquery/fuelux/wizard/wizard-custom.js',
-                                            'property/propertyService.js',
-                                            'property/propertyController.js',
-                                            'property/propertyStepOneController.js',
-                                            'property/propertyStepTwoController.js',
-                                            'property/propertyStepThreeController.js',
-                                            'property/propertyStepFourController.js',
-                                            'property/propertyStepFiveController.js'
+                                            'modules/property/propertyService.js',
+                                            'modules/property/propertyController.js',
+                                            'modules/property/propertyStepOneController.js',
+                                            'modules/property/propertyStepTwoController.js',
+                                            'modules/property/propertyStepThreeController.js',
+                                            'modules/property/propertyStepFourController.js',
+                                            'modules/property/propertyStepFiveController.js'
                                         ]
                                     })
                                 }
@@ -143,9 +143,9 @@ angular.module('probnsApp')
                                             'lib/jquery/fullcalendar/fullcalendar.js',
                                             'lib/main_utilities.js',
                                             'lib/main_calendar.js',
-                                            'generalServices/generalServices.js',
-                                            'agents/agentService.js',
-                                            'agents/agentController.js'
+                                            'modules/generalServices/generalServices.js',
+                                            'modules/agents/agentService.js',
+                                            'modules/agents/agentController.js'
                                         ]
                                     })
                                 }
