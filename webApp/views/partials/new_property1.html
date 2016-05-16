@@ -6,24 +6,25 @@
         <div class="form-group">
           <label class="col-sm-4 control-label no-padding-right">Tipo de propiedad</label>
           <div class="col-sm-7">
-            <div data-toggle="buttons" class="property__btns">
-              <label class="btn btn-default" ng-repeat="tipo in tiposInmueble" ng-click="setTipoInmueble(tipo.id);">
-                <input  type="radio" name="tipoInmueble"  
-                       ng-model="$parent.descripcion" value="{{tipo.id}}"> {{tipo.descripcion}}
-              </label>               
-            </div>
+            <!-- Combo de Tipo de Propiedades -->
+            <select ng-model="tiposInmueble[$index]" name="cmbTipoInmueble"
+                class="col-sm-12" ng-change="setTipoInmueble(tiposInmueble[$index]);"
+                id="cmbTipoInmueble" ng-options="tipo.id as tipo.descripcion for tipo in tiposInmueble">
+                <option value="">Tipos de propiedad</option>
+            </select>
+
           </div>
         </div>
         
         <div class="form-group">
           <label class="col-sm-4 control-label no-padding-right">Que quieres hacer?</label>
           <div class="col-sm-7">
-            <div data-toggle="buttons" class="property__btns">
-              <label class="btn btn-default" ng-repeat="operacion in operacionesInmueble" ng-click="setOperacionInmueble(operacion.id);">
-                <input  type="radio" name="operacionInmueble"  
-                       ng-model="$parent.descripcion" value="{{operacion.id}}"> {{operacion.descripcion}}
-              </label>
-            </div>
+            <!-- Combo de Operaciones sobre Inmuebles -->
+            <select ng-model="operacionesInmueble[$index]" name="cmbOpearcion"
+                class="col-sm-12" ng-change="setOperacionInmueble(operacionesInmueble[$index]);"
+                id="cmbOpearcion" ng-options="operacion.id as operacion.descripcion for operacion in operacionesInmueble">
+                <option value="">Operacion sobre el Inmueble</option>
+            </select>
           </div>
         </div>
 

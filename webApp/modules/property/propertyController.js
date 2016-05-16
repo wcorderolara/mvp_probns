@@ -25,8 +25,8 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 		PaiId: 0,
 		MunicipioId: 0,
 		userId: 0,
-		imagenesInmueble: [],
-		amenitiesInmueble: [],
+		imagenesInmueble: "",
+		amenitiesInmueble: "",
 		userId: _userId 
 	};
 	$scope.showInfo = function(){
@@ -54,7 +54,7 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 		)
 	}
 
-	$scope.$on('setTipoInmueble', function (event, data){		
+	$scope.$on('setTipoInmueble', function (event, data){
 		$scope._newInmueble.tipoInmuebleId = data;
 	})
 
@@ -115,12 +115,12 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 	})
 
 	$scope.$on('setDescripcion', function (event, data){
+		$scope.$broadcast('setInmueblePreview', $scope._newInmueble);
 		$scope._newInmueble.descripcion = data;
 	})
 
 	$scope.$on('setObservaciones', function (event, data){
 		$scope._newInmueble.observaciones = data;
-		$scope.$broadcast('setInmueblePreview', $scope._newInmueble);
 	})
 
 })

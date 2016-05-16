@@ -78,7 +78,8 @@
         next: function () {
             if(this.validateStep(this.currentStep)){
                 if(this.currentStep == 4){
-                    angular.element(document.getElementById('wizardStep4')).scope().setObservaciones();
+                    console.log('entro');
+                    angular.element(document.getElementById('wizardStep4')).scope().setDescripcion();
                 }
                 var g = (this.currentStep + 1 <= this.numSteps);
                 var d = (this.currentStep === this.numSteps);
@@ -105,13 +106,13 @@
         validateStep: function(step){
             switch(step){
                 case 1:
-                    if($('input[name=tipoInmueble]:checked').val() === undefined){
+                    if($('#cmbTipoInmueble').val() == ""){
                         $('#errorAlert').html('<strong>Error:</strong> seleccione un tipo de Propiedad').removeClass('hide animated fadeOutup').addClass('show animated fadeInDown');
                         return false;
                     }else{$('#errorAlert').removeClass('show animated fadeInDown').addClass('hide animated fadeOutup');}
 
-                    if($('input[name=operacionInmueble]:checked').val() === undefined){
-                        $('#errorAlert').html('<strong>Error:</strong> seleccione una operacion a realizar con el inmueble').removeClass('hide animated fadeOutup').addClass('show');
+                    if($('#cmbOpearcion').val() == ""){
+                        $('#errorAlert').html('<strong>Error:</strong> seleccione una operacion a realizar con el inmueble').removeClass('hide animated fadeOutup').addClass('show animated fadeInDown');
                         return false
                     }else{$('#errorAlert').removeClass('show animated fadeInDown').addClass('animated fadeOutup hide');}
 

@@ -1,8 +1,8 @@
 probnsApp.controller('registerController', function($scope, $window,$location,
-											    authService, ShareData, blockUI, 
+											    authService, ShareData, blockUI, userService,
 											    Notification, propertyService, registerService){
 
-	var auth = authService;
+	var auth = userService;
 	var service = registerService;
 	$scope.userLogin = "";
 	$scope.password = "";
@@ -55,7 +55,7 @@ probnsApp.controller('registerController', function($scope, $window,$location,
 		auth.registrarUsuario(params).then(
 			function (data){
 				if(data.type == true){
-					auth.saveToken(data.token);
+					authService.saveToken(data.token);
 					$window.location = '#/app/dashboard';
 				}else{
 					$scope.formError = data.data.message;

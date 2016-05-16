@@ -32,13 +32,12 @@ probnsApp.controller('propertyStepFourController', function($scope,$http,$locati
 	    service.uploadImagenInmueble(file).then(
 	    	function (data){
 	    		var _newImage = $scope.newImagen;
-	    		_newImage ={
-	    			public_id: data.data.public_id,
-					img_url: data.data.url,
+	    		_newImage = {
+	    			public_id: data.data.data.public_id,
+					img_url: data.data.data.url,
 					descripcion: "",
 					status: 1
-	    		}
-	    		
+	    		}	    		
 	    		$scope.listImagenesInmueble.push(_newImage);
 	    		$scope.setImagenesInmueble();
 	    	}

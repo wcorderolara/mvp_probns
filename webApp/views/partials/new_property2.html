@@ -17,44 +17,38 @@
         <div class="form-group">
           <label class="col-sm-4 control-label no-padding-right">Total Comisión</label>
           <div class="col-sm-7">
-            <div class="property__range col-sm-9">
-              <input ng-model="totalComision" ng-change="setTotalComision()" type="range" min="0" max="5" value="{{totalComision}}" >
+            <div class="input-group">
+              <input class="form-control" ng-model="totalComision" ng-keyup="setTotalComision()" type="text"/>
+              <span class="input-group-addon">%</span>
             </div>
-            <span class="col-sm-2" id="range1">{{totalComision}}%</span>
-            <script>
-              function outputUpdate1(vol) {
-                document.querySelector('#range1').innerText = vol + "%";
-              }
-            </script>
           </div>
+          
         </div>
         
         <div class="form-group">
           <label class="col-sm-4 control-label no-padding-right">Compartida </label>
-          <div class="col-sm-7">
-            <div class="property__range col-sm-9">
-              <input ng-model="comisionCompartida" ng-change="setComisionCompartida();" type="range" min="0" max="100" value="{{comisionCompartida}}" >
+          <div class="col-sm-4">
+            <div class="input-group">
+              <input class="form-control" ng-model="comisionCompartida" ng-keyup="setComisionCompartida()" type="text"/>
+              <span class="input-group-addon">%</span>
             </div>
-            <span class="col-sm-2" id="range2">{{comisionCompartida}}%</span>
-            <script>
-              function outputUpdate2(vol) {
-                document.querySelector('#range2').innerText = vol + "%";
-              }
-            </script>
+          </div>
+          <div class="col-sm-4">
+            <p>1% al 100% del Total de Comisi&oacute;n</p>
           </div>
         </div>
         
         <div class="form-group">
           <label class="col-sm-4 control-label no-padding-right">T&iacute;tulo propiedad </label>
           <div class="col-sm-7">
-            <input id="txtShortAddress" ng-model="direccionCorta" ng-keyup="setDireccionCorta();" type="text" placeholder="Direccion de referencia" class="form-control">
+            <input id="txtShortAddress" ng-model="direccionCorta" ng-keyup="setDireccionCorta();" type="text" placeholder="Titulo para la propiedad" class="form-control">
           </div>
         </div>
 
         <div class="form-group">
           <label class="col-sm-4 control-label no-padding-right">Direccion propiedad</label>
           <div class="col-sm-7">
-            <input id="txtFullAddress" ng-model="direccion" ng-keyup="setDireccion();" type="text" placeholder="Direccion completa" class="form-control">            
+            <input id="txtFullAddress" ng-model="direccion" ng-keyup="setDireccion();" type="text" placeholder="Direccion Residenca" class="form-control">            
           </div>
         </div>
         

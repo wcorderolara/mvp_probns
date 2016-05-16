@@ -1,87 +1,70 @@
-probnsApp.service('propertyService', function ($http, $q, probnsConf, Upload, authService){
-	var uri = probnsConf.api.url;
+probnsApp.service('propertyService', function (baseService){
+	var service = baseService;
 
 	this.getTiposInmueble = function(){
-		var deferred = $q.defer();
+		var data = {
+			url: '/tipoInmueble/get/all'
+		}
 
-		$http.get(uri + '/tipoInmueble/get/all', authService.setHeaders())
-		.success(function (response){
-			deferred.resolve(response);
-		})
+		var result = service.get(data);
 
-		return deferred.promise;
+		return result;
 	}
 
 	this.getOperacionesInmueble = function(){
-		var deferred = $q.defer();
+		var data = {
+			url: '/operacionInmueble/get/all'
+		}
+		
+		var result = service.get(data);
 
-		$http.get(uri + '/operacionInmueble/get/all', authService.setHeaders())
-		.success(function (response){
-			deferred.resolve(response);
-		})
-
-		return deferred.promise;
+		return result;
 	}
 
 	this.getPaises = function(){
-		var deferred = $q.defer();
-
-		$http.get(uri + '/paises')
-		.success(function (response){
-			deferred.resolve(response);
-		})
-
-		return deferred.promise;
+		var data = {
+			url: '/paises'
+		}
+		var result = service.get(data);
+		return result;
 	}
 
 	this.getDepartamentos = function(paisId){
-		var deferred = $q.defer();
-
-		$http.get(uri + '/departamentos/all/' + paisId, authService.setHeaders())
-		.success(function (response){
-			deferred.resolve(response);
-		})
-
-		return deferred.promise;	
+		var data = {
+			url: '/departamentos/all/' + paisId
+		}
+		
+		var result = service.get(data);
+		return result
 	}
 
 	this.getMunicipios = function(deptoId){
-		var deferred = $q.defer();
+		var data = {
+			url: '/municipios/all/' + deptoId
+		}
+		
+		var result = service.get(data);
 
-		$http.get(uri + '/municipios/all/' + deptoId, authService.setHeaders())
-		.success(function (response){
-			deferred.resolve(response);
-		})
-
-		return deferred.promise;
+		return result;
 	}
 
 	this.uploadImagenInmueble = function(file){
-		var deferred = $q.defer();
-
-		file.upload = Upload.upload({
-	      url: uri + '/inmuebles/image',
-	      data: {file: file},
-	    });
-
-	    file.upload.then(function (response) {
-	    	deferred.resolve(response.data);
-	    }, function (response) {
-	    	deferred.resolve(response.data);
-	    });
-
-	    return deferred.promise;
+		var data = {
+			url: '/inmuebles/image'
+		}
+		var result = service.uploadImage(data, file);
+		return result;
 	}
 
 	this.guardarPropiedad = function(params){
-		var deferred = $q.defer();
+		var data = {
+			url: '/inmuebles/post/inmueble',
+			params: params
+		}
+		
+		var result = service.post(data);
 
-		$http.post(uri + '/inmuebles/post/inmueble', params, authService.setHeaders())
-		.success(function (response){
-			deferred.resolve(response);
-		})
-
-		return deferred.promise;
+		return result;
 	}
 	
 })

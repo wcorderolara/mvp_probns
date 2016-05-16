@@ -80,6 +80,7 @@ var routesController = function (server){
 	server.get("/inmuebles/get/all/:usuarioId", auth, controllers.inmueble.getInmueblesUsuario);
 	server.get("/inmuebles/get/:id",auth, middleware.trackingInmueble, controllers.inmueble.getInmuebleById);
 	server.get("/inmuebles/get/all/count/:usuarioId", auth,controllers.inmueble.getTotalInmueblesUsuario);
+	server.get("/inmuebles/get/top/:usuarioId", auth, controllers.inmueble.getTopInmuebles);
 	server.put("/inmuebles/put/:id", auth,controllers.inmueble.putInmueble);
 	server.put("/inmuebles/delete/:id", auth, controllers.inmueble.deleteInmueble);
 

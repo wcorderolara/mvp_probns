@@ -36,7 +36,7 @@ angular.module('probnsApp')
                                     return $ocLazyLoad.load({
                                         serie: true,
                                         files: [
-                                            'property/propertyService.js',
+                                            'modules/property/propertyService.js',
                                             'auth/registerService.js',
                                             'auth/registerController.js'
                                         ]
@@ -53,7 +53,7 @@ angular.module('probnsApp')
                     .state('app.dashboard', {
                         url: '/dashboard',
                         templateUrl: 'views/dashboard.html',
-                        // controller: 'dashboardController',
+                        controller: 'dashboardController',
                         ncyBreadcrumb: {
                             label: 'Dashboard Principal',
                             description: ''

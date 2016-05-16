@@ -5,7 +5,8 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 	var service = dashboardService;
 	var auth = authService;
 	var factory = ShareData;
-	var userId = auth.getUserLogged();
+	var userId = factory.value.padreId == null ? auth.getUserLogged() : factory.value.padreId;
+	// var userId = auth.getUserLogged();
 
 	$scope.datosGenerales = {};
 	$scope.totalPropiedades = 0;
@@ -13,6 +14,10 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 	$scope.putUserInfo = {};
 	$scope.avatarUsuario = {};
 	$scope.cambiarFoto = false;
+	$scope.topInmuebles = [];
+
+
+	console.log(factory.value);
 
 	service.getUserInfoById(userId).then(		
 		function (data){
@@ -39,53 +44,69 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 		}
 	)
 
-	$scope.updateUsuario = function(){
-		service.putInfoUsuario(userId,$scope.putUserInfo).then(
-			function (data){
-				if(data.type == false){
-					Notification.error(data.message);
-				}else{
+	service.getTotalBuscadoresByUser(userId).then(
+		function (data){
+			blockUI.start();
+			$scope.totalBuscadores = data.data;
+			blockUI.stop();
+		}
+	)
 
-					Notification.success(data.message);
-					setTimeout(function(){
-						$window.location.reload();
-					}, 2500);
-				}
-			}
-		)
-	}
+	service.getTopInmuebles(userId).then(
+		function (data){
+			blockUI.start();
+			$scope.topInmuebles = data.data;
+			blockUI.stop();
+		}
+	)
 
-	$scope.updateAvatar = function(avatarUsuario){
-		service.putAvatarUsuario(userId, avatarUsuario).then(
-			function (data){
-				if(data.type == false){
-					Notification.error(data.message);
-				}else{
+	// $scope.updateUsuario = function(){
+	// 	service.putInfoUsuario(userId,$scope.putUserInfo).then(
+	// 		function (data){
+	// 			if(data.type == false){
+	// 				Notification.error(data.message);
+	// 			}else{
 
-					Notification.success(data.message);
-					setTimeout(function(){
-						$window.location.reload();
-					}, 1500);
-				}
-			}
-		)	
-	}
+	// 				Notification.success(data.message);
+	// 				setTimeout(function(){
+	// 					$window.location.reload();
+	// 				}, 2500);
+	// 			}
+	// 		}
+	// 	)
+	// }
 
-	$scope.showChange = function(){
-		$scope.cambiarFoto = true;
-	}
+	// $scope.updateAvatar = function(avatarUsuario){
+	// 	service.putAvatarUsuario(userId, avatarUsuario).then(
+	// 		function (data){
+	// 			if(data.type == false){
+	// 				Notification.error(data.message);
+	// 			}else{
 
-	$scope.hideChange = function(){
-		$scope.cambiarFoto = false;
-	}
+	// 				Notification.success(data.message);
+	// 				setTimeout(function(){
+	// 					$window.location.reload();
+	// 				}, 1500);
+	// 			}
+	// 		}
+	// 	)	
+	// }
 
-	$scope.uploadPic = function(file) {
-	    service.uploadAvatar(file).then(
-	    	function (data){
-	    		console.log(data);
-	    		$scope.updateAvatar({"avatar": data.data.data.url});
-	    	}
-	    )
-    }
+	// $scope.showChange = function(){
+	// 	$scope.cambiarFoto = true;
+	// }
+
+	// $scope.hideChange = function(){
+	// 	$scope.cambiarFoto = false;
+	// }
+
+	// $scope.uploadPic = function(file) {
+	//     service.uploadAvatar(file).then(
+	//     	function (data){
+	//     		console.log(data);
+	//     		$scope.updateAvatar({"avatar": data.data.data.url});
+	//     	}
+	//     )
+ //    }
 
 })

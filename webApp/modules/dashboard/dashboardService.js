@@ -1,76 +1,86 @@
-probnsApp.service('dashboardService', function ($http, $q, probnsConf,Upload, authService){
-	var uri = probnsConf.api.url;
+probnsApp.service('dashboardService', function (baseService){
+	var service = baseService;
 	var self = this;
 
 	self.getUserInfoById = function(userId){
-		var deferred = $q.defer();
+		var data = {
+			url: '/usuario/get/clienteById/' + userId
+		}
 
-		$http.get(uri + '/usuario/get/clienteById/' + userId, authService.setHeaders())
-		.success(function (response){
-			deferred.resolve(response);
-		})
+		var result = service.get(data);
 
-		return deferred.promise;
+		return result;
 	}
 
 	self.getTotalPropiedadesByUser = function(userId){
-		var deferred = $q.defer();
+		var data = {
+			url: '/inmuebles/get/all/count/' + userId
+		}
 
-		$http.get(uri + '/inmuebles/get/all/count/' + userId, authService.setHeaders())
-		.success(function (response){
-			deferred.resolve(response);
-		})
+		var result = service.get(data);
 
-		return deferred.promise;
+		return result;
 	}
 
 	self.getTotalAgentesByUser = function(userId){
-		var deferred = $q.defer();
+		var data = {
+			url: '/usuario/all/vendedores/count/' + userId
+		}
 
-		$http.get(uri + '/usuario/all/vendedores/count/' + userId, authService.setHeaders())
-		.success(function (response){
-			deferred.resolve(response);
-		})
+		var result = service.get(data);
 
-		return deferred.promise;
+		return result;
+	}
+
+	self.getTotalBuscadoresByUser = function(userId){
+		var data = {
+			url: '/buscador/get/all/count/' + userId
+		}
+
+		var result = service.get(data);
+
+		return result;
+	}
+
+	self.getTopInmuebles = function(userId){
+		var data = {
+			url: '/inmuebles/get/top/' + userId
+		}
+
+		var result = service.get(data);
+
+		return result;
 	}
 
 	self.putInfoUsuario = function(userId, params){
-		var deferred = $q.defer();
+		var data = {
+			url: '/usuario/update/'+ userId,
+			params: params
+		}
 
-		$http.put(uri + '/usuario/update/'+ userId, params, authService.setHeaders())
-		.success(function (response){
-			deferred.resolve(response);
-		})
-
-		return deferred.promise;
+		var result = service.put(data);
+		return result;
 	}
 
 	self.uploadAvatar = function(file){
-		var deferred = $q.defer();
-		file.upload = Upload.upload({
-	      url: uri + '/usuario/upload/avatar',
-	      data: {file: file},
-	    });
+		var data = {
+			url: '/usuario/upload/avatar'
+		}
 
-	    file.upload.then(function (response) {
-	    	deferred.resolve(response);
-	    }, function (response) {
-	    	deferred.resolve(response);
-	    });
+		var result = service.uploadImage(data, file);
 
-	    return deferred.promise;
+		return result;
 	}
 
 	self.putAvatarUsuario = function(userId, params){
-		var deferred = $q.defer();
+		var data = {
+			url: '/usuario/put/avatar/' + userId,
+			params: params
+		}
 
-		$http.put(uri + '/usuario/put/avatar/' + userId, params, authService.setHeaders())
-		.success(function (response){
-			deferred.resolve(response);
-		})
+		var result = service.put(data);
 
-		return deferred.promise;
+		return result;
 	}
 
 })

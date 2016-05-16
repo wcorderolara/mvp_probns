@@ -17,7 +17,7 @@ probnsApp.service('userService', function ($http, $q, baseService, authService){
 			url: '/usuario/post/cliente'
 		}
 
-		var result = base.post(params);
+		var result = base.post(data);
 		return result;
 
 	}

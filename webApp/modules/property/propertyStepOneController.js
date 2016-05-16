@@ -33,7 +33,7 @@ probnsApp.controller('propertyStepOneController', function($scope,$http,$locatio
 		}
 	)
 
-	$scope.setTipoInmueble = function(idTipoInmueble){		
+	$scope.setTipoInmueble = function(idTipoInmueble){
 		$scope.$emit('setTipoInmueble', idTipoInmueble);
 	}
 

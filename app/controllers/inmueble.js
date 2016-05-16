@@ -362,3 +362,89 @@ exports.getInmueblesUsuario = function (req, res, next){
 		};
 	});
 };
+
+exports.getTopInmuebles = function (req, res,next){
+	models.Inmueble.findAll({
+		limit: 6,
+		where: {
+			status: 1
+		},
+		include: [
+			{
+				model: models.Usuario,
+				attributes: ['id', 'userLogin', 'firstName', 'lastName'],
+				where: {id: req.params.usuarioId}								
+			},
+			// {
+			// 	model: models.Anunciantes,
+			// 	attributes: ['id','descripcion'],
+			// 	where:{
+			// 		status: 1
+			// 	}
+			// },
+			{
+				model: models.imagenInmueble,
+				attributes: ['cdnId','path','descripcion'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.amenityInmueble,
+				attributes: ['id', 'descripcion', 'cantidad'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.tipoInmueble,
+				attributes: ['id','descripcion'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.estadoInmueble,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.operacionInmueble,
+				attributes: ['id', 'descripcion'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.Pais,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.Departamento,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.Municipio,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			}
+		],
+		order: 'numeroVisitas DESC'
+	}).then(function (response){
+		if(!response){
+			sendJSONresponse(res, 500, {"type": false, "message": "Error al obtener los registros", "data": response});
+		}else{
+			sendJSONresponse(res, 200, {"type": true, "data": response});
+		};
+	});	
+}

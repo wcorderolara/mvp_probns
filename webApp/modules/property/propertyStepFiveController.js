@@ -25,11 +25,19 @@ probnsApp.controller('propertyStepFiveController', function($scope,$http,$locati
 		PaiId: 0,
 		MunicipioId: 0,
 		userId: 0,
-		imagenesInmueble: [],
-		amenitiesInmueble: [],
+		imagenesInmueble: "",
+		amenitiesInmueble: "",
 	};
 
 	$scope.$on('setInmueblePreview', function (event, data){
 		$scope._newInmueble = data;
+		// console.log("string de imagenes", $scope._newInmueble.imagenesInmueble);
+		// console.log("string de amenidades", $scope._newInmueble.amenitiesInmueble);
+
+		$scope.ListImagenes = JSON.parse(String($scope._newInmueble.imagenesInmueble));
+		$scope.imagenPrevia = $scope.ListImagenes[0].img_url
+		$scope.listAmenitiesInmueble = JSON.parse($scope._newInmueble.amenitiesInmueble);
 	})
+	
+
 })

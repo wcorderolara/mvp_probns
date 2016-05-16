@@ -1,8 +1,69 @@
+<div class="preview-container">
+  <div class="row" ng-controller="propertyStepFiveController">
+    <div class="col-md-12">
+      <!-- Imagen de Preview -->
+      <div class="col-md-5"
+        style="background-image: url('{{imagenPrevia}}'); background-size:cover; background-position: center; height:250px">
+      </div>
+      <!-- principal info -->
+      <div class="col-md-7">
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="preview-container__title">{{_newInmueble.direccionCorta}}</h2>
+          </div>
+          <!-- comisiones -->
+          <div class="col-md-6 preview-container__comision">
+            {{_newInmueble.totalComision}}% <br>Total Comisión
+          </div>
+          <div class="col-md-6 preview-container__comision">
+            {{_newInmueble.comisionCompartida}}%<br>Compartida
+          </div>
+           <!-- descripciones de la propiedad -->
+          <div class="col-md-12 margin-top-10">
+            <div class="row">
+              <!-- caracteristicas -->
+              <div class="col-md-6 no-padding">
+                <div class="col-md-12 preview-container__descripcion-single">Precio: <strong> {{_newInmueble.precioPropiedad | currency:"USD$"}} </strong> </div>
+                <div class="col-md-12 preview-container__descripcion-single">Extensi&oacute;n: <strong>{{_newInmueble.extensionPropiedad}} mts<sup>2</sup> </strong></div>
+                <div class="col-md-12 preview-container__descripcion-single">Construcci&oacute;n: <strong> {{_newInmueble.areaConstruccion}} mts<sup>2</sup> </strong> </div>
+                <div class="col-md-12"></div>
+              </div>
+
+              <div class="col-md-6 no-padding">
+                <div class="row">
+                  <!-- descripcion -->
+                  <div class="col-md-12 preview-container__descripcion-multiple" >
+                    <p>
+                      {{_newInmueble.descripcion}}
+                    </p>
+                  </div>                  
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+          <!-- amenities -->
+          <div class="col-md-12 preview-container__descripcion-multiple">
+            <span class="label label-primary preview-container__descripcion-label" ng-repeat="amenity in listAmenitiesInmueble">
+              {{amenity.descripcion}} ({{amenity.cantidad}})
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- 
 <main class="property">
-  <div class="property__preview" ng-controller="propertyStepFiveController">
+  <div class="property__preview" >
     <div class="property__preview-img"
          style="background-image: url('{{_newInmueble.imagenesInmueble[0].img_url}}');">
-      <!-- <img src="{{_newInmueble.imagenesInmueble[0].img_url}}"> -->
     </div>
     <div class="property__preview-body">
       <div class="property__preview-heading">
@@ -13,16 +74,14 @@
         </div>
       </div>
       <div class="property__preview-content">
-        <div class="property__preview-item">{{_newInmueble.precioPropiedad | currency:"USD$"}}</div>
+        <div class="property__preview-item"></div>
         <div class="property__preview-item">
-          <span class="label label-primary" ng-repeat="amenity in _newInmueble.amenitiesInmueble">
-            {{amenity.descripcion}} ({{amenity.cantidad}})
-          </span>
+          
         </div>
-        <div class="property__preview-item">Extensi&oacute;n: {{_newInmueble.extensionPropiedad}} mt<sup>2</sup></div>
-        <div class="property__preview-item">Construcci&oacute;n: {{_newInmueble.areaConstruccion}} mt<sup>2</sup></div>
+        <div class="property__preview-item"></div>
+        <div class="property__preview-item"></div>
       </div>
-      <div class="property__preview-desc">{{_newInmueble.descripcion}}</div>
+      <div class="property__preview-desc"></div>
     </div>
   </div>
-</main>
+</main> -->

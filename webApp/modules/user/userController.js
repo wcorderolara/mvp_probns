@@ -16,7 +16,15 @@ probnsApp.controller('userController', function($scope,$window, userService,Shar
 			blockUI.start();
 			$scope.datosGenerales = data.data;
 			datosGenerales = data.data;
-			console.log(datosGenerales);
+			
+			factory.value = {
+				userId: datosGenerales.id,
+				padreId: datosGenerales.padreId,
+				tipoUsuarioId: datosGenerales.tipoUsuarioId,
+				tipoUsuario: datosGenerales.tipoUsuario.descripcion,
+				email: datosGenerales.email
+			}
+
 			// $scope.putUserInfo = JSON.parse(JSON.stringify(data.data));		
 			blockUI.stop();
 		}
