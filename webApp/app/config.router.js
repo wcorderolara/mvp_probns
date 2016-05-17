@@ -151,6 +151,28 @@ angular.module('probnsApp')
                                 }
                             ]
                         }
+                    })
+                    .state('app.clientes', {
+                        url: '/clientes',
+                        templateUrl: 'views/clients.html',
+                        ncyBreadcrumb: {
+                            label: 'Clientes'
+                        },
+                        resolve: {
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'lib/jquery/fullcalendar/moment.min.js',
+                                            // 'modules/clientes/clienteService.js',
+                                            // 'modules/clientes/clienteController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
                     });
                 // $urlRouterProvider
                 //     .otherwise('/app/dashboard');

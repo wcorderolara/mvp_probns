@@ -56,6 +56,8 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 		function (data){
 			blockUI.start();
 			$scope.topInmuebles = data.data;
+			console.log('inmuebles');
+			console.log($scope.topInmuebles);
 			blockUI.stop();
 		}
 	)

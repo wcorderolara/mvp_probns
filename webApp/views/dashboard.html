@@ -59,37 +59,42 @@
 							<tab>
 								<div class="row">
 									
-									<div class="col-lg-6 col-sm-6 col-xs-12">
+									<div class="col-lg-6 col-sm-6 col-xs-12" ng-repeat="inmueble in topInmuebles">
 						                <div class="databox databox-xlg radius-bordered databox-shadowed">
 						                    <div class="databox-left bg-white no-padding"
 						                    	style="background-image: url('assets/img/listing.jpg'); background-size:cover; background-position: center">
 						                    </div>
 						                    <div class="databox-right bordered-thick bordered-sky">
 						                        
-						                        <div class="databox-row row-6 bordered-bottom bordered-platinum padding-10">
-						                            <div class="databox-cell cell-6 no-padding">
+						                        <div class="databox-row row-3 bordered-bottom bordered-platinum padding-10">
+						                            <div class="databox-cell cell-12 no-padding">
 						                                <span class="databox-title darkgray">
-						                                	<strong>titulo propiedad</strong>
+						                                	<strong> {{inmueble.direccionCorta}}</strong>
 						                                </span>
 						                            </div>
-						                            <div class="databox-cell cell-6 no-padding">
-
-						                            </div>
-
 						                        </div>
-						                        <div class="databox-row row-3 bordered-bottom bordered-platinum">
+
+						                        <div class="databox-row row-4 bordered-bottom bordered-platinum">
 						                            <span class="databox-text darkgray padding-10">
-						                            	timestamp de la fecha en que fue subida
+					                                	<i>{{inmueble.direccion}}</i>
+					                                </span>
+						                        </div>
+
+						                        <div class="databox-row row-2 bordered-bottom bordered-platinum">
+						                        	<span class="databox-text darkgray padding-10">
+						                            	<strong>Fecha de creaci&oacute;n:</strong>
+						                            	{{inmueble.createdAt | date: "dd/MM/yyyy"}}
 						                            </span>
 						                        </div>
+
 						                        <div class="databox-row row-3">
 						                            <span class="databox-text darkgray padding-10">
-						                            	N&uacute;mero de Visitas
+						                            	<strong>N&uacute;mero de visitas</strong>
+							                            <div class="databox-stat bg-blue ">
+							                                <div class="stat-text">{{inmueble.numeroVisitas}}</div>
+							                                <i class="stat-icon fa fa-link"></i>
+							                            </div>
 						                            </span>
-						                            <div class="databox-stat bg-blue ">
-						                                <div class="stat-text">345</div>
-						                                <i class="stat-icon fa fa-link"></i>
-						                            </div>
 						                        </div>
 						                    </div>
 						                </div>

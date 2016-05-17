@@ -365,7 +365,7 @@ exports.getInmueblesUsuario = function (req, res, next){
 
 exports.getTopInmuebles = function (req, res,next){
 	models.Inmueble.findAll({
-		limit: 6,
+		limit: 10,
 		where: {
 			status: 1
 		},
