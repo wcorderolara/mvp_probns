@@ -1,79 +1,66 @@
-<main id="clients" class="clients__bg">
-	<div class="clients">
-		<div class="clients__sidebar"><a href="#" class="clients__btn btn-primary white">Agregar Cliente</a>
+<main id="clients" class="clients__bg" ng-controller="clienteController">
+	<div class="row">
+		<div class="clients__sidebar col-md-3">
+			<button ng-click="openModal('','addBuscadorModal.html','lg','new');" 
+					class="btn btn-lg btn-primary margin-bottom-10 ">
+				<i class="fa fa-plus-circle"></i> <span>Nuevo Cliente</span>
+			</button>
 		  <div class="clients__search cols">
-		    <div class="clients__search-form">
-		      <input type="search" placeholder="Buscar...">
-		      <input type="submit">
+		    <div class="col-md-12 no-padding">
+		    	<form role="form">
+		    		<div class="form-group margin-top-10">
+			            <span class="input-icon icon-left white">
+			              <input ng-model="nombre" type="text" class="form-control" placeholder="Buscar cliente">
+			              <i class="fa fa-search bg-blue white"></i>
+			            </span>
+			      	</div>
+		    	</form>
 		    </div>
 		    <ul>
 		      <li>
-		        <div class="clients__search-label">A</div><a href="#">Andres Fernandez</a><a href="#">Alejandro Martinez</a><a href="#">Adda Perez</a>
+		        <div class="clients__search-label">Clientes</div>
 		      </li>
-		      <li>
-		        <div class="clients__search-label">B</div><a href="#">Byron Sagastume</a>
+		      <li ng-repeat="buscador in listadoBuscadores">
+		      	<a style="cursor: pointer" ng-click="getBuscadorById(buscador.id)">
+		        	{{buscador.apellido}}, {{buscador.nombre}}
+		        </a>
 		      </li>
-		      <li>
-		        <div class="clients__search-label">F</div><a href="#">Felipe Ramones</a>
-		      </li>
-		      <li>
-		        <div class="clients__search-label">M</div><a href="#">Mynor Jimenez</a>
-		      </li>
-		      <li>
-		        <div class="clients__search-label">O</div><a href="#">Ovidio Morales </a>
-		      </li>
-		      <li>
-		        <div class="clients__search-label">Z</div><a href="#">Ziomara Ovando </a>
-		      </li>
+		      
 		    </ul>
 		  </div>
 		</div>
-		<div class="clients__content">
+		<div class="clients__content col-md-9 no-padding">
 			<tabset flat="true" justified="true">
 				<tab heading="Datos Personales">
 					<div id="tab1" role="tabpanel" class="clients__container cols active tab-pane">
-						<div class="clients__info">
-							<h2>Andrés Fernandez</h2>
-							<ul>
-							  <li><strong>Celular:</strong>58675938</li>
-							  <li><strong>Tipo:</strong>Comprador</li>
-							  <li><strong>Teléfono:</strong>N/A </li>
-							  <li><strong>Estado:</strong>Interesado </li>
-							  <li><strong>Dirección:</strong>N/A </li>
-							  <li><strong>Última Acción:</strong>Correo - 23/07/2015</li>
-							  <li><strong>Ciudad:</strong>Guatemala, Guatemala </li>
-							  <li><strong>Vendedor Asignado:</strong>Francisco Reyes </li>
-							  <li><strong>Correo electrónico:</strong>andres.fernandez@gmail.com</li>
-							</ul>
-						</div>
-						<div class="clients__notes">
-							<div class="clients__notes-form"><span>
-							    <input type="text" placeholder="Escribe una nota..."></span>
-							  <input type="submit">
+						<div class="row" ng-show="isSelected() == true">
+							<div class="col-md-12 clients__info" >
+								<h2>{{buscadorSelected.apellido}}, {{buscadorSelected.nombre}}</h2>
+								<ul>
+								  <li><strong>Celular:</strong>{{buscadorSelected.telefono1}}</li>
+								  <li><strong>Tipo:</strong>{{buscadorSelected.tipoBuscador.descripcion}}</li>
+								  <li><strong>Estado:</strong>{{buscadorSelected.estadoBuscador.descripcion}}</li>
+								  <li><strong>Dirección:</strong>{{buscadorSelected.direccion}}</li>
+								  <li><strong>Asesor Asignado:</strong>
+								  	{{buscadorSelected.vendedorAsignado.firstName}} &nbsp;
+								  	{{buscadorSelected.vendedorAsignado.lastName}}
+								  </li>
+								  <li><strong>Correo electrónico:</strong>{{buscadorSelected.email}}</li>
+								  <li><strong>Presupuesto M&iacute;nimo:</strong>{{buscadorSelected.presupuestoMin | currency: "$"}}</li>
+								  <li><strong>Presupuesto M&aacute;ximo:</strong>{{buscadorSelected.presupuestoMax | currency: "$"}}</li>
+								</ul>
 							</div>
-							<ul class="clients__notes-wrap">
-							  <li class="clients__note"><img src="img/avatar.jpg" class="clients__note-avatar">
-							    <div class="clients__note-content">
-							      <p class="clients__note-author">Francisco Reyes</p>
-							      <p class="clients__note-date">Fecha de la nota</p>
-							      <p class="clients__note-body">Nota de la reunion...</p>
-							    </div>
-							  </li>
-							  <li class="clients__note"><img src="img/avatar.jpg" class="clients__note-avatar">
-							    <div class="clients__note-content">
-							      <p class="clients__note-author">Francisco Reyes</p>
-							      <p class="clients__note-date">Fecha de la nota</p>
-							      <p class="clients__note-body">Nota de la reunion...</p>
-							    </div>
-							  </li>
-							  <li class="clients__note"><img src="img/avatar.jpg" class="clients__note-avatar">
-							    <div class="clients__note-content">
-							      <p class="clients__note-author">Francisco Reyes</p>
-							      <p class="clients__note-date">Fecha de la nota</p>
-							      <p class="clients__note-body">Nota de la reunion...</p>
-							    </div>
-							  </li>
-							</ul>
+							<div class="col-md-6">
+								<button class="btn btn-primary" 
+									    ng-click="openModal('','addBuscadorModal.html','lg','edit')">
+									<i class="fa fa-pencil"></i> Editar cliente
+								</button>
+
+								<button class="btn btn-danger"
+									    ng-click="openDeleteModal('','deleteBuscadorModal.html','md', buscadorSelected);">
+									<i class="fa fa-times"></i> Eliminar cliente
+								</button>
+							</div>
 						</div>
 					</div>
 				</tab>
@@ -274,34 +261,121 @@
 					</div>
 				</tab>
 
-				<tab heading="Estados">
-					<div id="tab4" role="tabpanel" class="clients__container tab-pane">
-						<table>
-						<thead>
-						  <tr>
-						    <th>Primer <br>Contacto</th>
-						    <th>Información <br>Enviada </th>
-						    <th>Visitando <br>propiedades </th>
-						    <th>Oferta <br>enviada </th>
-						    <th>Negociación <br>Exitosa </th>
-						  </tr>
-						</thead>
-						<tbody>
-						  <tr class="empty">
-						    <td data-title="Primer Contacto" class="ui-widget-header">
-						      <div class="clients__card">Andres Fernandez</div>
-						    </td>
-						    <td data-title="Información Enviada" class="ui-widget-header">&nbsp; </td>
-						    <td data-title="Visitando propiedades" class="ui-widget-header">&nbsp; </td>
-						    <td data-title="Oferta enviada" class="ui-widget-header">&nbsp; </td>
-						    <td data-title="Negociación Exitosa" class="ui-widget-header">&nbsp; </td>
-						  </tr>
-						</tbody>
-						</table>
-					</div>
-				</tab>
 			</tabset>
 
 		</div>
 	</div>
 </main>
+
+<script type="text/ng-template" id="addBuscadorModal.html">
+  <div class="modal-header">
+      <h3 class="modal-title blue"><i class="fa fa-user-plus"></i> Nuevo Cliente</h3>
+  </div>
+  <div class="modal-body">
+    <form role="form">
+
+      <div class="form-title">Datos personales</div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <span class="input-icon icon-right inverted">
+              <input ng-model="nombre" type="text" class="form-control" placeholder="Nombre cliente">
+              <i class="fa fa-user bg-blue"></i>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <span class="input-icon icon-right inverted">
+              <input ng-model="apellido" type="text" class="form-control" placeholder="Apellido cliente">
+              <i class="fa fa-user bg-blue"></i>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <span class="input-icon icon-right inverted">
+              <input ng-model="email" type="text" class="form-control" placeholder="Correo Electronico cliente">
+              <i class="fa fa-envelope bg-blue"></i>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <span class="input-icon icon-right inverted">
+              <input ng-model="telefono1" type="text" class="form-control" placeholder="Telefono contacto cliente">
+              <i class="fa fa-phone bg-blue"></i>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <span class="input-icon icon-right inverted">
+              <input ng-model="direccion" type="text" class="form-control" placeholder="Direccion cliente">
+              <i class="fa fa-map-marker bg-blue"></i>
+            </span>
+          </div>                
+
+        </div>
+
+        <div class="col-md-6">
+
+          <div class="form-group">
+            <span class="input-icon icon-right inverted">
+              <input ng-model="presupuestoMin" type="text" class="form-control" placeholder="Presupuesto Minimo cliente">
+              <i class="fa fa-money bg-blue"></i>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <span class="input-icon icon-right inverted">
+              <input ng-model="presupuestoMax" type="text" class="form-control" placeholder="Presupuesto Maximo cliente">
+              <i class="fa fa-money bg-blue"></i>
+            </span>
+          </div>
+
+          <div class="form-group clearfix">
+            <select ng-model="tipoBuscadorId" name="cmbTipoBuscador" class="col-sm-12"
+              id="cmbTipoBuscador" ng-options="item.id as item.descripcion for item in listTiposBuscador">
+              <option value="">Tipo de Cliente/Buscador</option>
+            </select>
+          </div>
+
+          <div class="form-group clearfix">
+            <select ng-model="vendedorAsignadoId" name="cmbVendedorAsignado" class="col-sm-12"
+              id="cmbVendedorAsignado" ng-options="item.id as item.firstName + ' ' + item.lastName for item in listVendedores">
+              <option value="">Listado de Asesores</option>
+            </select>
+          </div>
+
+        </div>
+      </div>    
+
+    </form>
+    <alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
+        {{formError}}
+    </alert>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-blue" ng-click="saveBuscador()">Guardar</button>
+      <button class="btn btn-danger" ng-click="cancel()">Cancelar</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="deleteBuscadorModal.html">
+	<div class="modal-header">
+	  <h3 class="modal-title red"><i class="fa fa-user-times"></i> Eliminar Cliente</h3>
+	</div>
+	<div class="modal-body">
+		<form role="form">
+
+		  <div class="row">
+		    <p class="padding-10">
+		      Est&aacute; seguro de eliminar el cliente - <strong> {{buscador.apellido}}, {{buscador.nombre}} </strong> - ?
+		    </p>
+		  </div>    
+
+		</form>
+	</div>
+	<div class="modal-footer">
+	  <button class="btn btn-blue" ng-click="deleteBuscador()">Eliminar</button>
+	  <button class="btn btn-danger" ng-click="cancel()">Cancelar</button>
+	</div>
+</script>

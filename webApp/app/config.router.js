@@ -128,7 +128,7 @@ angular.module('probnsApp')
                     })
                     .state('app.agentes', {
                         url: '/agentes',
-                        templateUrl: 'views/agents.html',
+                        templateUrl: 'views/agents.html',                        
                         ncyBreadcrumb: {
                             label: 'Agentes'
                         },
@@ -166,8 +166,9 @@ angular.module('probnsApp')
                                         serie: true,
                                         files: [
                                             'lib/jquery/fullcalendar/moment.min.js',
-                                            // 'modules/clientes/clienteService.js',
-                                            // 'modules/clientes/clienteController.js'
+                                            'modules/agents/agentService.js',
+                                            'modules/clientes/clienteService.js',
+                                            'modules/clientes/clienteController.js'
                                         ]
                                     })
                                 }

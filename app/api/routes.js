@@ -84,8 +84,12 @@ var routesController = function (server){
 	server.put("/inmuebles/put/:id", auth,controllers.inmueble.putInmueble);
 	server.put("/inmuebles/delete/:id", auth, controllers.inmueble.deleteInmueble);
 
+	// tipoBuscador
+	server.get("/tipoBuscador/get/all", auth, controllers.tipoBuscador.getTiposBuscador);
+
 	//Buscador
 	server.get("/buscador/get/all/:agenciaAsociadaId", auth, controllers.buscador.getBuscadoresByAgencia);
+	server.get("/buscador/get/all/agente/:vendedorAsignadoId", auth, controllers.buscador.getBuscadoresAgente);
 	server.get("/buscador/get/:id", auth, controllers.buscador.getBuscadorById);
 	server.get("/buscador/get/inmuebles/:buscadorId", auth, controllers.buscador.getInmueblesBuscador);
 	server.get("/buscador/get/all/count/:agenciaAsociadaId", auth, controllers.buscador.getTotalBuscadoresCliente);

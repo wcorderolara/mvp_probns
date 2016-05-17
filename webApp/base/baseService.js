@@ -17,7 +17,6 @@ probnsApp.service('baseService', function($http, $q, probnsConf, Upload, authSer
 	}
 
 	self.post = function (data){
-		console.log(data);
 		var deferred = $q.defer();
 
 		$http.post(uri + data.url, data.params, authService.setHeaders())

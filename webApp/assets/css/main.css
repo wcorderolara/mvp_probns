@@ -2247,18 +2247,18 @@ body {
     min-height: 410px; }
     @media screen and (min-width: 720px) {
       .clients__sidebar {
-        float: left;
-        display: block;
-        margin-right: 2.35765%;
-        width: 23.23176%; }
+        /*float: left;
+        display: block;*/
+        /*margin-right: 2.35765%;*/
+        /*width: 23.23176%;*/ }
         .clients__sidebar:last-child {
           margin-right: 0; } }
     @media screen and (min-width: 900px) {
-      .clients__sidebar {
+      /*.clients__sidebar {
         float: left;
         display: block;
         margin-right: 2.35765%;
-        width: 14.70196%; }
+        width: 14.70196%; }*/
         .clients__sidebar:last-child {
           margin-right: 0; } }
   .clients__search {
@@ -2300,20 +2300,20 @@ body {
       padding: 3px 10px;
       margin-bottom: 5px; }
   @media screen and (min-width: 720px) {
-    .clients__content {
+    /*.clients__content {
       float: left;
       display: block;
       margin-right: 2.35765%;
       width: 74.41059%;
-      margin-right: 0; }
+      margin-right: 0; }*/
       .clients__content:last-child {
         margin-right: 0; } }
   @media screen and (min-width: 900px) {
-    .clients__content {
+    /*.clients__content {
       float: left;
       display: block;
       margin-right: 2.35765%;
-      width: 82.94039%; }
+      width: 82.94039%; }*/
       .clients__content:last-child {
         margin-right: 0; } }
   .clients__tabs {
@@ -2346,19 +2346,19 @@ body {
       content: "";
       display: table; }
   .clients__info {
-    float: left;
-    display: block;
+    /*float: left;*/
+    /*display: block;*/
     margin-right: 2.35765%;
-    width: 100%;
+    /*width: 100%;*/
     margin-bottom: 1.5em; }
     .clients__info:last-child {
       margin-right: 0; }
     @media screen and (min-width: 850px) {
       .clients__info {
-        float: left;
-        display: block;
+        /*float: left;*/
+        /*display: block;*/
         margin-right: 2.35765%;
-        width: 48.82117%; }
+        /*width: 48.82117%;*/ }
         .clients__info:last-child {
           margin-right: 0; } }
     .clients__info h2 {
