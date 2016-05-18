@@ -85,6 +85,7 @@ module.exports = function (sequelize, DataTypes){
 				Inmueble.hasMany(models.imagenInmueble);
 				Inmueble.hasMany(models.amenityInmueble);
 				Inmueble.hasMany(models.Agenda);
+				Inmueble.hasMany(models.Tarea);
 			}
 		},
 		freezeTableName: true,

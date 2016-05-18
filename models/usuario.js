@@ -95,7 +95,7 @@ module.exports = function (sequelize, DataTypes){
 				Usuario.belongsToMany(models.tipoAccion, {through: models.accionesBuscador, foreignKey: 'usuarioId'});
 				
 				// Usuario.belongsToMany(models.Inmueble, {through: models.inmuebleVendedor, foreignKey: 'vendedorId'});
-				
+				Usuario.hasMany(models.Tarea);
 				Usuario.hasMany(models.Buscador);
 				Usuario.hasMany(models.Agenda);
 			}

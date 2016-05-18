@@ -69,6 +69,7 @@ module.exports = function (sequelize, DataTypes){
 				Buscador.belongsToMany(models.Inmueble, {through: models.inmuebleBuscador, foreignKey: 'buscadorId'});
 				Buscador.belongsToMany(models.tipoAccion, {through: models.accionesBuscador, foreignKey: 'buscadorid'});
 				Buscador.hasMany(models.Agenda);
+				Buscador.hasMany(models.Tarea);
 			}
 		},
 		freezeTableName: true,
