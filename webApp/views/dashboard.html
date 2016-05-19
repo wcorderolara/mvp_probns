@@ -62,11 +62,11 @@
 									<div class="col-lg-6 col-sm-6 col-xs-12" ng-repeat="inmueble in topInmuebles">
 						                <div class="databox databox-xlg radius-bordered databox-shadowed">
 						                    <div class="databox-left bg-white no-padding"
-						                    	style="background-image: url('assets/img/listing.jpg'); background-size:cover; background-position: center">
+						                    	style="background-image: url({{inmueble.imagenPrincipal}}); background-size:cover; background-position: center">
 						                    </div>
 						                    <div class="databox-right bordered-thick bordered-sky">
 						                        
-						                        <div class="databox-row row-3 bordered-bottom bordered-platinum padding-10">
+						                        <div class="databox-row row-3 padding-10">
 						                            <div class="databox-cell cell-12 no-padding">
 						                                <span class="databox-title darkgray">
 						                                	<strong> {{inmueble.direccionCorta}}</strong>

@@ -16,9 +16,6 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 	$scope.cambiarFoto = false;
 	$scope.topInmuebles = [];
 
-
-	console.log(factory.value);
-
 	service.getUserInfoById(userId).then(		
 		function (data){
 			blockUI.start();
@@ -56,59 +53,8 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 		function (data){
 			blockUI.start();
 			$scope.topInmuebles = data.data;
-			console.log('inmuebles');
-			console.log($scope.topInmuebles);
 			blockUI.stop();
 		}
 	)
-
-	// $scope.updateUsuario = function(){
-	// 	service.putInfoUsuario(userId,$scope.putUserInfo).then(
-	// 		function (data){
-	// 			if(data.type == false){
-	// 				Notification.error(data.message);
-	// 			}else{
-
-	// 				Notification.success(data.message);
-	// 				setTimeout(function(){
-	// 					$window.location.reload();
-	// 				}, 2500);
-	// 			}
-	// 		}
-	// 	)
-	// }
-
-	// $scope.updateAvatar = function(avatarUsuario){
-	// 	service.putAvatarUsuario(userId, avatarUsuario).then(
-	// 		function (data){
-	// 			if(data.type == false){
-	// 				Notification.error(data.message);
-	// 			}else{
-
-	// 				Notification.success(data.message);
-	// 				setTimeout(function(){
-	// 					$window.location.reload();
-	// 				}, 1500);
-	// 			}
-	// 		}
-	// 	)	
-	// }
-
-	// $scope.showChange = function(){
-	// 	$scope.cambiarFoto = true;
-	// }
-
-	// $scope.hideChange = function(){
-	// 	$scope.cambiarFoto = false;
-	// }
-
-	// $scope.uploadPic = function(file) {
-	//     service.uploadAvatar(file).then(
-	//     	function (data){
-	//     		console.log(data);
-	//     		$scope.updateAvatar({"avatar": data.data.data.url});
-	//     	}
-	//     )
- //    }
 
 })

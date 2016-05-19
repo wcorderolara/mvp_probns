@@ -168,7 +168,8 @@ exports.finalizarTarea = function(req,res,next){
 			service.sendJSONresponse(res, 404, {"type": false, "message": "Error al obtener el registro"});			
 		}else{
 			tarea.update({
-				estadoTareaId: 2
+				estadoTareaId: 2,
+				comentarioFinal: req.body.comentarioFinal || null
 			}).then(function (_tarea){
 				if(!_tarea){
 					service.sendJSONresponse(res, 500, {"type": false, "message": "Error al actualizar el registro"});

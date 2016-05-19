@@ -94,7 +94,7 @@
           <ul>
             <li class="margin-bottom-5"><i class="fa fa-envelope"></i> {{agente.email}}</li>
             <li class="margin-bottom-5"><i class="fa fa-phone"></i> {{agente.telefono1}} </li>
-            <li><i class="fa fa-clock-o"></i> {{agente.createdAt}} </li>
+            <li><i class="fa fa-clock-o"></i> {{agente.createdAt | date: "dd/MM/yyyy"}} </li>
           </ul>
           <button class="btn btn-blue btn-sm btn-follow col-sm-2" ng-click="editAgente({{agente.id}})">
             <i class="fa fa-pencil-square-o"></i>
