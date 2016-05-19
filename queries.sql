@@ -95,3 +95,10 @@ values('Guatemala', 1, now(), now(), 1);
 
 INSERT INTO probns_mvp.municipio (descripcion, status, createdAt, updatedAt, DepartamentoId)
 values('Mixco', 1,now(), now(), 1);
+
+/*Estado de tareas*/
+INSERT INTO `probns_mvp`.`estadoTarea` (`descripcion`,`status`,`createdAt`,`updatedAt`)
+VALUES ('Pendiente',1, NOW(), NOW());
+
+INSERT INTO `probns_mvp`.`estadoTarea` (`descripcion`,`status`,`createdAt`,`updatedAt`)
+VALUES ('Finalizada',1, NOW(), NOW());

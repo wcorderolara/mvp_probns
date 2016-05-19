@@ -65,6 +65,14 @@ module.exports = function (sequelize, DataTypes){
 			type: DataTypes.FLOAT,
         	allowNull: true,
         	defaultValue: 0
+		},
+		codigoInmueble: {
+			type: DataTypes.STRING,
+        	allowNull: true
+		},
+		imagenPrincipal:{
+			type: DataTypes.STRING,
+        	allowNull:true
 		}
 	}, {
 		classMethods:{

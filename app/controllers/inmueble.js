@@ -3,7 +3,7 @@ var models = require("../../models");
 var moment = require('moment');
 var cloudinary = require('cloudinary');
 var settings = require('../../settings');
-var Sequelize = require('sequelize');
+// var Sequelize = require('sequelize');
 
 cloudinary.config({
 	cloud_name: process.env.CDN_NAME,
@@ -49,18 +49,22 @@ exports.postInmueble = function (req, res, next){
 		tipoInmuebleId: req.body.tipoInmuebleId,
 		operacionInmuebleId: req.body.operacionInmuebleId || 1,
 		PaiId: req.body.PaiId || 1,
-		MunicipioId: req.body.MunicipioId || 1
+		MunicipioId: req.body.MunicipioId || 1,
+		imagenPrincipal: req.body.imagenPrincipal || null
 	}).then(function (inmueble){
 		if(!inmueble){			
 			sendJSONresponse(res, 400, {"type": false, "message": "Error al agregar la propiedad: ", "data": inmueble});
 		}else{
+			inmueble.update({
+				codigoInmueble: "CRM-INM-" + inmueble.id
+			});
 			models.Usuario.findOne({
 				where: {
 					id: req.body.userId
 				}
 			}).then(function (user){
 				user.addInmuebles(inmueble, {status: 1})
-			})
+			});
 			uploadImagenesInmueble(res, JSON.parse(req.body.imagenesInmueble), inmueble.id);
 			uploadAmenitiesInmueble(res, JSON.parse(req.body.amenitiesInmueble), inmueble.id);
 			sendJSONresponse(res,200, {"type":true, "data": inmueble, "message": "Propiedad creada exitosamente"})
@@ -448,3 +452,97 @@ exports.getTopInmuebles = function (req, res,next){
 		};
 	});	
 }
+
+// Busqueda de inmuebles por medio de codigoInmueble
+exports.searchInmuebleByCodigoInmueble = function (req, res, next){
+	console.log(req.params.usuarioId);
+	models.Inmueble.findAll({
+		where: {
+			status: 1,
+			codigoInmueble:{
+				$like: '%' + req.params.codigoInmueble
+			}
+		},
+		include: [
+			{
+				model: models.Usuario,
+				attributes: ['id', 'userLogin', 'firstName', 'lastName'],
+				where: {id: req.params.usuarioId}								
+			},
+			// {
+			// 	model: models.Anunciantes,
+			// 	attributes: ['id','descripcion'],
+			// 	where:{
+			// 		status: 1
+			// 	}
+			// },
+			{
+				model: models.imagenInmueble,
+				attributes: ['cdnId','path','descripcion'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.amenityInmueble,
+				attributes: ['id', 'descripcion', 'cantidad'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.tipoInmueble,
+				attributes: ['id','descripcion'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.estadoInmueble,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.operacionInmueble,
+				attributes: ['id', 'descripcion'],
+				where:{
+					status: 1
+				}
+			},
+			{
+				model: models.Pais,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.Departamento,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			},
+			{
+				model: models.Municipio,
+				attributes: ['id', 'descripcion'],
+				where: {
+					status: 1
+				}
+			}
+		],
+		order: 'numeroVisitas DESC'
+		/*order: [
+			['createdAt','DESC'],
+			[Sequelize.fn('max', Sequelize.col('numeroVisitas')), 'DESC'],
+		]*/
+	}).then(function (response){
+		if(!response){
+			sendJSONresponse(res, 500, {"type": false, "message": "Error al obtener los registros", "data": response});
+		}else{
+			sendJSONresponse(res, 200, {"type": true, "data": response});
+		};
+	});
+};

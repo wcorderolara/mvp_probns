@@ -1,16 +1,7 @@
 'use strict'
 var models = require("../../models");
 var moment = require('moment');
-var cloudinary = require('cloudinary');
-var settings = require('../../settings');
 var service = require('../service/service');
-
-cloudinary.config({
-	cloud_name: settings.cdn.cloud_name,
-	api_key: settings.cdn.api_key,
-	api_secret: settings.cdn.api_secret
-})
-
 
 //Obtener buscadores por Agencia Asociada
 exports.getBuscadoresByAgencia = function (req, res, next){
@@ -163,7 +154,6 @@ exports.getBuscadorById = function(req, res, next){
 
 //agregar un buscador
 exports.postBuscador = function (req, res, next){
-	console.log(req.body);
 	models.Buscador.create({
 		nombre: req.body.nombre,
 		apellido: req.body.apellido,

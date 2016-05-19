@@ -27,7 +27,8 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 		userId: 0,
 		imagenesInmueble: "",
 		amenitiesInmueble: "",
-		userId: _userId 
+		userId: _userId ,
+		imagenPrincipal: ""
 	};
 	$scope.showInfo = function(){
 		console.log($scope._newInmueble)
@@ -39,6 +40,9 @@ probnsApp.controller('propertyController', function($scope,$http,$location,
 	}
 
 	$scope.guardarPropiedad = function(){
+		$scope.ListImagenes = JSON.parse(String($scope._newInmueble.imagenesInmueble));
+		$scope._newInmueble.imagenPrincipal = $scope.ListImagenes[0].img_url
+
 		service.guardarPropiedad($scope._newInmueble).then(
 			function (data){
 				if(data.type == false){

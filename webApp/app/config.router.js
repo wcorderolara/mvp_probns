@@ -174,6 +174,53 @@ angular.module('probnsApp')
                                 }
                             ]
                         }
+                    })
+                    .state('app.tareas', {
+                        url: '/tareas',
+                        templateUrl: 'views/tasks.html',
+                        ncyBreadcrumb: {
+                            label: 'Tareas'
+                        },
+                        resolve: {
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [   
+                                            'lib/jquery/fullcalendar/moment.min.js',                                         
+                                            'modules/tasks/taskService.js',
+                                            'modules/tasks/taskController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
+                    })
+                    state('app.crearTarea',{
+                        url:"/nueva/tarea",
+                        templateUrl: 'views/partials/new_task.html',
+                        ncyBreadcrumb: {
+                            label: 'Nueva tarea'
+                        },
+                        resolve: {
+                            deps: [
+                                '$ocLazyLoad',
+                                function($ocLazyLoad){
+                                    return $ocLazyLoad.load({
+                                        serie: true,
+                                        files: [
+                                            'lib/jquery/fullcalendar/moment.min.js',
+                                            'modules/property/propertyService.js',
+                                            'modules/clientes/clienteService.js',
+                                            'modules/agents/agentService.js',
+                                            'modules/tasks/taskService.js',
+                                            'modules/tasks/taskController.js'
+                                        ]
+                                    })
+                                }
+                            ]
+                        }
                     });
                 // $urlRouterProvider
                 //     .otherwise('/app/dashboard');

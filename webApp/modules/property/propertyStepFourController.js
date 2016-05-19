@@ -26,7 +26,7 @@ probnsApp.controller('propertyStepFourController', function($scope,$http,$locati
 
 	$scope.setImagenesInmueble = function(){
 		$scope.$emit('setImagenesInmueble', $scope.listImagenesInmueble);	
-	}
+	}	
 
 	$scope.uploadImagenInmueble = function(file, errFiles) {
 	    service.uploadImagenInmueble(file).then(

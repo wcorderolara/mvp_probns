@@ -16,7 +16,7 @@
 
       <div class="listings__item" ng-repeat="propiedad in listadoPropiedades">
         <span class="ribbon {{propiedad.operacionInmueble.descripcion | lowercase}}">{{propiedad.operacionInmueble.descripcion}}</span>
-        <img src="{{propiedad.imagenInmuebles[0].path}}">
+        <img src="{{propiedad.imagenPrincipal}}">
         <div class="listings__item-content sale">
           <h2><a href="#">{{propiedad.direccionCorta}}</a></h2>
           <p>

@@ -27,6 +27,7 @@ probnsApp.controller('propertyStepFiveController', function($scope,$http,$locati
 		userId: 0,
 		imagenesInmueble: "",
 		amenitiesInmueble: "",
+		imagenPrincipal: ""
 	};
 
 	$scope.$on('setInmueblePreview', function (event, data){

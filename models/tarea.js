@@ -17,6 +17,10 @@ module.exports = function (sequelize, DataTypes){
 		status: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
+		},
+		comentarioFinal:{
+			type: DataTypes.STRING,
+			allowNull: true
 		}
 	},{
 		classMethods: {
