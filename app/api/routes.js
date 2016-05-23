@@ -80,9 +80,11 @@ var routesController = function (server){
 	server.get("/inmuebles/get/all/:usuarioId", auth, controllers.inmueble.getInmueblesUsuario);
 	server.get("/inmuebles/get/:id",auth, middleware.trackingInmueble, controllers.inmueble.getInmuebleById);
 	server.get("/inmuebles/get/all/count/:usuarioId", auth,controllers.inmueble.getTotalInmueblesUsuario);
-	server.get("/inmuebles/get/top/:usuarioId", auth, controllers.inmueble.getTopInmuebles);
 	server.put("/inmuebles/put/:id", auth,controllers.inmueble.putInmueble);
 	server.put("/inmuebles/delete/:id", auth, controllers.inmueble.deleteInmueble);
+
+	server.get("/inmuebles/get/top/:usuarioId", auth, controllers.inmueble.getTopInmuebles);
+	server.get("/inmuebles/search/code/:codigoInmueble", auth, controllers.inmueble.searchInmuebleByCodigoInmueble);
 
 	// tipoBuscador
 	server.get("/tipoBuscador/get/all", auth, controllers.tipoBuscador.getTiposBuscador);
@@ -97,6 +99,14 @@ var routesController = function (server){
 	server.post("/buscador/add/inmuble/:inmuebleId", auth, controllers.buscador.addInmuebleBuscador);
 	server.put("/buscador/put/:id", auth, controllers.buscador.putBuscador);
 	server.put("/buscador/delete/:id", auth, controllers.buscador.deleteBuscador);
+
+	// Tareas
+	server.get("/task/get/all/agencia/:agenciaId", auth, controllers.tarea.getTareasByAgencia);
+	server.get("/task/get/all/agente/:usuarioAsignadoId", auth, controllers.tarea.getTareasByAgente);
+	server.post("/task/post", auth, controllers.tarea.postTarea);
+	server.put("/task/put/:id", auth, controllers.tarea.putTarea);
+	server.put("/task/finalizar/:id", auth, controllers.tarea.finalizarTarea);
+	server.put("/task/delete/:id", auth, controllers.tarea.deleteTarea);
 }
 
 module.exports = routesController;

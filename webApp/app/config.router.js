@@ -190,7 +190,7 @@ angular.module('probnsApp')
                                         files: [   
                                             'lib/jquery/fullcalendar/moment.min.js',                                         
                                             'modules/tasks/taskService.js',
-                                            'modules/tasks/taskController.js'
+                                            'modules/tasks/taskListingController.js'
                                         ]
                                     })
                                 }

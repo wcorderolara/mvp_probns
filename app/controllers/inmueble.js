@@ -455,7 +455,6 @@ exports.getTopInmuebles = function (req, res,next){
 
 // Busqueda de inmuebles por medio de codigoInmueble
 exports.searchInmuebleByCodigoInmueble = function (req, res, next){
-	console.log(req.params.usuarioId);
 	models.Inmueble.findAll({
 		where: {
 			status: 1,
@@ -467,7 +466,7 @@ exports.searchInmuebleByCodigoInmueble = function (req, res, next){
 			{
 				model: models.Usuario,
 				attributes: ['id', 'userLogin', 'firstName', 'lastName'],
-				where: {id: req.params.usuarioId}								
+				where: {status: 1}								
 			},
 			// {
 			// 	model: models.Anunciantes,

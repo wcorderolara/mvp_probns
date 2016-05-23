@@ -132,7 +132,7 @@ exports.putTarea = function(req, res, next){
 	models.Tarea.findOne({
 		where:{
 			status: 1,
-			id: req.params.id
+			id: req.params	.id
 		}
 	}).then(function (tarea){
 		if(!tarea){

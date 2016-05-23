@@ -1,0 +1,125 @@
+<div class="row" ng-controller="taskController">
+	<div class="col-md-8 col-md-offset-2 dashboard-box padding-20">
+		<div class="row">
+			<div class="col-md-12">
+				<form role="form">
+					<div class="form-title">
+						<i class="fa fa-tasks"></i>
+						Crear tarea
+					</div>
+
+					<div class="form-group">
+						<label for="descripcionTarea">Descripci&oacute;n</label>
+						<textarea class="form-control" rows="4" ng-model="descripcionTarea" id="descripcionTarea"></textarea>
+					</div>
+
+					<div class="form-title">
+						Relaci&oacute;n de la tarea
+					</div>
+
+					<div class="row">						
+						<div class="radio col-md-3">
+							<label>
+								<input name="relacion_tarea" type="radio" class="colored-blue" 
+								       value="cliente" ng-model="relacionTarea">
+								<span class="text">
+									Cliente agencia
+								</span>
+							</label>
+						</div>
+						<div class="radio col-md-4">
+							<label>
+								<input name="relacion_tarea" type="radio" class="colored-blue"
+								       value="inmueble" ng-model="relacionTarea">
+								<span class="text">
+									Inmueble agencia
+								</span>
+							</label>
+						</div>
+					</div>
+
+					<div class="row" ng-show="relacionTarea=='cliente'">
+						<div class="col-md-10">
+							<label for="buscadorSelected">Cliente asociado</label>
+							<div class="form-group">
+								<input type="text" class="form-control" ng-model="buscadorSelected" 
+								       placeholder="Buscar Cliente por nombre"
+								       typeahead = "cliente as cliente.nombre + ' ' + cliente.apellido for cliente in listBuscadores | filter: {nombre:$viewValue} | limitTo: 15"
+								       typeahead-on-select="setClienteAsociado(buscadorSelected);"/>
+								<!-- <input type="text" ng-model="BuscadorId" placeholder="ira el id"/> -->
+							</div>
+						</div>
+						<!-- <div class="col-md-2 no-padding margin-top-25">
+							<div class="form-group">
+								<button class="btn btn-primary">
+									<i class="fa fa-search"></i>Buscar
+								</button>
+							</div>
+						</div> -->
+					</div>
+
+					<div class="row" ng-show="relacionTarea=='inmueble'">
+						<div class="col-md-10">
+							<div class="form-group">
+								<label for="inmuebleSelected">Inmueble asociado</label>
+								<input type="text" class="form-control" ng-model="inmuebleSelected"
+								       placeholder="Buscar inmueble por codigo"/>
+								<i ng-show="loadingInmuebles" class="fa fa-refresh"></i>
+								<div ng-show="noResults" class="danger">
+									<i class="fa fa-times"></i> Inmueble no encontrado
+								</div>
+								<!-- <input type="text"  ng-model="InmuebleId" placeholder="ira el id"/> -->
+							</div>
+						</div>
+
+						<div class="col-md-2 no-padding margin-top-25">
+							<div class="form-group">
+								<button class="btn btn-primary" ng-click="getInmueblesByCode(inmuebleSelected);">
+									<i class="fa fa-search"></i>Buscar
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="horizontal-space"></div>
+
+					<div class="row">
+						<div class="col-md-10">
+							<div class="form-group">
+								<label for="agenteSelected">Asignado a</label>
+								<input type="text" class="form-control" ng-model="agenteSelected"
+								       placeholder="Buscar asesor por nombre"
+								       typeahead="agente as agente.firstName + ' ' + agente.lastName for agente in listAgentes | filter:{firstName:$viewValue} | limitTo: 15"
+								       typeahead-on-select="setUsuarioAsigando(agenteSelected);"/>
+								<!-- <input type="text" ng-model="usuarioAsignadoId" placeholder="ira el id"/> -->
+							</div>
+						</div>
+<!-- 
+						<div class="col-md-2 no-padding margin-top-25">
+							<div class="form-group">
+								<button class="btn btn-primary">
+									<i class="fa fa-search"></i>Buscar
+								</button>
+							</div>
+						</div> -->
+					</div>
+
+					<div class="horizontal-space"></div>
+
+					<div>
+						<button class="btn btn-primary">
+							<i class="fa fa-floppy-o"></i>
+							Guardar
+						</button>
+
+						<button class="btn btn-danger">
+							<i class="fa fa-times"></i>
+							Cancelar
+						</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

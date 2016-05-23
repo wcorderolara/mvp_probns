@@ -66,5 +66,14 @@ probnsApp.service('propertyService', function (baseService){
 
 		return result;
 	}
+
+	this.searchInmuebleByCodigoInmueble = function(codigo){
+		var data = {
+			url: '/inmuebles/search/code/' + codigo
+		}
+
+		var result = service.get(data);
+		return result;
+	}
 	
 })
