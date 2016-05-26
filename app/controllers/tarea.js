@@ -7,7 +7,11 @@ exports.getTareasByAgencia = function(req, res, next){
 		where:{
 			status: 1,
 			estadoTareaId: 1,
-			UsuarioId: req.params.agenciaId
+			UsuarioId: req.params.agenciaId,
+			$or: {
+				InmuebleId: null,
+				BuscadorId: null
+			}
 		},
 		attributes:['id', 'descripcion', 'relacion', 'createdAt', 'BuscadorId', 'InmuebleId', 'estadoTareaId', 
 		            'usuarioAsignadoId', 'usuarioAsignoId', 'UsuarioId'],
@@ -17,14 +21,16 @@ exports.getTareasByAgencia = function(req, res, next){
 				attributes: ['id', 'nombre', 'apellido','email', 'telefono1'],
 				where:{
 					status: 1
-				}
+				},
+				required: true
 			},
 			{
 				model: models.Inmueble,
 				attributes: ['id','direccionCorta','codigoInmueble','imagenPrincipal'],
 				where:{
 					status: 1
-				}
+				},
+				required: true
 			},
 			{
 				model: models.estadoTarea,

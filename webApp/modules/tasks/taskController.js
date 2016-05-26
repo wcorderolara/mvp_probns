@@ -67,4 +67,39 @@ probnsApp.controller('taskController', function ($scope, $window, $location, tas
 			}
 		)
 	}
+
+	$scope.postTarea = function(){
+		$scope.formError = "";
+		var params = {
+			descripcion: $scope.descripcionTarea,
+			relacion: $scope.relacionTarea,
+			estadoTareaId: 1,
+			BuscadorId: $scope.BuscadorId,
+			InmuebleId: $scope.InmuebleId,
+			usuarioAsignadoId: $scope.usuarioAsignadoId,
+			usuarioAsignoId: userLogged,
+			UsuarioId: agencia
+		}
+
+		if(!$scope.descripcionTarea || !$scope.relacionTarea || !$scope.BuscadorId || !$scope.InmuebleId || $scope.usuarioAsignadoId){
+			$scope.formError = ""
+		}		
+
+		taskService.postTarea(params).then(			
+			function (response){
+				if(response.type){
+					Notification.success(response.message);
+					setTimeout(function(){
+						$window.location = '#/app/tareas';
+					}, 800);
+				}else{
+					Notification.error(response.message);					
+				}
+			}
+		)
+	}
+
+	$scope.cancelTarea = function(){
+		$window.location = '#/app/tareas';
+	}
 })

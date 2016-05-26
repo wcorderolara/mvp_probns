@@ -107,18 +107,21 @@
 					<div class="horizontal-space"></div>
 
 					<div>
-						<button class="btn btn-primary">
+						<button class="btn btn-primary" ng-click="postTarea();">
 							<i class="fa fa-floppy-o"></i>
 							Guardar
 						</button>
 
-						<button class="btn btn-danger">
+						<button class="btn btn-danger" ng-click="cancelTarea();">
 							<i class="fa fa-times"></i>
 							Cancelar
 						</button>
 					</div>
 
 				</form>
+				<alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
+			        {{formError}}
+			    </alert>
 			</div>
 		</div>
 	</div>
