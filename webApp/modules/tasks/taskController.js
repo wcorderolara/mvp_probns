@@ -48,6 +48,7 @@ probnsApp.controller('taskController', function ($scope, $window, $location, tas
 	}
 
 	$scope.setInmuebleAsociado = function(inmueble){
+		console.log(inmueble);
 		$scope.InmuebleId = inmueble.id;
 		$scope.inmuebleSelected = inmueble.codigoInmueble;
 	}
@@ -58,9 +59,9 @@ probnsApp.controller('taskController', function ($scope, $window, $location, tas
 				if(data.data.length > 0){
 					obj = data.data[0];
 					$scope.noResults = false;
-					$scope.inmuebleSelected = obj.codigoInmueble + ' - ' + obj.direccionCorta
+					$scope.inmuebleSelected = obj.codigoInmueble + ' - ' + obj.direccionCorta;
+					$scope.InmuebleId = obj.id;
 					return data.data;
-
 				}else{
 					$scope.noResults = true;
 				}

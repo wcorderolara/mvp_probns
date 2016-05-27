@@ -22,7 +22,7 @@ exports.getTareasByAgencia = function(req, res, next){
 				where:{
 					status: 1
 				},
-				required: true
+				required: false
 			},
 			{
 				model: models.Inmueble,
@@ -30,7 +30,7 @@ exports.getTareasByAgencia = function(req, res, next){
 				where:{
 					status: 1
 				},
-				required: true
+				required: false
 			},
 			{
 				model: models.estadoTarea,
@@ -80,14 +80,16 @@ exports.getTareasByAgente = function(req, res, next){
 				attributes: ['id', 'nombre', 'apellido','email', 'telefono1'],
 				where:{
 					status: 1
-				}
+				},
+				required: false
 			},
 			{
 				model: models.Inmueble,
 				attributes: ['id','direccionCorta','codigoInmueble','imagenPrincipal'],
 				where:{
 					status: 1
-				}
+				},
+				required: false
 			},
 			{
 				model: models.estadoTarea,
