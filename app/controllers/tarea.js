@@ -56,7 +56,7 @@ exports.getTareasByAgencia = function(req, res, next){
 				}	
 			}
 		],
-		order: 'createdAt ASC'
+		order: 'createdAt DESC'
 	}).then(function (tareas){
 		if(!tareas){
 			service.sendJSONresponse(res, 500, {"type":false, "message":"Error al obtener los registros"});
