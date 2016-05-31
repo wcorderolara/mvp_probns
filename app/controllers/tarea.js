@@ -140,7 +140,7 @@ exports.putTarea = function(req, res, next){
 	models.Tarea.findOne({
 		where:{
 			status: 1,
-			id: req.params	.id
+			id: req.params.id
 		}
 	}).then(function (tarea){
 		if(!tarea){
@@ -158,7 +158,7 @@ exports.putTarea = function(req, res, next){
 				if(!_tarea){
 					service.sendJSONresponse(res, 500, {"type": false, "message": "Error al actualizar el registro"});
 				}else{
-					service.sendJSONresponse(res, 200, {"type": false, "message": "Registro Actualizado."});
+					service.sendJSONresponse(res, 200, {"type": true, "message": "Registro Actualizado."});
 				}
 			})
 		}
@@ -182,7 +182,7 @@ exports.finalizarTarea = function(req,res,next){
 				if(!_tarea){
 					service.sendJSONresponse(res, 500, {"type": false, "message": "Error al actualizar el registro"});
 				}else{
-					service.sendJSONresponse(res, 200, {"type": false, "message": "Tarea finalizada."});
+					service.sendJSONresponse(res, 200, {"type": true, "message": "Tarea finalizada."});
 				}
 			})
 		}
@@ -205,7 +205,7 @@ exports.deleteTarea = function (req, res, next){
 				if(!_tarea){
 					service.sendJSONresponse(res, 500, {"type": false, "message": "Error al actualizar el registro"});
 				}else{
-					service.sendJSONresponse(res, 200, {"type": false, "message": "Tarea Eliminada."});
+					service.sendJSONresponse(res, 200, {"type": true, "message": "Tarea Eliminada."});
 				}
 			})
 		}

@@ -12,14 +12,8 @@ probnsApp.controller('rolesController', function($scope,$window, userService,Sha
 
 	service.getUserInfoById(userId).then(		
 		function (data){
-			console.log(data);
 			blockUI.start();
-			console.log('informacion Rol Logueado');
 			datosGenerales = data.data;	
-			console.log(datosGenerales);
-			// factory.value = {
-			// }
-
 			blockUI.stop();
 		}
 	)
