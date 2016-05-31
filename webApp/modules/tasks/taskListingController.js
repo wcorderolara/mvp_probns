@@ -23,7 +23,6 @@ probnsApp.controller('taskListingController', function ($scope, $window, $locati
 		taskService.getTareasByAgente(userLogged).then(
 			function (response){
 				if(response.type){
-					console.log(response.data);
 					$scope.listTareas = response.data;
 				}else{
 					Notification.error(response.message);
@@ -55,6 +54,29 @@ probnsApp.controller('taskListingController', function ($scope, $window, $locati
 				}
 			}
 		});
+	}
+
+	$scope.endTask = function(tarea){
+		var modalInstance = $modal.open({
+			windowClass: "",
+			templateUrl: "views/modals/tasks/endTask.html",
+			controller: "endTaskController",
+			size: "md",
+			resolve: {
+				item: function(){
+					return tarea;
+				}
+			}
+		});
+
+		modalInstance.result.then(function(data){
+			if(data.type){
+				Notification.success(data.message);
+				$scope.getTareas();
+			}else{
+				Notification.error(data.message);
+			}
+		})
 	}
 
 	$scope.removeTask = function(tarea){
@@ -92,6 +114,26 @@ probnsApp.controller('viewTaskController', function ($scope, $modalInstance, ite
 	}
 })
 
+probnsApp.controller('endTaskController', function ($scope, $modalInstance, item, taskService){
+	$scope.tarea = item;
+
+	$scope.endTask = function(){
+		var data = {
+			comentarioFinal: $scope.comentarioFinal
+		}
+
+		taskService.finalizarTarea(item.id, data).then(
+			function (response){
+				$modalInstance.close(response);
+			}
+		)
+	}
+
+	$scope.cancel = function(){
+		$modalInstance.dismiss('cancel');
+	}
+})
+
 probnsApp.controller('removeTaskController', function ($scope, $modalInstance, item, taskService){
 	$scope.tarea = item;
 
@@ -100,7 +142,7 @@ probnsApp.controller('removeTaskController', function ($scope, $modalInstance, i
 			comentarioFinal: $scope.comentarioFinal
 		}
 
-		taskService.finalizarTarea(item.id, data).then(
+		taskService.deleteTarea(item.id).then(
 			function (response){
 				$modalInstance.close(response);
 			}

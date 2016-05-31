@@ -42,6 +42,24 @@ probnsApp.service('dashboardService', function (baseService){
 		return result;
 	}
 
+	self.getTotalTareasPendientesByAgencia = function(agenciaId){
+		var data = {
+			url: '/task/get/count/' + agenciaId
+		}
+
+		var result = service.get(data);
+		return result;
+	}
+
+	self.getTotalTareasPendientesByAgente = function(agenteId){
+		var data = {
+			url: '/task/get/agente/count/' + agenteId
+		}
+
+		var result = service.get(data);
+		return result;
+	}
+
 	self.getTopInmuebles = function(userId){
 		var data = {
 			url: '/inmuebles/get/top/' + userId

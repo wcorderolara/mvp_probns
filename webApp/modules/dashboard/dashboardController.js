@@ -5,16 +5,16 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 	var service = dashboardService;
 	var auth = authService;
 	var factory = ShareData;
-	var userId = factory.value.padreId == null ? auth.getUserLogged() : factory.value.padreId;
+	var agenciaId = factory.value.padreId == null ? factory.value.userId : factory.value.padreId;
+	var userId = factory.value.padreId != null ? auth.getUserLogged() : factory.value.userId;
 	// var userId = auth.getUserLogged();
 
 	$scope.datosGenerales = {};
 	$scope.totalPropiedades = 0;
 	$scope.totalAgentes = 0;
 	$scope.putUserInfo = {};
-	$scope.avatarUsuario = {};
-	$scope.cambiarFoto = false;
 	$scope.topInmuebles = [];
+	$scope.tipoUsuario = factory.value.tipoUsuario;
 
 	service.getUserInfoById(userId).then(		
 		function (data){
@@ -25,7 +25,7 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 		}
 	)
 
-	service.getTotalPropiedadesByUser(userId).then(
+	service.getTotalPropiedadesByUser(agenciaId).then(
 		function (data){
 			blockUI.start();
 			$scope.totalPropiedades = data.data;
@@ -33,7 +33,7 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 		}
 	)
 
-	service.getTotalAgentesByUser(userId).then(
+	service.getTotalAgentesByUser(agenciaId).then(
 		function (data){
 			blockUI.start();
 			$scope.totalAgentes = data.data;
@@ -41,7 +41,7 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 		}
 	)
 
-	service.getTotalBuscadoresByUser(userId).then(
+	service.getTotalBuscadoresByUser(agenciaId).then(
 		function (data){
 			blockUI.start();
 			$scope.totalBuscadores = data.data;
@@ -49,7 +49,25 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 		}
 	)
 
-	service.getTopInmuebles(userId).then(
+	if(factory.value.tipoUsuario == 'Agencia'){
+		service.getTotalTareasPendientesByAgencia(userId).then(
+			function (data){
+				blockUI.start();
+				$scope.totalTareasPendientes = data.data;
+				blockUI.stop();
+			}
+		)
+	}else if(factory.value.tipoUsuario == 'Agente'){
+		service.getTotalTareasPendientesByAgente(userId).then(
+			function (data){
+				blockUI.start();
+				$scope.totalTareasPendientes = data.data;
+				blockUI.stop();
+			}
+		)
+	}
+
+	service.getTopInmuebles(agenciaId).then(
 		function (data){
 			blockUI.start();
 			$scope.topInmuebles = data.data;

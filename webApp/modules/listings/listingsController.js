@@ -3,10 +3,11 @@ probnsApp.controller('listingsController', function($scope,$http,$location,
 
 	var service = listingsService;
 	var factory = ShareData;
-	var userId = authService.getUserLogged();
+	var agenciaId = factory.value.padreId == null ? factory.value.userId : factory.value.padreId;
+	var userId = factory.value.padreId != null ? authService.getUserLogged() : factory.value.userId;
 	$scope.listadoPropiedades = [];
 
-	service.getPropidadesUsuario(userId).then(
+	service.getPropidadesUsuario(agenciaId).then(
 		function (data){
 			$scope.listadoPropiedades = data.data;
 		}

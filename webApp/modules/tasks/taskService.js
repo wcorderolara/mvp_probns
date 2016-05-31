@@ -2,6 +2,15 @@ probnsApp.service('taskService', function (baseService){
 	var self = this;
 	var base = baseService;
 
+	self.getTotalTareasPendientesByAgencia = function(agenciaId){
+		var data = {
+			url: '/task/get/count/' + agenciaId
+		}
+
+		var result = base.get(data);
+		return result;
+	}
+
 	self.getTareasByAgencia = function(agenciaId){
 		var data = {
 			url: '/task/get/all/agencia/' + agenciaId
@@ -59,4 +68,6 @@ probnsApp.service('taskService', function (baseService){
 		var result = base.delete(data);
 		return result;
 	}
+
+
 })

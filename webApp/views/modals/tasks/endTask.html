@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h3 class="modal-title blue"><i class="fa fa-eye"></i> Detalle Tarea</h3>
+</div>
+<div class="modal-body">
+  <p>
+    Finalizar la tarea <strong>#</strong> {{tarea.id}}.
+  </p>
+  <form role="form">
+
+    <div class="form-group">
+      <label for="comentarioFinalTarea">Comentario final:</label>
+      <textarea class="form-control" rows="4" ng-model="comentarioFinal" id="comentarioFinalTarea"
+                placeholder="Agregue un comentario final con respecto a la tarea">
+      </textarea>
+    </div>
+
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-success" ng-click="endTask()"><i class="fa fa-check"></i>Finalizar</button>
+  <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
+</div>

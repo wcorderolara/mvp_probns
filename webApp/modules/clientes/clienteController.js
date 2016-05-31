@@ -6,6 +6,7 @@ probnsApp.controller('clienteController', function ($scope, $window, $location,
 	var userLogged= auth.getUserLogged();
 	var factory = ShareData;
 	var agenciaAsignada = factory.value.padreId == null ? auth.getUserLogged() : factory.value.padreId;
+	$scope.tipoUsuario = factory.value.tipoUsuario;
 	$scope.listadoBuscadores = [];
 	$scope.buscadorSelected = {};
 	$scope.editBuscador = {};

@@ -14,6 +14,7 @@ probnsApp.controller('rolesController', function($scope,$window, userService,Sha
 		function (data){
 			blockUI.start();
 			datosGenerales = data.data;	
+			console.log(datosGenerales);
 			blockUI.stop();
 		}
 	)

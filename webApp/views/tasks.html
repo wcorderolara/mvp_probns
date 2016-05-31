@@ -61,15 +61,20 @@
               <ul class="list-inline text-align-left">
                 <li ng-show="tipoUsuario=='Agencia' || tipoUsuario=='Agente'">
                   <a style="cursor:pointer" ng-click="viewTask(tarea);">
-                    <i class="fa fa-eye success font-130"></i>
+                    <i class="fa fa-eye info font-130"></i>
                   </a>
                 </li>
-                <li ng-show="tipoUsuario=='Agencia'">
+                <li ng-show="tipoUsuario=='Agencia' || tipoUsuario=='Agente'">
+                  <a style="cursor:pointer" ng-click="endTask(tarea);">
+                    <i class="glyphicon glyphicon-saved success font-130"></i>
+                  </a>
+                </li>
+                <!-- <li ng-show="tipoUsuario=='Agencia'">
                   <a style="cursor:pointer" ng-click="editTask(tarea);">
                     <i class="fa fa-pencil primary font-130"></i>
                   </a>
-                </li>
-                <li>
+                </li> -->
+                <li ng-show="tipoUsuario=='Agencia'">
                   <a style="cursor:pointer" ng-click="removeTask(tarea);">
                     <i class="fa fa-trash darkorange font-130"></i>
                   </a>

@@ -6,6 +6,7 @@ probnsApp.controller('userController', function($scope,$window, userService,Shar
 	var userId = auth.getUserLogged();
 	var datosGenerales = {};
 	$scope.datosGenerales = {};
+	$scope.tipoUsuario = "";
 
 	if(!auth.isLoggedIn()){
 		$window.location = "#/login";
@@ -15,17 +16,17 @@ probnsApp.controller('userController', function($scope,$window, userService,Shar
 		function (data){
 			blockUI.start();
 			$scope.datosGenerales = data.data;
-			datosGenerales = data.data;
+			$scope.tipoUsuario = $scope.datosGenerales.tipoUsuario.descripcion;
 			// console.log(datosGenerales);
 			
 			factory.value = {
-				userId: datosGenerales.id,
-				padreId: datosGenerales.padreId,
-				tipoUsuarioId: datosGenerales.tipoUsuarioId,
-				tipoUsuario: datosGenerales.tipoUsuario.descripcion,
-				email: datosGenerales.email,
-				nombre: datosGenerales.firstName,
-				apellido: datosGenerales.lastName
+				userId: $scope.datosGenerales.id,
+				padreId: $scope.datosGenerales.padreId,
+				tipoUsuarioId: $scope.datosGenerales.tipoUsuarioId,
+				tipoUsuario: $scope.datosGenerales.tipoUsuario.descripcion,
+				email: $scope.datosGenerales.email,
+				nombre: $scope.datosGenerales.firstName,
+				apellido: $scope.datosGenerales.lastName
 			}
 
 			// $scope.putUserInfo = JSON.parse(JSON.stringify(data.data));		

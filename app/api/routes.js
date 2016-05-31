@@ -103,10 +103,13 @@ var routesController = function (server){
 	// Tareas
 	server.get("/task/get/all/agencia/:agenciaId", auth, controllers.tarea.getTareasByAgencia);
 	server.get("/task/get/all/agente/:usuarioAsignadoId", auth, controllers.tarea.getTareasByAgente);
+	server.get("/task/get/count/:agenciaId", auth, controllers.tarea.getTotalTareasPendientesByAgencia);
+	server.get("/task/get/agente/count/:usuarioAsignadoId", auth, controllers.tarea.getTotalTareasPendientesByAgente);
 	server.post("/task/post", auth, controllers.tarea.postTarea);
 	server.put("/task/put/:id", auth, controllers.tarea.putTarea);
 	server.put("/task/finalizar/:id", auth, controllers.tarea.finalizarTarea);
 	server.put("/task/delete/:id", auth, controllers.tarea.deleteTarea);
+
 }
 
 module.exports = routesController;

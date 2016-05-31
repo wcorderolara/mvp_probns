@@ -2,6 +2,30 @@
 var models = require('../../models');
 var service = require('../service/service');
 
+exports.getTotalTareasPendientesByAgencia = function(req, res, next){
+	models.Tarea.findAndCountAll({
+		where:{
+			status: 1,
+			estadoTareaId: 1,
+			UsuarioId: req.params.agenciaId
+		}
+	}).then(function (result){
+		service.sendJSONresponse(res, 200, {"type": true, "data": result.count});
+	})
+}
+
+exports.getTotalTareasPendientesByAgente = function(req, res, next){
+	models.Tarea.findAndCountAll({
+		where:{
+			status: 1,
+			estadoTareaId: 1,
+			usuarioAsignadoId: req.params.usuarioAsignadoId
+		}
+	}).then(function (result){
+		service.sendJSONresponse(res, 200, {"type": true, "data": result.count});
+	})
+}
+
 exports.getTareasByAgencia = function(req, res, next){
 	models.Tarea.findAll({
 		where:{
