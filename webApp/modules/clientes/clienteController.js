@@ -151,11 +151,13 @@ probnsApp.controller('deleteBuscadorController', function($scope, $modalInstance
 })
 
 probnsApp.controller('addBuscadorController', function($scope, $modalInstance, items, agentService,
-														agenciaAsociada,clienteService, action){
+														agenciaAsociada,clienteService, action,ShareData){
 	var service = clienteService;
 	$scope.listTiposBuscador = [];
 	$scope.listVendedores = [];
 	$scope.newItem = items;
+	console.log(ShareData);
+	$scope.vendedorAsignadoId = ShareData.value.userId;
 
 	service.getTiposBuscador().then(
 		function (data){

@@ -6,6 +6,8 @@ probnsApp.controller('agentController', function ($scope, $window,$location,
 	var user= auth.getUserLogged();
 	$scope.listadoAgentes = [];
 	$scope.editVendedor = {};
+	$scope.select = false;
+	$scope.agenteSelected = {};
 	$scope.newVendedor = {
 		userLogin: "",
 		password: "",
@@ -22,6 +24,7 @@ probnsApp.controller('agentController', function ($scope, $window,$location,
 			function (data){
 				if(data.type){
 					$scope.listadoAgentes = data.data
+					// console.log(data.data);
 				}
 			}
 		)
@@ -29,7 +32,22 @@ probnsApp.controller('agentController', function ($scope, $window,$location,
 
 	$scope.getVendedoresByPadre(user);
 
-	$scope.openModal = function(windowClass,templateUrl,size){
+	$scope.getInfoAgente = function(agente){
+		$scope.select = true;
+		$scope.agenteSelected = {
+			id: agente.id,
+			nombre: agente.firstName + ', ' + agente.lastName,
+			agencia: agente.Padre.firstName + ' ' + agente.Padre.lastName,
+			pais: agente.Pai.descripcion,
+			avatar: agente.avatar,
+			fechaCreacion: agente.createdAt,
+			telefono: agente.telefono1,
+			estado: agente.estadoUsuario.descripcion,
+			email: agente.email
+		}
+	}
+
+	$scope.openModal = function(windowClass,templateUrl,size){		
 		var modalInstance = $modal.open({
 			windowClass: windowClass,
 			templateUrl: templateUrl,
@@ -72,6 +90,7 @@ probnsApp.controller('agentController', function ($scope, $window,$location,
 	}
 
 	$scope.editAgente = function(agente){
+		console.log(agente);
 		service.getVendedorById(agente).then(
 			function (data){
 				if(data.type){

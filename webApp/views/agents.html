@@ -1,182 +1,348 @@
-<main class="content" ng-controller="agentController">
-  <div class="panel">
-    <div class="panel__header" >
-      <div class="panel__form">
-        <input type="text">
-        <input type="submit" value="Buscar">
-      </div>
-      <h1 class="panel__title">Listado oficial de Agentes</h1>
-      <div class="panel__btns">
-        <a style="cursor:pointer;" ng-click="openModal('','addAgenteModal.html','md')">
-          <span>Agregar nuevo agente </span><i class="fa fa-plus-circle"></i>
-        </a>
-      </div>
-      <script type="text/ng-template" id="addAgenteModal.html">
-          <div class="modal-header">
-              <h3 class="modal-title blue"><i class="fa fa-user-plus"></i> Nuevo Agente</h3>
-          </div>
-          <div class="modal-body">
+<main id="clients" class="clients__bg" ng-controller="agentController">
+  <div class="row">
+    <div class="clients__sidebar col-md-3">
+      <button ng-click="openModal('','addAgenteModal.html','md');" 
+              class="btn btn-lg btn-primary margin-bottom-10 ">
+        <i class="fa fa-plus-circle"></i> <span>Agregar Agente</span>
+      </button>
+      <div class="clients__search cols">
+          <div class="col-md-12 no-padding">
             <form role="form">
-
-              <div class="form-title">Informaci&oacute;n del Agente</div>
-
-              <div class="text-align-center">
-                <div class="col-sm-12 margin-bottom-10">
-                  <div class="col-md-12 margin-top-less-10">
-                    <img src="{{newAvatar}}" class="header-avatar"> 
-                  </div>
-                  <button class="btn btn-labeled btn-blue" type="file" ngf-select="uploadPic($file, $invalidFiles)"
-                          accept="image/*" ngf-max-size="2MB">
-                    <i class="btn-label fa fa-upload"></i>Subir Fotograf&iacute;a
-                  </button>
-
+              <div class="form-group margin-top-10">
+                    <span class="input-icon icon-left white">
+                      <input ng-model="searchName" type="text" class="form-control" placeholder="Buscar agente">
+                      <i class="fa fa-search bg-blue white"></i>
+                    </span>
                 </div>
-              </div>
-
-              <div class="form-group">
-                <span class="input-icon icon-right inverted">
-                  <input ng-model="newFirstName" type="text" class="form-control" placeholder="Nombre del agente">
-                  <i class="fa fa-user bg-blue"></i>
-                </span>
-              </div>
-
-              <div class="form-group">
-                <span class="input-icon icon-right inverted">
-                  <input ng-model="newLastName" type="text" class="form-control" placeholder="Apellido del Agente">
-                  <i class="fa fa-user bg-blue"></i>
-                </span>
-              </div>
-
-              <div class="form-group">
-                <span class="input-icon icon-right inverted">
-                  <input ng-model="newUserLogin" type="text" class="form-control" placeholder="Correo Electronico del Agente">
-                  <i class="fa fa-envelope bg-blue"></i>
-                </span>
-              </div>
-
-              <div class="form-group">
-                <span class="input-icon icon-right inverted">
-                  <input ng-model="newPassword" type="text" class="form-control" placeholder="Contraseña por Defecto">
-                  <i class="fa fa-lock bg-blue"></i>
-                </span>
-              </div>
-
-              <div class="form-group">
-                <span class="input-icon icon-right inverted">
-                  <input ng-model="newTelefono" type="text" class="form-control" placeholder="Telefono del Agente">
-                  <i class="fa fa-phone bg-blue"></i>
-                </span>
-              </div>
-
-              <div class="form-group clearfix">
-                <select ng-model="newPaiId" name="cmbPais" class="col-sm-12"
-                  id="cmbPais" ng-options="pais.id as pais.descripcion for pais in paises">
-                  <option value="">Pais</option>
-                </select>
-              </div>
-
             </form>
-            <alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
-                {{formError}}
-            </alert>
           </div>
-          <div class="modal-footer">
-              <button class="btn btn-blue" ng-click="postVendedor()">Agregar</button>
-              <button class="btn btn-danger" ng-click="cancel()">Cancelar</button>
-          </div>
-      </script>
-    </div>
-    <div class="panel__content">
-      <div class="agents__item" ng-repeat="agente in listadoAgentes">
-        <img src="{{agente.avatar}}" class="header-avatar">
-        <div class="agents__item-content">
-          <h2><a href="#">{{agente.firstName}} {{agente.lastName}} </a></h2>
           <ul>
-            <li class="margin-bottom-5"><i class="fa fa-envelope"></i> {{agente.email}}</li>
-            <li class="margin-bottom-5"><i class="fa fa-phone"></i> {{agente.telefono1}} </li>
-            <li><i class="fa fa-clock-o"></i> {{agente.createdAt | date: "dd/MM/yyyy"}} </li>
+            <li>
+              <div class="clients__search-label">Agentes</div>
+            </li>
+            <li ng-repeat="agente in listadoAgentes | filter: searchName">
+              <a style="cursor: pointer" ng-click="getInfoAgente(agente)">
+                {{agente.firstName}}, {{agente.lastName}}
+              </a>
+            </li>            
           </ul>
-          <button class="btn btn-blue btn-sm btn-follow col-sm-2" ng-click="editAgente({{agente.id}})">
-            <i class="fa fa-pencil-square-o"></i>
-            Editar Agente
-          </button>
-        </div>
-        <ul class="agents__item-actions">
-          <li class="first"><a href="#deals-1" data-toggle="tab">
-            <strong>3</strong>Tratos Cerrados</a>
-          </li>
-          <li class="second"><a href="#clients-1" data-toggle="tab">
-            <strong>5</strong>Clientes Nuevos </a>
-          </li>
-          <li class="third"><a href="#calendar-1" data-toggle="tab">
-            <strong>15</strong>Citas </a>
-          </li>
-          <li class="fourth"><a href="#inbox-1" data-toggle="tab">
-            <strong>10</strong>Mensajes No Leídos </a>
-          </li>
-        </ul>
-        <div class="agents__item-commission">
-          <p>Total de comisiones: $33,000 </p>
-        <!-- </div><a href="#" class="remove"><i class="glyphicon glyphicon-remove"></i></a> -->
-        <!-- <div class="agents__item-details">
-          <div id="deals-1" class="agent-pane fade in active">
-            <div class="listings__item sm"><img src="img/listing.jpg">
-              <div class="listings__item-content sale">
-                <h2><a href="#">Apartamento z.14</a></h2>
-                <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14 <br>Código No. 03024</p>
-              </div>
-              <div class="pull-right">
-                <div class="listings__item-final-price"><strong>Precio de venta</strong>$248,900</div>
-                <div class="listings__item-final-commission"><strong>Comisión </strong>5% </div>
-                <div class="listings__item-total-commission"><small>Comisión Total (Hover)</small>
-                  <div class="label-price">$1,550.00</div>
-                </div>
-              </div>
-            </div>
-            <div class="listings__item sm"><img src="img/listing.jpg">
-              <div class="listings__item-content sale">
-                <h2><a href="#">Apartamento z.14</a></h2>
-                <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14 <br>Código No. 03024</p>
-              </div>
-              <div class="pull-right">
-                <div class="listings__item-final-price"><strong>Precio de venta</strong>$248,900</div>
-                <div class="listings__item-final-commission"><strong>Comisión </strong>5% </div>
-                <div class="listings__item-total-commission"><small>Comisión Total (Hover)</small>
-                  <div class="label-price">$1,550.00</div>
-                </div>
-              </div>
-            </div>
-            <div class="listings__item sm"><img src="img/listing.jpg">
-              <div class="listings__item-content sale">
-                <h2><a href="#">Apartamento z.14</a></h2>
-                <p><strong>Ciudad de Guatemala, Guatemala</strong>12 calle 6-27 z.14 <br>Código No. 03024</p>
-              </div>
-              <div class="pull-right">
-                <div class="listings__item-final-price"><strong>Precio de venta</strong>$248,900</div>
-                <div class="listings__item-final-commission"><strong>Comisión </strong>5% </div>
-                <div class="listings__item-total-commission"><small>Comisión Total (Hover)</small>
-                  <div class="label-price">$1,550.00</div>
-                </div>
-              </div>
-            </div>
-          </div>-->
-        </div>
       </div>
     </div>
+    <div class="clients__content col-md-9 no-padding">
+      <tabset flat="true" justified="true">
+        <tab heading="Datos Agente">
+          <div id="tab1" role="tabpanel" class="clients__container cols active tab-pane">
+            <div class="row" ng-show="select">
+              <div class="col-md-8 clients__info no-padding" >
+                <h2>{{agenteSelected.nombre}}</h2>
+                <ul>
+                  <li><strong>Agencia:</strong>{{agenteSelected.agencia}}</li>
+                  <li><strong>Tel&eacute;fono:</strong>{{agenteSelected.telefono}}</li>
+                  <li><strong>Estado:</strong>{{agenteSelected.estado}}</li>
+                  <li><strong>Correo electrónico:</strong>{{agenteSelected.email}}</li>
+                  <li><strong>Pa&iacute;s:</strong>{{agenteSelected.pais}}</li>
+                  <li><strong>Activo desde:</strong>{{agenteSelected.fechaCreacion | date: "dd/MM/yyyy"}}</li>
+                </ul>
+              </div>
+              <div class="col-md-3">
+                <div class="text-align-center">
+                  <div class="col-md-12 margin-bottom-10">
+                      <img src="{{agenteSelected.avatar}}" class="header-avatar"> 
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-primary" 
+                      ng-click="editAgente(agenteSelected.id);">
+                  <i class="fa fa-pencil"></i> Editar Agente
+                </button>
+
+                <button class="btn btn-danger"                    
+                      ng-click="openDeleteModal('','deleteBuscadorModal.html','md', buscadorSelected);">
+                  <i class="fa fa-times"></i> Eliminar Agente
+                </button>
+              </div>
+            </div>
+          </div>
+        </tab>
+        <tab heading="Propiedades">
+          <!-- <div id="tab2" role="tabpanel" class="clients__container tab-pane">
+            <div class="clients__listings"><a href="#" class="btn btn-sky">Agregar propiedad</a>
+            <div class="clients__item"><img src="img/listing.jpg">
+              <div class="clients__item-content">
+                <h4><a href="#">Apartamento Z.14</a></h4>
+                <ul>
+                  <li>12 calle 6-27 z.14</li>
+                  <li>2 Habitaciones </li>
+                  <li>2 Baños</li>
+                  <li>2 Parqueos</li>
+                </ul>
+                <ul class="clients__item-actions">
+                  <li>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" checked="checked"><span class="text">Información Enviada</span>
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" checked="checked"><span class="text">Propiedad Mostrada </span>
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" checked="checked"><span class="text">Oferta Enviada</span>
+                      </label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="clients__item"><img src="img/listing.jpg">
+              <div class="clients__item-content">
+                <h4><a href="#">Apartamento Z.14</a></h4>
+                <ul>
+                  <li>12 calle 6-27 z.14</li>
+                  <li>2 Habitaciones </li>
+                  <li>2 Baños</li>
+                  <li>2 Parqueos</li>
+                </ul>
+                <ul class="clients__item-actions">
+                  <li>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" checked="checked"><span class="text">Información Enviada</span>
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" checked="checked"><span class="text">Propiedad Mostrada </span>
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" checked="checked"><span class="text">Oferta Enviada</span>
+                      </label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="clients__item"><img src="img/listing.jpg">
+              <div class="clients__item-content">
+                <h4><a href="#">Apartamento Z.14</a></h4>
+                <ul>
+                  <li>12 calle 6-27 z.14</li>
+                  <li>2 Habitaciones </li>
+                  <li>2 Baños</li>
+                  <li>2 Parqueos</li>
+                </ul>
+                <ul class="clients__item-actions">
+                  <li>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" checked="checked"><span class="text">Información Enviada</span>
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" checked="checked"><span class="text">Propiedad Mostrada </span>
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" checked="checked"><span class="text">Oferta Enviada</span>
+                      </label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            </div>
+            <div class="clients__listings-suggested">
+            <h3>Propiedades sugeridas</h3>
+            <div class="clients__item"><img src="img/listing.jpg">
+              <div class="clients__item-content">
+                <h4><a href="#">Apartamento Z.14</a></h4>
+                <ul>
+                  <li>12 calle 6-27 z.14</li>
+                  <li>2 Habitaciones </li>
+                  <li>2 Baños</li>
+                  <li>2 Parqueos</li>
+                </ul><a href="#" class="btn">Agregar propiedad</a>
+              </div>
+            </div>
+            <div class="clients__item"><img src="img/listing.jpg">
+              <div class="clients__item-content">
+                <h4><a href="#">Apartamento Z.14</a></h4>
+                <ul>
+                  <li>12 calle 6-27 z.14</li>
+                  <li>2 Habitaciones </li>
+                  <li>2 Baños</li>
+                  <li>2 Parqueos</li>
+                </ul><a href="#" class="btn">Agregar propiedad</a>
+              </div>
+            </div>
+            <div class="clients__item"><img src="img/listing.jpg">
+              <div class="clients__item-content">
+                <h4><a href="#">Apartamento Z.14</a></h4>
+                <ul>
+                  <li>12 calle 6-27 z.14</li>
+                  <li>2 Habitaciones </li>
+                  <li>2 Baños</li>
+                  <li>2 Parqueos</li>
+                </ul><a href="#" class="btn">Agregar propiedad</a>
+              </div>
+            </div>
+            </div>
+            </div> -->
+        </tab>
+
+        <!-- <tab heading="Acciones">
+          <div id="tab3" role="tabpanel" class="clients__container tab-pane">
+            <div class="clients__email">
+            <h3 class="clients__notes-title">Correos</h3><img src="img/mail-placeholder.jpg">
+            </div>
+            <div class="clients__notes">
+            <h3 class="clients__notes-title">Llamadas</h3>
+            <div class="clients__notes-form"><span>
+                <input type="text" placeholder="Escribe una nota..."></span>
+              <input type="submit">
+            </div>
+            <ul class="clients__notes-wrap">
+              <li class="clients__note">
+                <div class="clients__note-content">
+                  <p class="clients__note-author">Francisco Reyes</p>
+                  <p class="clients__note-date">Fecha de la nota</p>
+                  <p class="clients__note-body">Nota de la llamada...</p>
+                </div>
+              </li>
+              <li class="clients__note">
+                <div class="clients__note-content">
+                  <p class="clients__note-author">Francisco Reyes</p>
+                  <p class="clients__note-date">Fecha de la nota</p>
+                  <p class="clients__note-body">Nota de la llamada...</p>
+                </div>
+              </li>
+            </ul>
+            <h3 class="clients__notes-title">Citas</h3>
+            <div class="clients__notes-form"><span>
+                <input type="text" placeholder="Escribe una nota..."></span>
+              <input type="submit">
+            </div>
+            <ul class="clients__notes-wrap">
+              <li class="clients__note">
+                <div class="clients__note-content">
+                  <p class="clients__note-author">Francisco Reyes</p>
+                  <p class="clients__note-date">Fecha de la nota</p>
+                  <p class="clients__note-body">Nota de la reunión...</p>
+                </div>
+              </li>
+              <li class="clients__note">
+                <div class="clients__note-content">
+                  <p class="clients__note-author">Francisco Reyes</p>
+                  <p class="clients__note-date">Fecha de la nota</p>
+                  <p class="clients__note-body">Nota de la reunión...</p>
+                </div>
+              </li>
+            </ul>
+            </div>
+          </div>
+        </tab> -->
+
+      </tabset>
+
+    </div>
+
   </div>
-  <!-- <div class="pagination">
-    <ul>
-      <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-      <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-      <li><a>1</a></li>
-      <li><a>2</a></li>
-      <li><a>3</a></li>
-      <li><a>4</a></li>
-      <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-      <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-    </ul>
-  </div> -->
 </main>
+
+<script type="text/ng-template" id="addAgenteModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title blue"><i class="fa fa-user-plus"></i> Nuevo Agente</h3>
+    </div>
+    <div class="modal-body">
+      <form role="form">
+
+        <div class="form-title">Informaci&oacute;n del Agente</div>
+
+        <div class="text-align-center">
+          <div class="col-sm-12 margin-bottom-10">
+            <div class="col-md-12 margin-top-less-10">
+              <img src="{{newAvatar}}" class="header-avatar"> 
+            </div>
+            <button class="btn btn-labeled btn-blue" type="file" ngf-select="uploadPic($file, $invalidFiles)"
+                    accept="image/*" ngf-max-size="2MB">
+              <i class="btn-label fa fa-upload"></i>Subir Fotograf&iacute;a
+            </button>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="input-icon icon-right inverted">
+            <input ng-model="newFirstName" type="text" class="form-control" placeholder="Nombre del agente">
+            <i class="fa fa-user bg-blue"></i>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <span class="input-icon icon-right inverted">
+            <input ng-model="newLastName" type="text" class="form-control" placeholder="Apellido del Agente">
+            <i class="fa fa-user bg-blue"></i>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <span class="input-icon icon-right inverted">
+            <input ng-model="newUserLogin" type="text" class="form-control" placeholder="Correo Electronico del Agente">
+            <i class="fa fa-envelope bg-blue"></i>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <span class="input-icon icon-right inverted">
+            <input ng-model="newPassword" type="text" class="form-control" placeholder="Contraseña por Defecto">
+            <i class="fa fa-lock bg-blue"></i>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <span class="input-icon icon-right inverted">
+            <input ng-model="newTelefono" type="text" class="form-control" placeholder="Telefono del Agente">
+            <i class="fa fa-phone bg-blue"></i>
+          </span>
+        </div>
+
+        <div class="form-group clearfix">
+          <select ng-model="newPaiId" name="cmbPais" class="col-sm-12"
+            id="cmbPais" ng-options="pais.id as pais.descripcion for pais in paises">
+            <option value="">Pais</option>
+          </select>
+        </div>
+
+      </form>
+      <alert type="danger" class="radius-bordered alert-shadowed" ng-show="formError">
+          {{formError}}
+      </alert>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-blue" ng-click="postVendedor()">Agregar</button>
+        <button class="btn btn-danger" ng-click="cancel()">Cancelar</button>
+    </div>
+</script>
 
 <script type="text/ng-template" id="editAgenteModal.html">
   <div class="modal-header">

@@ -5,29 +5,29 @@
 					class="btn btn-lg btn-primary margin-bottom-10 ">
 				<i class="fa fa-plus-circle"></i> <span>Nuevo Cliente</span>
 			</button>
-		  <div class="clients__search cols">
-		    <div class="col-md-12 no-padding">
-		    	<form role="form">
-		    		<div class="form-group margin-top-10">
-			            <span class="input-icon icon-left white">
-			              <input ng-model="nombre" type="text" class="form-control" placeholder="Buscar cliente">
-			              <i class="fa fa-search bg-blue white"></i>
-			            </span>
-			      	</div>
-		    	</form>
-		    </div>
-		    <ul>
-		      <li>
-		        <div class="clients__search-label">Clientes</div>
-		      </li>
-		      <li ng-repeat="buscador in listadoBuscadores">
-		      	<a style="cursor: pointer" ng-click="getBuscadorById(buscador.id)">
-		        	{{buscador.apellido}}, {{buscador.nombre}}
-		        </a>
-		      </li>
-		      
-		    </ul>
-		  </div>
+		 	<div class="clients__search cols">
+		    	<div class="col-md-12 no-padding">
+			    	<form role="form">
+			    		<div class="form-group margin-top-10">
+				            <span class="input-icon icon-left white">
+				              <input ng-model="searchName" type="text" class="form-control" placeholder="Buscar cliente">
+				              <i class="fa fa-search bg-blue white"></i>
+				            </span>
+				      	</div>
+			    	</form>
+		    	</div>
+			    <ul>
+			      <li>
+			        <div class="clients__search-label">Clientes</div>
+			      </li>
+			      <li ng-repeat="buscador in listadoBuscadores | filter: searchName">
+			      	<a style="cursor: pointer" ng-click="getBuscadorById(buscador.id)">
+			        	{{buscador.apellido}}, {{buscador.nombre}}
+			        </a>
+			      </li>
+			      
+			    </ul>
+		 	</div>
 		</div>
 		<div class="clients__content col-md-9 no-padding">
 			<tabset flat="true" justified="true">
@@ -66,7 +66,7 @@
 					</div>
 				</tab>
 				<tab heading="Propiedades">
-					<div id="tab2" role="tabpanel" class="clients__container tab-pane">
+					<!-- <div id="tab2" role="tabpanel" class="clients__container tab-pane">
 						<div class="clients__listings"><a href="#" class="btn btn-sky">Agregar propiedad</a>
 						<div class="clients__item"><img src="img/listing.jpg">
 						  <div class="clients__item-content">
@@ -207,10 +207,10 @@
 						  </div>
 						</div>
 						</div>
-						</div>
+						</div> -->
 				</tab>
 
-				<tab heading="Acciones">
+				<!-- <tab heading="Acciones">
 					<div id="tab3" role="tabpanel" class="clients__container tab-pane">
 						<div class="clients__email">
 						<h3 class="clients__notes-title">Correos</h3><img src="img/mail-placeholder.jpg">
@@ -260,7 +260,7 @@
 						</ul>
 						</div>
 					</div>
-				</tab>
+				</tab> -->
 
 			</tabset>
 
