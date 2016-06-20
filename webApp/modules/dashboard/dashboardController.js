@@ -5,8 +5,10 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 	var service = dashboardService;
 	var auth = authService;
 	var factory = ShareData;
+	console.log('dashboardController', factory);
 	var agenciaId = factory.value.padreId == null ? factory.value.userId : factory.value.padreId;
 	var userId = factory.value.padreId != null ? auth.getUserLogged() : factory.value.userId;
+	$scope.tipoUsuario = factory.value.tipoUsuario;
 	// var userId = auth.getUserLogged();
 
 	$scope.datosGenerales = {};
@@ -14,7 +16,6 @@ probnsApp.controller('dashboardController', function($scope,$http,$location,
 	$scope.totalAgentes = 0;
 	$scope.putUserInfo = {};
 	$scope.topInmuebles = [];
-	$scope.tipoUsuario = factory.value.tipoUsuario;
 
 	service.getUserInfoById(userId).then(		
 		function (data){

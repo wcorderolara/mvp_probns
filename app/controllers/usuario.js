@@ -284,7 +284,7 @@ exports.loginUser = function(req, res, next){
 
 		if(user){
 			_token = service.createToken(user);
-			sendJSONresponse(res,200, {"type":true, "token": _token});
+			sendJSONresponse(res,200, {"type":true, "token": _token, "info": user.id});
 		}else{
 			sendJSONresponse(res,401,{"type":false, "data": info, "dataType": "Info"});
 		}
